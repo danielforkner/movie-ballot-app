@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 const AddPollForm = (props) => {
-  const [newPoll, setNewPoll] = useState({});
+  let newPoll = {};
   const [name, setName] = useState('');
   const [pollType, setType] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ERROR ONE STEP BEHIND
-    setNewPoll({ name: name, pollType: pollType });
+    newPoll = { name: name, pollType: pollType };
+    console.log(newPoll);
     setName('');
     setType('');
     // ERROR
-    // props.setPolls(newPoll);
+    props.setPolls([newPoll, ...props.polls]);
   };
 
   const handleChange = (e) => {
