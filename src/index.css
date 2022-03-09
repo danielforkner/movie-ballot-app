@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.pollCard {
+  border: 1px solid black;
+  width: 200px;
+}
+
+.addPollContainer {
+  border: 1px solid blue;
+  width: 350px;
+}
+
+.addPollContainer > form > button {
+  width: 100px;
+  border: 1px solid blue;
+}
+
+.addPollContainer > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
