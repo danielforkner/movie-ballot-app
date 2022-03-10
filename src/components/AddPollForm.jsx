@@ -1,18 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const AddPollForm = (props) => {
+  const { polls, setPolls } = props;
   let newPoll = {};
   const [name, setName] = useState('');
   const [pollType, setType] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    newPoll = { name: name, pollType: pollType };
-    console.log(newPoll);
+  const setBoth = () => {
     setName('');
     setType('');
-    // ERROR
-    props.setPolls([newPoll, ...props.polls]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // prevent empty and duplicate polls
+    if (name === '' || pollType === '') {
+      return;
+    }
+    for (let i = 0; i < polls.length; i++) {
+      if (polls[i].name === name) {
+        alert('please enter a unique name');
+        setBoth();
+        return;
+      }
+    }
+
+    // fetch data
+    try {
+      newPoll = { name: name, pollType: pollType }; // this will be a apiFetch
+      props.setPolls([newPoll, ...props.polls]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setBoth();
+    }
   };
 
   const handleChange = (e) => {
@@ -22,7 +44,7 @@ const AddPollForm = (props) => {
 
   return (
     <div className="addPollContainer">
-      <h2>Add Poll</h2>
+      <h2>Add Poll Form</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Name of Poll
