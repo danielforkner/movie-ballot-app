@@ -4,14 +4,14 @@ const PollCard = (props) => {
   const { setPolls, polls, poll } = props;
 
   return (
-    <div className="pollCard">
+    <div className="pollCard" id={poll.id}>
       <h4>{poll.name}</h4>
       <p>This is a {poll.pollType} poll</p>
       <button
-        id={poll.id}
+        className="removePollBtn"
         onClick={(e) => {
           const newPolls = polls.data.filter((item) => {
-            return item.id !== parseInt(e.target.id);
+            return item.id !== parseInt(e.target.parentElement.id);
           });
           console.log('newPolls', newPolls);
           setPolls({
@@ -22,6 +22,14 @@ const PollCard = (props) => {
         }}
       >
         REMOVE
+      </button>
+      <button
+        className="editPollBtn"
+        onClick={(e) => {
+          //   renderSinglePoll(e.target.parentElement.id);
+        }}
+      >
+        EDIT
       </button>
       {}
     </div>
