@@ -18,8 +18,8 @@ const AddPollForm = (props) => {
     if (name === '' || pollType === '') {
       return;
     }
-    for (let i = 0; i < polls.length; i++) {
-      if (polls[i].name === name) {
+    for (let i = 0; i < polls.data.length; i++) {
+      if (polls.data[i].name === name) {
         alert('please enter a unique name');
         setBoth();
         return;
@@ -28,8 +28,11 @@ const AddPollForm = (props) => {
 
     // fetch data
     try {
-      newPoll = { name: name, pollType: pollType }; // this will be a apiFetch
-      props.setPolls([newPoll, ...props.polls]);
+      newPoll = { id: polls.info.length + 1, name: name, pollType: pollType }; // this will be a apiFetch
+      setPolls({
+        info: { length: polls.info.length + 1 },
+        data: [newPoll, ...polls.data],
+      });
     } catch (error) {
       console.error(error);
     } finally {
