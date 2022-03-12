@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { PollsContainer, AddPollForm } from './components';
-import './index.css';
+import { PollsContainer, AddPollForm } from '.';
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 
 const dummyData = {
   info: { length: 3 },
