@@ -36,6 +36,7 @@ const AddPollForm = (props) => {
     } catch (error) {
       console.error(error);
     } finally {
+      console.log('your updated polls is:', polls);
       setBoth();
     }
   };

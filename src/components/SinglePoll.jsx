@@ -1,10 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const SinglePoll = () => {
-   return (
-       <h1>Hello World</h1>
-   )
-    
-}
+const SinglePoll = ({ currentPoll }) => {
+  return <h1>{currentPoll.name}</h1>;
+};
 
 export default SinglePoll;
