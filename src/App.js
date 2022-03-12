@@ -6,9 +6,9 @@ import './index.css';
 const dummyData = {
   info: { length: 3 },
   data: [
-    { id: 1, name: 'movie night', pollType: 'single' },
-    { id: 2, name: 'round robin', pollType: 'double' },
-    { id: 3, name: 'movie', pollType: 'triple' },
+    { id: 1, name: 'Friday Night', pollType: 'single' },
+    { id: 2, name: 'Saturday Matinee', pollType: 'double' },
+    { id: 3, name: 'Funny Sunday', pollType: 'triple' },
   ],
 };
 
@@ -22,7 +22,6 @@ const App = () => {
         <Route path="/poll/">
           <Link to="/">Back to my polls</Link>
           <SinglePoll currentPoll={currentPoll} />
-          Hello
         </Route>
         <Route path="/">
           <AddPollForm polls={polls} setPolls={setPolls} />
