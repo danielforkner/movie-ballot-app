@@ -1,43 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchMovies } from '../api/fetch';
+import ChosenOptions from './ChosenOptions';
 
-const Option = ({ currentPoll, setCurrentPoll, setPolls, polls }) => {
+const Option = ({ setPolls, polls, currentPoll, pollID }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
-  const [options, setOptions] = useState([]);
-
-  const addOption = async (movie, group) => {
-    let pollsIndex = polls.data.indexOf(currentPoll);
-    // current poll e.g: { id: 1, name: 'Friday Night', pollType: 'single' }
-    await setCurrentPoll({
-      id: currentPoll.id,
-      name: currentPoll.name,
-      pollType: currentPoll.pollType,
-      groups: {
-        group1: [movie],
-      },
-    });
-
-    await setPolls({
-      info: { length: polls.info.length },
-      data: [...polls.data.splice(pollsIndex, 1), currentPoll],
-    });
-    console.log(polls);
-    console.log(currentPoll);
-  };
+  const [searchResults, setSearchResults] = useState([]);
 
   return (
     <div className="optionContainer">
-      {/*search for a movie*/}
+      <h4>{currentPoll.options.option1.name} (rename)</h4>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
           // isSearchingTRUE display spinning gear
           try {
             const data = await fetchMovies(title, year);
-            setOptions(data.Search);
-          } catch (err) {
-            console.error(err);
+            console.log(data);
+            if (data.Response === 'False') throw new Error(`${data.Error}`);
+            setSearchResults(data.Search);
+          } catch (error) {
+            console.error(error);
           } finally {
             // isSearchingFALSE
             setTitle('');
@@ -69,13 +52,21 @@ const Option = ({ currentPoll, setCurrentPoll, setPolls, polls }) => {
         <button type="submit">Search for Movies</button>
       </form>
       <form className="selectOptionForm">
-        {options.map((movie, i) => {
+        {searchResults.map((movie, i) => {
           return (
             <div
               className="option"
               key={i}
               onClick={() => {
-                addOption(movie, 'test');
+                currentPoll.options.option1.movies.push(movie);
+                setPolls({
+                  info: polls.info,
+                  data: [
+                    ...polls.data.filter((element) => +pollID !== element.id),
+                    currentPoll,
+                  ],
+                });
+                console.log('new polls.data', polls.data);
               }}
             >
               {movie.Title}, ({movie.Year})
@@ -83,6 +74,7 @@ const Option = ({ currentPoll, setCurrentPoll, setPolls, polls }) => {
           );
         }, [])}
       </form>
+      <ChosenOptions chosen={currentPoll.options.option1.movies} />
     </div>
   );
 };

@@ -1,7 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 import Option from './Option';
 
-const SinglePoll = ({ currentPoll, setPolls, polls, setCurrentPoll }) => {
+const SinglePoll = ({ setPolls, polls }) => {
+  const { pollID } = useParams();
+
+  const currentPoll = polls.data.filter((element) => {
+    return element.id === +pollID;
+  })[0];
+
   return (
     <Fragment>
       <h1>
@@ -9,10 +16,10 @@ const SinglePoll = ({ currentPoll, setPolls, polls, setCurrentPoll }) => {
       </h1>
 
       <Option
-        currentPoll={currentPoll}
         setPolls={setPolls}
         polls={polls}
-        setCurrentPoll={setCurrentPoll}
+        pollID={pollID}
+        currentPoll={currentPoll}
       />
     </Fragment>
   );

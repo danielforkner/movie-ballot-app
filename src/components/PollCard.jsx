@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const PollCard = ({ setPolls, polls, poll, setCurrentPoll }) => {
+const PollCard = ({ setPolls, polls, poll }) => {
   return (
     <div className="pollCard" id={poll.id}>
       <h4>{poll.name}</h4>
@@ -22,13 +22,8 @@ const PollCard = ({ setPolls, polls, poll, setCurrentPoll }) => {
       >
         REMOVE
       </button>
-      <Link to={`/poll/${poll.id}`} id={poll.id}>
-        <button
-          className="editPollBtn"
-          onClick={() => {
-            setCurrentPoll(poll);
-          }}
-        >
+      <Link to={`/poll/${poll.id}`}>
+        <button className="editPollBtn" onClick={() => {}}>
           EDIT
         </button>
       </Link>
