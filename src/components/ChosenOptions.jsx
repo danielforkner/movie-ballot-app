@@ -3,9 +3,12 @@ import React from 'react';
 const ChosenOptions = ({ chosen }) => {
   console.log(chosen);
   return (
-    <div>
+    <div className="chosenOptions">
+      <span>
+        <em>Click to remove</em>
+      </span>
       {chosen.map((movie, i) => {
-        return <span key={i}>{movie.Title}</span>;
+        return <p key={i}>{movie.Title}</p>;
       })}
     </div>
   );

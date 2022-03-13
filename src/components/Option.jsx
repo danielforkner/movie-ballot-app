@@ -51,7 +51,10 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
         />
         <button type="submit">Search for Movies</button>
       </form>
-      <form className="selectOptionForm">
+      <div className="selectOptionForm">
+        <span>
+          <em>Click to add</em>
+        </span>
         {searchResults.map((movie, i) => {
           return (
             <div
@@ -73,7 +76,7 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
             </div>
           );
         }, [])}
-      </form>
+      </div>
       <ChosenOptions chosen={currentPoll.options.option1.movies} />
     </div>
   );
