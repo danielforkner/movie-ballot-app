@@ -1,13 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { fetchMovies } from "../api/fetch";
+import React, { useState, useEffect } from 'react';
+import { fetchMovies } from '../api/fetch';
 
-const Option = () => {
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
+const Option = ({ currentPoll, setCurrentPoll, setPolls, polls }) => {
+  const [title, setTitle] = useState('');
+  const [year, setYear] = useState('');
   const [options, setOptions] = useState([]);
+
+  const addOption = async (movie, group) => {
+    let pollsIndex = polls.data.indexOf(currentPoll);
+    // current poll e.g: { id: 1, name: 'Friday Night', pollType: 'single' }
+    await setCurrentPoll({
+      id: currentPoll.id,
+      name: currentPoll.name,
+      pollType: currentPoll.pollType,
+      groups: {
+        group1: [movie],
+      },
+    });
+
+    await setPolls({
+      info: { length: polls.info.length },
+      data: [...polls.data.splice(pollsIndex, 1), currentPoll],
+    });
+    console.log(polls);
+    console.log(currentPoll);
+  };
 
   return (
     <div className="optionContainer">
+      {/*search for a movie*/}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -19,8 +40,8 @@ const Option = () => {
             console.error(err);
           } finally {
             // isSearchingFALSE
-            setTitle("");
-            setYear("");
+            setTitle('');
+            setYear('');
           }
         }}
       >
@@ -50,7 +71,13 @@ const Option = () => {
       <form className="selectOptionForm">
         {options.map((movie, i) => {
           return (
-            <div className="option" key={i}>
+            <div
+              className="option"
+              key={i}
+              onClick={() => {
+                addOption(movie, 'test');
+              }}
+            >
               {movie.Title}, ({movie.Year})
             </div>
           );

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { PollsContainer, AddPollForm, SinglePoll } from './components';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
-
 const dummyData = {
   info: { length: 3 },
   data: [
@@ -21,7 +20,12 @@ const App = () => {
       <Switch>
         <Route path="/poll/">
           <Link to="/">Back to my polls</Link>
-          <SinglePoll currentPoll={currentPoll} />
+          <SinglePoll
+            currentPoll={currentPoll}
+            setCurrentPoll={setCurrentPoll}
+            setPolls={setPolls}
+            polls={polls}
+          />
         </Route>
         <Route path="/">
           <AddPollForm polls={polls} setPolls={setPolls} />
