@@ -4,7 +4,7 @@ import { fetchMovies } from "../api/fetch";
 const Option = () => {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [options, setOptions] = useState([])
+  const [options, setOptions] = useState([]);
 
   return (
     <div className="optionContainer">
@@ -47,12 +47,15 @@ const Option = () => {
         />
         <button type="submit">Search for Movies</button>
       </form>
-      <form>
-      {options.map((movie, i) => {
+      <form className="selectOptionForm">
+        {options.map((movie, i) => {
           return (
-          <div className="option" key={i}>{movie.Title}, ({movie.Year})</div>
-          )}, [])}
-          </form>
+            <div className="option" key={i}>
+              {movie.Title}, ({movie.Year})
+            </div>
+          );
+        }, [])}
+      </form>
     </div>
   );
 };
