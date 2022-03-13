@@ -68,3 +68,7 @@ code {
 .chosenOptions > p:hover {
   background-color: rgba(155, 0, 0, 0.5);
 }
+
+.generateLinkBtn {
+  margin-top: 25px;
+}
