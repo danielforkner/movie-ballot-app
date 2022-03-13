@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PollsContainer, AddPollForm, SinglePoll } from './components';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import './index.css';
+
 
 const dummyData = {
   info: { length: 3 },
