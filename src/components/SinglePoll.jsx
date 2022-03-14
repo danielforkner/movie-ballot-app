@@ -16,7 +16,7 @@ const SinglePoll = ({ setPolls, polls }) => {
         onClick={() => {
           currentPoll.options.push({
             [`option${currentPoll.options.length}`]: {
-              name: `Option${currentPoll.options.length + 1}`,
+              name: `Option${currentPoll.options.length}`,
               movies: [],
             },
           });
@@ -42,7 +42,7 @@ const SinglePoll = ({ setPolls, polls }) => {
                 setPolls={setPolls}
                 polls={polls}
                 pollID={pollID}
-                currentPoll={currentPoll}
+                key={i}
                 index={i}
               />
             );
