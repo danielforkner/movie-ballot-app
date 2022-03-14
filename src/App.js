@@ -6,45 +6,21 @@ const dummyData = {
   info: { length: 3 },
   data: [
     {
-      id: 1,
+      index: 0,
       name: 'Friday Night',
       pollType: 'single',
-      numOfOptions: 1,
-      options: [
-        {
-          option1: {
-            name: 'Option1',
-            movies: [],
-          },
-        },
-      ],
+      options: [],
     },
     {
-      id: 2,
+      index: 1,
       name: 'Saturday Matinee',
-      numOfOptions: 1,
-      options: [
-        {
-          option1: {
-            name: 'Option1',
-            movies: [],
-          },
-        },
-      ],
+      options: [],
     },
     {
-      id: 3,
+      index: 2,
       name: 'Funny Sunday',
       pollType: 'triple',
-      numOfOptions: 1,
-      options: [
-        {
-          option1: {
-            name: 'Option1',
-            movies: [],
-          },
-        },
-      ],
+      options: [],
     },
   ],
 };

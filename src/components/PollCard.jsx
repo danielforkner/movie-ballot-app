@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 const PollCard = ({ setPolls, polls, poll }) => {
   return (
-    <div className="pollCard" id={poll.id}>
+    <div className="pollCard" id={poll.index}>
       <h4>{poll.name}</h4>
       <p>This is a {poll.pollType} poll</p>
       <button
         className="removePollBtn"
         onClick={(e) => {
           const newPolls = polls.data.filter((item) => {
-            return item.id !== parseInt(e.target.parentElement.id);
+            return item.index !== parseInt(e.target.parentElement.id);
           });
           console.log('newPolls', newPolls);
           setPolls({
@@ -22,7 +22,7 @@ const PollCard = ({ setPolls, polls, poll }) => {
       >
         REMOVE
       </button>
-      <Link to={`/poll/${poll.id}`}>
+      <Link to={`/poll/${poll.index}`}>
         <button className="editPollBtn" onClick={() => {}}>
           EDIT
         </button>

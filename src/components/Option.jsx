@@ -67,7 +67,9 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
                   setPolls({
                     info: polls.info,
                     data: [
-                      ...polls.data.filter((element) => +pollID !== element.id),
+                      ...polls.data.filter(
+                        (element) => +pollID !== element.index
+                      ),
                       currentPoll,
                     ],
                   });
