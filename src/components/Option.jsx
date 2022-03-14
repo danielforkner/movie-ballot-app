@@ -10,7 +10,8 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
   return (
     <Fragment>
       <div className="optionContainer">
-        <h4>{currentPoll.options.option1.name} (rename)</h4>
+        <h4>{currentPoll.options[0].option1.name} (rename)</h4>{' '}
+        {/*change bracket 0 to corresponding numOfOptions*/}
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -62,7 +63,7 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
                 className="option"
                 key={i}
                 onClick={() => {
-                  currentPoll.options.option1.movies.push(movie);
+                  currentPoll.options[0].option1.movies.push(movie); // change bracket 0 to the correct corresponding numOfOptions
                   setPolls({
                     info: polls.info,
                     data: [
@@ -78,7 +79,7 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
             );
           }, [])}
         </div>
-        <ChosenOptions chosen={currentPoll.options.option1.movies} />
+        <ChosenOptions chosen={currentPoll.options[0].option1.movies} />
       </div>
       <button className="generateLinkBtn">
         FINALIZE POLL AND GENERATE LINK

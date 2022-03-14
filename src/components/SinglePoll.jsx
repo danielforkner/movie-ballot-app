@@ -14,7 +14,19 @@ const SinglePoll = ({ setPolls, polls }) => {
       <h1>
         {currentPoll.name}: #{currentPoll.id}
       </h1>
-
+      <button
+        onClick={() => {
+          currentPoll.options.push({
+            [`option${currentPoll.numOfOptions}`]: {
+              name: 'Option1',
+              movies: [],
+            },
+          });
+          currentPoll.numOfOptions += 1;
+        }}
+      >
+        Add Option
+      </button>
       <Option
         setPolls={setPolls}
         polls={polls}

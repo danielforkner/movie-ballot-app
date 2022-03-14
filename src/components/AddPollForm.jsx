@@ -28,7 +28,20 @@ const AddPollForm = (props) => {
 
     // fetch data
     try {
-      newPoll = { id: polls.info.length + 1, name: name, pollType: pollType }; // this will be a apiFetch
+      newPoll = {
+        id: polls.info.length + 1,
+        name: name,
+        pollType: pollType,
+        numOfOptions: 1,
+        options: [
+          {
+            option1: {
+              name: 'Option1',
+              movies: [],
+            },
+          },
+        ],
+      }; // this will be a apiFetch
       setPolls({
         info: { length: polls.info.length + 1 },
         data: [newPoll, ...polls.data],

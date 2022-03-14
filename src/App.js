@@ -9,34 +9,42 @@ const dummyData = {
       id: 1,
       name: 'Friday Night',
       pollType: 'single',
-      options: {
-        option1: {
-          name: 'Option1',
-          movies: [{ name: 'Home Alone' }],
+      numOfOptions: 1,
+      options: [
+        {
+          option1: {
+            name: 'Option1',
+            movies: [],
+          },
         },
-      },
+      ],
     },
     {
       id: 2,
       name: 'Saturday Matinee',
-      pollType: 'double',
-      options: {
-        option1: {
-          name: 'Option1',
-          movies: [],
+      numOfOptions: 1,
+      options: [
+        {
+          option1: {
+            name: 'Option1',
+            movies: [],
+          },
         },
-      },
+      ],
     },
     {
       id: 3,
       name: 'Funny Sunday',
       pollType: 'triple',
-      options: {
-        option1: {
-          name: 'Option1',
-          movies: [],
+      numOfOptions: 1,
+      options: [
+        {
+          option1: {
+            name: 'Option1',
+            movies: [],
+          },
         },
-      },
+      ],
     },
   ],
 };
