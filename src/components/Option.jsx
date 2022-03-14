@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { fetchMovies } from '../api/fetch';
 import ChosenOptions from './ChosenOptions';
 
-const Option = ({ setPolls, polls, currentPoll, pollID }) => {
+const Option = ({ setPolls, polls, pollID }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -10,7 +10,7 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
   return (
     <Fragment>
       <div className="optionContainer">
-        <h4>{currentPoll.options[0].option1.name} (rename)</h4>{' '}
+        <h4>{polls.data[pollID].options[0].option0.name} (rename)</h4>{' '}
         {/*change bracket 0 to corresponding numOfOptions*/}
         <form
           onSubmit={async (e) => {
@@ -63,14 +63,14 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
                 className="option"
                 key={i}
                 onClick={() => {
-                  currentPoll.options[0].option1.movies.push(movie); // change bracket 0 to the correct corresponding numOfOptions
+                  polls.data[pollID].options[0].option0.movies.push(movie); // change bracket 0 to the correct corresponding numOfOptions
                   setPolls({
                     info: polls.info,
                     data: [
                       ...polls.data.filter(
                         (element) => +pollID !== element.index
                       ),
-                      currentPoll,
+                      polls.data[pollID],
                     ],
                   });
                   console.log('new polls.data', polls.data);
@@ -81,7 +81,7 @@ const Option = ({ setPolls, polls, currentPoll, pollID }) => {
             );
           }, [])}
         </div>
-        <ChosenOptions chosen={currentPoll.options[0].option1.movies} />
+        <ChosenOptions chosen={polls.data[pollID].options[0].option0.movies} />
       </div>
       <button className="generateLinkBtn">
         FINALIZE POLL AND GENERATE LINK

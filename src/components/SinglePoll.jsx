@@ -35,8 +35,8 @@ const SinglePoll = ({ setPolls, polls }) => {
       >
         Add Option
       </button>
-      {polls.data[pollID].length > 0
-        ? polls.data[pollID].map((option, i) => {
+      {polls.data[pollID].options.length > 0
+        ? polls.data[pollID].options.map((option, i) => {
             return (
               <Option
                 setPolls={setPolls}
