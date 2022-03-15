@@ -14,12 +14,7 @@ const SinglePoll = ({ setPolls, polls }) => {
       </h1>
       <button
         onClick={() => {
-          currentPoll.options.push({
-            [`option${currentPoll.options.length}`]: {
-              name: `Option${currentPoll.options.length}`,
-              movies: [],
-            },
-          });
+          currentPoll.options.push({name: `Option${currentPoll.options.length}`, movies: []});
           console.log(currentPoll);
           setPolls({
             info: polls.info,
@@ -43,7 +38,7 @@ const SinglePoll = ({ setPolls, polls }) => {
                 polls={polls}
                 pollID={pollID}
                 key={i}
-                index={i}
+                optionIndex={i}
               />
             );
           })

@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { fetchMovies } from '../api/fetch';
 import ChosenOptions from './ChosenOptions';
 
-const Option = ({ setPolls, polls, pollID, index }) => {
+const Option = ({ setPolls, polls, pollID, optionIndex }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -11,7 +11,7 @@ const Option = ({ setPolls, polls, pollID, index }) => {
     <Fragment>
       <div className="optionContainer">
         <h4>
-          {polls.data[pollID].options[index][`option${index}`].name} (rename)
+          {polls.data[pollID].options[optionIndex].name} (rename)
         </h4>{' '}
         {/*change bracket 0 to corresponding numOfOptions*/}
         <form
@@ -65,9 +65,7 @@ const Option = ({ setPolls, polls, pollID, index }) => {
                 className="option"
                 key={i}
                 onClick={() => {
-                  polls.data[pollID].options[index][
-                    `option${index}`
-                  ].movies.push(movie);
+                  polls.data[pollID].options[optionIndex].movies.push(movie);
                   setPolls({
                     info: polls.info,
                     data: [
@@ -78,7 +76,6 @@ const Option = ({ setPolls, polls, pollID, index }) => {
                       }),
                     ],
                   });
-                  console.log('new polls.data', polls.data);
                 }}
               >
                 {movie.Title}, ({movie.Year})
@@ -87,7 +84,7 @@ const Option = ({ setPolls, polls, pollID, index }) => {
           }, [])}
         </div>
         <ChosenOptions
-          chosen={polls.data[pollID].options[index][`option${index}`].movies}
+          chosen={polls.data[pollID].options[optionIndex].movies}
         />
       </div>
     </Fragment>
