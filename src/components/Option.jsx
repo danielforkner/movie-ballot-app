@@ -14,7 +14,10 @@ const Option = ({ setPolls, polls, pollID, optionIndex }) => {
       <div className="optionContainer">
         <h4>
           {currentPoll.name} (rename)
-        </h4>{' '}
+        </h4>
+        <button onClick={() => {
+          // currentPoll.options.filter()
+        }}>Remove this option</button>
         <form
           onSubmit={async (e) => {
             e.preventDefault();

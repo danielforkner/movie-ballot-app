@@ -14,7 +14,7 @@ const SinglePoll = ({ setPolls, polls }) => {
       </h1>
       <button
         onClick={() => {
-          currentPoll.options.push({name: `Option${currentPoll.options.length}`, movies: []});
+          currentPoll.options.push({id: Date.now(), name: `Option`, movies: []});
           console.log(currentPoll);
           setPolls({
             info: polls.info,

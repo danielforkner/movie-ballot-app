@@ -1,4 +1,5 @@
 import React from 'react';
+import { removeMovie } from '../dataHelpers';
 
 const ChosenOptions = ({ chosen, pollID, setPolls, polls, optionIndex }) => {
   return (
@@ -9,18 +10,7 @@ const ChosenOptions = ({ chosen, pollID, setPolls, polls, optionIndex }) => {
       
       {chosen.map((movie, i) => {
         return <p key={i} onClick={() => {
-          polls.data[pollID].options[optionIndex].movies = chosen.filter((element) => element.imdbID !== movie.imdbID)
-          setPolls({
-            info: polls.info,
-            data: [
-              ...polls.data.map((element) => {
-                if (+pollID !== element.index) {
-                  return element;
-    
-                } else return polls.data[pollID]
-              })
-            ]
-          })
+          removeMovie(chosen, movie, polls, pollID, optionIndex, setPolls)
         }}>{movie.Title}</p>;
       })}
     </div>
