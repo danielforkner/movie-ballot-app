@@ -1,26 +1,26 @@
 import React, { useState, Fragment } from 'react';
 import { fetchMovies } from '../api/fetch';
+import { addMovie } from '../dataHelpers';
 import ChosenOptions from './ChosenOptions';
 
 const Option = ({ setPolls, polls, pollID, optionIndex }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const currentPoll = polls.data[pollID].options[optionIndex]
 
   return (
     <Fragment>
       <div className="optionContainer">
         <h4>
-          {polls.data[pollID].options[optionIndex].name} (rename)
+          {currentPoll.name} (rename)
         </h4>{' '}
-        {/*change bracket 0 to corresponding numOfOptions*/}
         <form
           onSubmit={async (e) => {
             e.preventDefault();
             // isSearchingTRUE display spinning gear
             try {
               const data = await fetchMovies(title, year);
-              console.log(data);
               if (data.Response === 'False') throw new Error(`${data.Error}`);
               setSearchResults(data.Search);
             } catch (error) {
@@ -55,27 +55,18 @@ const Option = ({ setPolls, polls, pollID, optionIndex }) => {
           />
           <button type="submit">Search for Movies</button>
         </form>
-        <div className="selectOptionForm">
-          <span>
-            <em>Click to add</em>
-          </span>
-          {searchResults.map((movie, i) => {
+        <div className="selectOptionForm"> {/* RENAME THIS CLASSNAME like selectMovieList vs removeMovieList */}
+          
+        {currentPoll.movies.length > 0 ? <span>
+        <em>Click to add</em>
+      </span> : null}
+          {searchResults.map((movie, i) => { 
             return (
               <div
                 className="option"
                 key={i}
                 onClick={() => {
-                  polls.data[pollID].options[optionIndex].movies.push(movie);
-                  setPolls({
-                    info: polls.info,
-                    data: [
-                      ...polls.data.map((element) => {
-                        if (+pollID !== element.index) {
-                          return element;
-                        } else return polls.data[pollID];
-                      }),
-                    ],
-                  });
+                 addMovie(movie, polls, pollID, optionIndex, setPolls)
                 }}
               >
                 {movie.Title}, ({movie.Year})
@@ -84,7 +75,7 @@ const Option = ({ setPolls, polls, pollID, optionIndex }) => {
           }, [])}
         </div>
         <ChosenOptions
-          chosen={polls.data[pollID].options[optionIndex].movies}
+          chosen={currentPoll.movies} optionIndex={optionIndex} polls={polls} setPolls={setPolls} pollID={pollID}
         />
       </div>
     </Fragment>
