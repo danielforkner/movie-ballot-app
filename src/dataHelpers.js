@@ -12,15 +12,8 @@ export const addMovie = (currentOption, movie, polls, pollID, setPolls) => {
   });
 };
 
-export const removeMovie = (
-  currentOption,
-  chosen,
-  movie,
-  polls,
-  pollID,
-  setPolls
-) => {
-  currentOption.movies = chosen.filter(
+export const removeMovie = (currentOption, movie, polls, pollID, setPolls) => {
+  currentOption.movies = currentOption.movies.filter(
     (element) => element.imdbID !== movie.imdbID
   );
   setPolls({

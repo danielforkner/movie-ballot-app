@@ -84,7 +84,6 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
         </div>
         <ChosenOptions
           currentOption={currentOption}
-          chosen={currentOption.movies}
           optionIndex={optionIndex}
           polls={polls}
           setPolls={setPolls}
