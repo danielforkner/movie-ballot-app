@@ -3,7 +3,6 @@ import { PollsContainer, AddPollForm, SinglePoll } from './components';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 const dummyData = {
-  info: { length: 3 },
   data: [
     {
       index: 0,

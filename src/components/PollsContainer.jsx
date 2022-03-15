@@ -1,6 +1,5 @@
 import React from 'react';
 import PollCard from './PollCard';
-import { fetchMovies } from '../api/fetch';
 
 const PollsContainer = ({ setPolls, polls, setCurrentPoll }) => {
   return (

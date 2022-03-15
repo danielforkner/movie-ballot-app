@@ -29,23 +29,20 @@ const AddPollForm = (props) => {
     // fetch data
     try {
       newPoll = {
-        id: polls.info.length + 1,
+        index: Date.now(),
         name: name,
         pollType: pollType,
-        numOfOptions: 1,
         options: [
           {
-            option1: {
-              name: 'Option1',
-              movies: [],
-            },
+            name: 'Option1',
+            movies: [],
           },
         ],
       }; // this will be a apiFetch
       setPolls({
-        info: { length: polls.info.length + 1 },
         data: [newPoll, ...polls.data],
       });
+      console.log(polls);
     } catch (error) {
       console.error(error);
     } finally {
@@ -56,7 +53,6 @@ const AddPollForm = (props) => {
 
   const handleChange = (e) => {
     setName(e.target.value);
-    console.log(name);
   };
 
   return (

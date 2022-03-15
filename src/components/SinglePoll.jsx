@@ -5,7 +5,10 @@ import Option from './Option';
 const SinglePoll = ({ setPolls, polls }) => {
   const { pollID } = useParams();
 
-  const currentPoll = polls.data[pollID];
+  console.log('polls.data:', polls.data);
+  let currentPoll = polls.data.filter((element) => element.index === +pollID);
+  currentPoll = currentPoll[0];
+  console.log(currentPoll);
 
   return (
     <Fragment>
@@ -14,10 +17,13 @@ const SinglePoll = ({ setPolls, polls }) => {
       </h1>
       <button
         onClick={() => {
-          currentPoll.options.push({id: Date.now(), name: `Option`, movies: []});
+          currentPoll.options.push({
+            id: Date.now(),
+            name: `Option`,
+            movies: [],
+          });
           console.log(currentPoll);
           setPolls({
-            info: polls.info,
             data: [
               ...polls.data.map((element) => {
                 if (+pollID !== element.index) {
@@ -30,10 +36,11 @@ const SinglePoll = ({ setPolls, polls }) => {
       >
         Add Option
       </button>
-      {polls.data[pollID].options.length > 0
-        ? polls.data[pollID].options.map((option, i) => {
+      {currentPoll.options.length > 0
+        ? currentPoll.options.map((option, i) => {
             return (
               <Option
+                currentPoll={currentPoll}
                 setPolls={setPolls}
                 polls={polls}
                 pollID={pollID}
