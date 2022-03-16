@@ -15,7 +15,16 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
         <h4>{currentOption.name} (rename)</h4>
         <button
           onClick={() => {
-            // currentPoll.options.filter()
+            // remove the option
+            currentPoll.options = currentPoll.options.filter((element) => {
+              return element !== currentOption;
+            })
+            // set the polls
+            setPolls({data: [...polls.data.map((element)=> {
+              if (+pollID !== element.index) {
+                return element;
+              } else return currentPoll;
+            })]})
           }}
         >
           Remove this option
