@@ -26,34 +26,23 @@ const AddPollForm = (props) => {
       }
     }
 
-    // fetch data
-    try {
+    
       newPoll = {
         index: Date.now(),
         name: name,
         pollType: pollType,
         options: [
           {
-            name: 'Option1',
+            name: 'Option',
             movies: [],
           },
         ],
-      }; // this will be a apiFetch
+      };
       setPolls({
         data: [newPoll, ...polls.data],
       });
-      console.log(polls);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      console.log('your updated polls is:', polls);
       setBoth();
     }
-  };
-
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
 
   return (
     <div className="addPollContainer">
@@ -65,7 +54,7 @@ const AddPollForm = (props) => {
             type="text"
             name="name"
             value={name}
-            onChange={handleChange}
+            onChange={(e) => setName(e.target.value)}
           ></input>
         </label>
         <label htmlFor="type">

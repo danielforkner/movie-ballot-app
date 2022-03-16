@@ -12,7 +12,6 @@ const PollsContainer = ({ setPolls, polls, setCurrentPoll }) => {
             setPolls={setPolls}
             polls={polls}
             poll={poll}
-            setCurrentPoll={setCurrentPoll}
           />
         );
       })}

@@ -12,9 +12,7 @@ const PollCard = ({ setPolls, polls, poll }) => {
           const newPolls = polls.data.filter((item) => {
             return item.index !== parseInt(e.target.parentElement.id);
           });
-          console.log('newPolls', newPolls);
           setPolls({
-            info: { length: polls.info.length - 1 },
             data: newPolls,
           });
           console.log('polls', polls);
