@@ -10,6 +10,10 @@ const SinglePoll = ({ setPolls, polls }) => {
   currentPoll = currentPoll[0];
   console.log(currentPoll);
 
+  // check if the poll is "finished" or not to either:
+  // render options and "generate link" button or
+  // render final poll with the generated link.
+
   return (
     <Fragment>
       <h1>

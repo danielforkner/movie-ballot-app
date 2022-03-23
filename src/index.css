@@ -48,8 +48,9 @@ code {
 }
 
 .optionContainer {
+  max-width: 350px;
   padding: 10px;
-  border: 1px solid black;
+  border: 5px dotted rgb(226, 22, 56);
 }
 
 .option:hover {
