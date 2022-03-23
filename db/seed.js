@@ -1,4 +1,4 @@
-const { client, createUser } = require('./index');
+const { client, getAllUsers, createUser, createPoll } = require('./index');
 
 async function dropTables() {
   try {
@@ -6,6 +6,10 @@ async function dropTables() {
 
     await client.query(`
         DROP TABLE IF EXISTS users;
+        `);
+
+    await client.query(`
+        DROP TABLE IF EXISTS polls;
         `);
 
     console.log('DONE dropping tables.');
@@ -23,6 +27,13 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL
         );`);
+    await client.query(`
+    CREATE TABLE polls (
+        id SERIAL PRIMARY KEY,
+        "dateCreated" DATE NOT NULL,
+        options text NOT NULL,
+        "authorID" VARCHAR(255) NOT NULL
+        );`);
     console.log('DONE building tables.');
   } catch (error) {
     throw error;
@@ -37,7 +48,30 @@ async function createInitialUsers() {
       username: 'dforkner',
       password: 'admin',
     });
-  } catch (error) {}
+
+    console.log('DONE creating users.');
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createInitialPolls() {
+  try {
+    console.log('Creating Polls...');
+    const [admin] = await getAllUsers();
+    console.log('admin ID:', admin.id);
+
+    const poll = await createPoll({
+      date: '2022-03-23',
+      options:
+        '[option 1: {id: 9784, name: "Friday Night", movies: [{home alone}, {spider man}]}]',
+      authorID: admin.id,
+    });
+
+    console.log('DONE creating polls.');
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function rebuildDB() {
@@ -47,6 +81,7 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialPolls();
   } catch (error) {
     console.error(error);
   }

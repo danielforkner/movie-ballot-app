@@ -2,10 +2,14 @@ const { Client } = require('pg');
 
 const client = new Client('postgres://localhost:5432/movie-app');
 
-// USERS
+async function getAllUsers() {
+  const { rows } = await client.query(`SELECT id, username FROM users`);
+  return rows;
+}
+
 async function createUser({ username, password }) {
   try {
-    const result = await client.query(
+    const { rows } = await client.query(
       `
         INSERT INTO users(username, password)
         VALUES ($1, $2)
@@ -13,12 +17,32 @@ async function createUser({ username, password }) {
         RETURNING *;`,
       [username, password]
     );
-    console.log('createUser result:', result);
-    return result;
-  } catch (error) {}
+    console.log('createUser result:', rows);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createPoll({ date, options, author }) {
+  try {
+    const { rows } = await client.query(
+      `
+        INSERT INTO polls("dateCreated", options, "authorID")
+        VALUES ($1, $2, $3)
+        RETURNING *;`,
+      [date, options, author]
+    );
+    console.log('createPoll result:', rows);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = {
   client,
+  getAllUsers,
   createUser,
+  createPoll,
 };
