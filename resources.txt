@@ -1,0 +1,11 @@
+AUTHENTICATION
+jwt and google oauth and https://github.com/pawanbenjamin/express-jwt-cookies-demo-app
+
+ORMs (object relational mapping that does SQL for you)
+- typearm
+- objectionOS
+- sequlize
+- prisma
+
+DIAGRAM DATABASES
+quickdatabasediagrams.com
