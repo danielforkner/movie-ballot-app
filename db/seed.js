@@ -59,7 +59,6 @@ async function createInitialPolls() {
   try {
     console.log('Creating Polls...');
     const [admin] = await getAllUsers();
-    console.log('admin ID:', admin.id);
 
     const poll = await createPoll({
       date: '2023-03-23',
