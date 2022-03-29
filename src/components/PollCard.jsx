@@ -20,7 +20,7 @@ const PollCard = ({ setPolls, polls, poll }) => {
       >
         REMOVE
       </button>
-      <Link to={`/poll/${poll.index}`}>
+      <Link to={`/polls/${poll.index}`}>
         <button className="editPollBtn" onClick={() => {}}>
           EDIT
         </button>

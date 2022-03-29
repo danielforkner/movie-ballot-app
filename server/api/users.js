@@ -16,7 +16,7 @@ usersRouter.post('/register', async (req, res, next) => {
 
     if (_user) {
       next({
-        name: 'User Exists Erro',
+        name: 'User Exists Error',
         message: 'Username is taken, try again',
       });
     }
