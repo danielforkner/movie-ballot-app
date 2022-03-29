@@ -32,7 +32,7 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "dateCreated" DATE NOT NULL,
         options text NOT NULL,
-        "authorID" VARCHAR(255) NOT NULL
+        "authorID" INTEGER
         );`);
     console.log('DONE building tables.');
   } catch (error) {
@@ -62,7 +62,7 @@ async function createInitialPolls() {
     console.log('admin ID:', admin.id);
 
     const poll = await createPoll({
-      date: '2022-03-23',
+      date: '2023-03-23',
       options:
         '[option 1: {id: 9784, name: "Friday Night", movies: [{home alone}, {spider man}]}]',
       authorID: admin.id,

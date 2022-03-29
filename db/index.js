@@ -24,14 +24,14 @@ async function createUser({ username, password }) {
   }
 }
 
-async function createPoll({ date, options, author }) {
+async function createPoll({ date, options, authorID }) {
   try {
     const { rows } = await client.query(
       `
         INSERT INTO polls("dateCreated", options, "authorID")
         VALUES ($1, $2, $3)
         RETURNING *;`,
-      [date, options, author]
+      [date, options, authorID]
     );
     console.log('createPoll result:', rows);
     return rows;
