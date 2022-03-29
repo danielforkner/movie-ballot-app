@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/express-static-serve/server/node_modules
+express-static-serve/server/node_modules
 
 # testing
 /coverage
