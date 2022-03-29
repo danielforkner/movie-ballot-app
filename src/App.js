@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PollsContainer, AddPollForm, SinglePoll } from './components';
+import { PollsContainer, AddPollForm, SinglePoll, Login } from './components';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 const dummyData = {
@@ -30,13 +30,16 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/poll/:pollID">
-          <Link to="/">Back to my polls</Link>
+        <Route path="/polls/:pollID">
+          <Link to="/polls">Back to my polls</Link>
           <SinglePoll setPolls={setPolls} polls={polls} />
         </Route>
-        <Route path="/">
+        <Route path="/polls">
           <AddPollForm polls={polls} setPolls={setPolls} />
           <PollsContainer polls={polls} setPolls={setPolls} />
+        </Route>
+        <Route path="/">
+          <Login />
         </Route>
       </Switch>
     </Router>
