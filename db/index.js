@@ -7,6 +7,23 @@ async function getAllUsers() {
   return rows;
 }
 
+async function getUserByUsername(username) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT username 
+      FROM users
+      WHERE username=$1;
+    `,
+      [username]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createUser({ username, password }) {
   try {
     const { rows } = await client.query(
@@ -43,6 +60,7 @@ async function createPoll({ date, options, authorID }) {
 module.exports = {
   client,
   getAllUsers,
+  getUserByUsername,
   createUser,
   createPoll,
 };
