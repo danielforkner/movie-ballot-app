@@ -3,9 +3,7 @@ const { createUser, getUserByUsername } = require('../../db');
 const usersRouter = express.Router();
 
 usersRouter.use((req, res, next) => {
-  console.log('A request is being made to /users');
-
-  next();
+  res.send({ message: 'A request is being made to /users' });
 });
 
 usersRouter.post('/register', async (req, res, next) => {

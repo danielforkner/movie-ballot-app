@@ -3,9 +3,7 @@ const apiRouter = express.Router();
 const usersRouter = require('./users');
 
 apiRouter.get('/', (req, res, next) => {
-  console.log('A request is being made to the api');
-
-  next();
+  res.send({ message: 'A request is being made to the api' });
 });
 
 apiRouter.use('/users', usersRouter);

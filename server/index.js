@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3000;
 const path = require('path');
 
 const express = require('express');
-const server = express(); // create express app
+const server = express();
 const apiRouter = require('./api');
 const morgan = require('morgan');
 
