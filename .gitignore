@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-express-static-serve/server/node_modules
+server/node_modules
 
 # testing
 /coverage
@@ -13,6 +13,7 @@ express-static-serve/server/node_modules
 /build
 
 # misc
+localResources.md
 .DS_Store
 .env
 .env.local
