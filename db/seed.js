@@ -49,6 +49,11 @@ async function createInitialUsers() {
       password: 'admin',
     });
 
+    await createUser({
+      username: 'affogato',
+      password: 'caramel',
+    });
+
     console.log('DONE creating users.');
   } catch (error) {
     throw error;
