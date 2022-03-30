@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { registerUser } from '../api/fetch';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -13,8 +14,9 @@ const Register = () => {
   return (
     <div>
       <form
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
+          registerUser(username, password);
           resetForm();
         }}
       >
