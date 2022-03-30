@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PollsContainer, AddPollForm, SinglePoll, Login } from './components';
+import { PollsContainer, AddPollForm, SinglePoll, Home } from './components';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 const dummyData = {
@@ -39,7 +39,7 @@ const App = () => {
           <PollsContainer polls={polls} setPolls={setPolls} />
         </Route>
         <Route path="/">
-          <Login />
+          <Home />
         </Route>
       </Switch>
     </Router>

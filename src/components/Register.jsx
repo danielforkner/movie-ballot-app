@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const resetForm = () => {
     setUsername('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   return (
     <div>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           resetForm();
         }}
@@ -33,10 +35,19 @@ const Login = () => {
             setPassword(e.target.value);
           }}
         ></input>
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          value={confirmPassword}
+          type="password"
+          name="confirmPassword"
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+          }}
+        ></input>
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
