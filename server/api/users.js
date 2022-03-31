@@ -1,11 +1,22 @@
 const express = require('express');
-const { createUser, getUserByUsername } = require('../../db');
+const { getAllUsers } = require('../../db');
 const usersRouter = express.Router();
 
 usersRouter.use((req, res, next) => {
   console.log('A request is being made to /users');
-  console.log(req.body);
+
   next();
+});
+
+usersRouter.get('/', async (req, res, next) => {
+  console.log('A get request for all users was made');
+  try {
+    const users = await getAllUsers();
+    console.log('got the users');
+    res.send(users);
+  } catch (error) {
+    throw error;
+  }
 });
 
 usersRouter.post('/register', async (req, res, next) => {

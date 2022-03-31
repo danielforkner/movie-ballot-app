@@ -9,12 +9,20 @@ const apiRouter = require('./api');
 const morgan = require('morgan');
 
 server.use(morgan('dev'));
+server.use(require('body-parser').urlencoded({ extended: false }));
 
 // LOAD REACT APP
 server.use(express.static(path.join(__dirname, '..', 'build')));
 server.use(express.static('public'));
 
 // SERVER ROUTES
+server.use((req, res, next) => {
+  console.log('<____Body Logger START____>');
+  console.log(req.body);
+  console.log('<_____Body Logger END_____>');
+
+  next();
+});
 server.use('/api', apiRouter);
 
 // IF NONE OF THE INCOMING ROUTES MATCH A SERVER ROUTE,

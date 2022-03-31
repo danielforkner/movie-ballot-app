@@ -3,8 +3,15 @@ const { Client } = require('pg');
 const client = new Client('postgres://localhost:5432/movie-app');
 
 async function getAllUsers() {
-  const { rows } = await client.query(`SELECT id, username FROM users`);
-  return rows;
+  try {
+    console.log('trying to get all USers...');
+    await client.query(`
+    SELECT id, username
+    FROM users;`);
+    console.log('done');
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getUserByUsername(username) {
