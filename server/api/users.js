@@ -1,12 +1,6 @@
 const express = require('express');
-const { getAllUsers } = require('../../db');
+const { getAllUsers, getUserByUsername, createUser } = require('../../db');
 const usersRouter = express.Router();
-
-usersRouter.use((req, res, next) => {
-  console.log('A request is being made to /users');
-
-  next();
-});
 
 usersRouter.get('/', async (req, res, next) => {
   console.log('A get request for all users was made');
@@ -21,29 +15,29 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/register', async (req, res, next) => {
   console.log('an attempt to register is being made...');
-  console.log(req.body);
-  res.send({ message: 'this does not stop the api call' });
-  // const { username, password } = req.body;
+  const { username, password } = req.body;
 
-  // try {
-  //   const _user = await getUserByUsername(username);
+  try {
+    const _user = await getUserByUsername(username);
 
-  //   if (_user) {
-  //     next({
-  //       name: 'User Exists Error',
-  //       message: 'Username is taken, try again',
-  //     });
-  //   }
+    if (_user) {
+      next({
+        message:
+          'user already exists, please try again with a different username',
+      });
+    }
 
-  //   const user = await createUser({
-  //     username,
-  //     password,
-  //   });
+    const user = await createUser({
+      username,
+      password,
+    });
 
-  //   console.log(user);
-  // } catch ({ name, message }) {
-  //   next({ name, message });
-  // }
+    console.log('THIS IS USER:', user);
+
+    res.sendStatus(201);
+  } catch (error) {
+    throw error;
+  }
 });
 
 module.exports = usersRouter;

@@ -1,24 +1,21 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [users, setUsers] = useState([]);
   const resetForm = () => {
     setUsername('');
     setPassword('');
   };
 
-  const getUsers = async () => {
-    const response = await axios.get('/api/users');
-    console.log(response);
-    setUsers([]);
-  };
+  // const getUsers = async () => {
+  //   const response = await axios.get('/api/users');
+  //   console.log(response.data.data);
+  //   setUsers([]);
+  // };
 
   return (
     <div>
-      <button onClick={getUsers}>Get Users</button>
       <form
         onSubmit={(e) => {
           e.preventDefault();

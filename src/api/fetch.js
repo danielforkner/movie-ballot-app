@@ -20,13 +20,9 @@ export const fetchMovies = async (title, year) => {
 
 // FETCH FROM OUR DATABASE
 export const registerUser = async (usr, pwd) => {
-  const response = await fetch(`${DB_URL}/users/register`, {
-    method: 'POST',
-    body: {
-      username: usr,
-      password: pwd,
-    },
+  const response = await axios.post(`${DB_URL}/users/register`, {
+    username: usr,
+    password: pwd,
   });
-  const data = await response.json();
-  console.log('registerUser response from src/api/fetch.js:', data);
+  console.log('registerUser response from src/api/fetch.js:', response);
 };

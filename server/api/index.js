@@ -8,9 +8,4 @@ apiRouter.get('/', (req, res, next) => {
 
 apiRouter.use('/users', usersRouter);
 
-// ERROR HANDLER
-// apiRouter.use((error, req, res, next) => {
-
-// })
-
 module.exports = apiRouter;

@@ -4,17 +4,16 @@ const client = new Client('postgres://localhost:5432/movie-app');
 
 async function getAllUsers() {
   try {
-    console.log('trying to get all USers...');
-    await client.query(`
-    SELECT id, username
+    const { rows } = await client.query(`
+    SELECT *
     FROM users;`);
-    console.log('done');
+    return rows;
   } catch (error) {
     throw error;
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername(usr) {
   try {
     const { rows } = await client.query(
       `
@@ -22,11 +21,13 @@ async function getUserByUsername(username) {
       FROM users
       WHERE username=$1;
     `,
-      [username]
+      [usr]
     );
-
-    return rows;
+    const username = rows[0].username;
+    console.log('query:', username);
+    return username;
   } catch (error) {
+    console.log('CAUGHT ME at line 29 db indx');
     throw error;
   }
 }
@@ -41,9 +42,10 @@ async function createUser({ username, password }) {
         RETURNING *;`,
       [username, password]
     );
-    console.log('createUser result:', rows);
+
     return rows;
   } catch (error) {
+    console.log('CAUGHT ME at line 46 db indx');
     throw error;
   }
 }
