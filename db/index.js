@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 
-const client = new Client('postgres://localhost:5432/movie-app');
+const client = new Client('postgres://localhost:5432/movie_app');
 
 async function getAllUsers() {
   try {
@@ -23,6 +23,7 @@ async function getUserByUsername(usr) {
     `,
       [usr]
     );
+    console.log(rows);
     const username = rows[0].username;
     console.log('query:', username);
     return username;

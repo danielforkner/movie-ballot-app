@@ -21,20 +21,23 @@ usersRouter.post('/register', async (req, res, next) => {
     const _user = await getUserByUsername(username);
 
     if (_user) {
+      // res.status(409) // THIS CAUSES THE WRONG TYPE OF ERROR IN WEB CONSOLE;
       next({
         message:
           'user already exists, please try again with a different username',
       });
-    }
+      
+    } else {
 
     const user = await createUser({
       username,
       password,
     });
 
-    console.log('THIS IS USER:', user);
+    console.log('THIS IS USER CREATED (line 36 users.js):', user);
 
     res.sendStatus(201);
+  }
   } catch (error) {
     throw error;
   }

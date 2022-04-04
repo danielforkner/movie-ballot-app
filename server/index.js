@@ -39,8 +39,6 @@ server.use((req, res, next) => {
 // ERROR;
 server.use((err, req, res, next) => {
   if (err.message) {
-    res.status(409);
-    res.error('error');
     res.send(err.message);
   } else {
     res.send(err);
