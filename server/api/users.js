@@ -34,9 +34,7 @@ usersRouter.post('/register', async (req, res, next) => {
       password,
     });
 
-    console.log('THIS IS USER CREATED (line 36 users.js):', user);
-
-    res.sendStatus(201);
+    res.status(201).send(`Thanks for registering!`);
   }
   } catch (error) {
     throw error;

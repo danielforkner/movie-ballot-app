@@ -23,9 +23,11 @@ async function getUserByUsername(usr) {
     `,
       [usr]
     );
-    console.log(rows);
-    const username = rows[0].username;
-    console.log('query:', username);
+    
+    if (rows.length < 1) {
+      return;
+    }
+    const username = rows[0].username; // how can you deconstruct this on line 18?
     return username;
   } catch (error) {
     console.log('CAUGHT ME at line 29 db indx');
