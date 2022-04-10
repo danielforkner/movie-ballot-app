@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 const { today } = require('./utils');
 
-const client = new Client('postgres://localhost:5432/movie-app');
+const client = new Client('postgres://localhost:5432/movie_app');
 
 async function getAllUsers() {
   try {
@@ -24,8 +24,11 @@ async function getUserByUsername(usr) {
     `,
       [usr]
     );
-    const username = rows[0].username;
-    console.log('query:', username);
+    
+    if (rows.length < 1) {
+      return;
+    }
+    const username = rows[0].username; // how can you deconstruct this on line 18?
     return username;
   } catch (error) {
     throw error;
