@@ -26,16 +26,14 @@ usersRouter.post('/register', async (req, res, next) => {
         message:
           'user already exists, please try again with a different username',
       });
-      
     } else {
+      await createUser({
+        username,
+        password,
+      });
 
-    const user = await createUser({
-      username,
-      password,
-    });
-
-    res.status(201).send(`Thanks for registering!`);
-  }
+      res.status(201).send(`Thanks for registering!`);
+    }
   } catch (error) {
     throw error;
   }
