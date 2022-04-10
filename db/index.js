@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 const { today } = require('./utils');
 
-const client = new Client('postgres://localhost:5432/movie_app');
+const client = new Client('postgres://localhost:5432/movie-app');
 
 async function getAllUsers() {
   try {
@@ -24,7 +24,7 @@ async function getUserByUsername(usr) {
     `,
       [usr]
     );
-    
+
     if (rows.length < 1) {
       return;
     }
