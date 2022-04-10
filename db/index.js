@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const { today } = require('./utils');
 
 const client = new Client('postgres://localhost:5432/movie-app');
 
@@ -27,7 +28,6 @@ async function getUserByUsername(usr) {
     console.log('query:', username);
     return username;
   } catch (error) {
-    console.log('CAUGHT ME at line 29 db indx');
     throw error;
   }
 }
@@ -45,22 +45,71 @@ async function createUser({ username, password }) {
 
     return rows;
   } catch (error) {
-    console.log('CAUGHT ME at line 46 db indx');
     throw error;
   }
 }
 
-async function createPoll({ date, options, authorID }) {
+async function createPoll({ name, authorID }) {
   try {
     const { rows } = await client.query(
       `
-        INSERT INTO polls("dateCreated", options, "authorID")
+        INSERT INTO polls("dateCreated", name, "authorID")
         VALUES ($1, $2, $3)
         RETURNING *;`,
-      [date, options, authorID]
+      [today(), name, authorID]
     );
-    console.log('createPoll result:', rows);
     return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createOption({ name, poll }) {
+  try {
+    const {
+      rows: [option],
+    } = await client.query(
+      `
+        INSERT INTO options(name)
+        VALUES ($1)
+        RETURNING *;`,
+      [name]
+    );
+
+    await client.query(
+      `
+    INSERT INTO poll_options("pollId", "optionId")
+    VALUES ($1, $2);
+    `,
+      [poll, option.id]
+    );
+    return option;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createMovie({ title, year, option }) {
+  try {
+    const {
+      rows: [movie],
+    } = await client.query(
+      `
+    INSERT INTO movies(title, year)
+    VALUES ($1, $2)
+    RETURNING *;
+    `,
+      [title, year]
+    );
+
+    await client.query(
+      `
+    INSERT INTO option_movies("optionId", "movieId")
+    VALUES ($1, $2)
+    RETURNING *;
+    `,
+      [option, movie.id]
+    );
   } catch (error) {
     throw error;
   }
@@ -72,4 +121,6 @@ module.exports = {
   getUserByUsername,
   createUser,
   createPoll,
+  createOption,
+  createMovie,
 };
