@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { client } = require('../db');
 client.connect(); // WHERE DO I client.end() ??
 
@@ -6,7 +5,6 @@ const PORT = process.env.PORT || 1337;
 const path = require('path');
 
 const express = require('express');
-
 const server = express();
 
 const morgan = require('morgan');
