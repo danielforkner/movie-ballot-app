@@ -1,5 +1,21 @@
 const client = require('./client');
 const { mapOptions } = require('./utils');
+const { today } = require('./utils');
+
+async function createPoll({ name, authorID }) {
+  try {
+    const { rows } = await client.query(
+      `
+          INSERT INTO polls("dateCreated", name, "authorID")
+          VALUES ($1, $2, $3)
+          RETURNING *;`,
+      [today(), name, authorID]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getAllPolls() {
   try {
@@ -43,4 +59,5 @@ async function getAllPollsByUserId(id) {
 module.exports = {
   getAllPolls,
   getAllPollsByUserId,
+  createPoll,
 };

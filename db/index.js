@@ -1,6 +1,6 @@
 const client = require('./client');
-const { today } = require('./utils');
-const { getAllPolls, getAllPollsByUserId } = require('./polls');
+
+const { createPoll, getAllPolls, getAllPollsByUserId } = require('./polls');
 const { getMoviesByOptionId } = require('./movies');
 
 async function getAllUsers() {
@@ -46,21 +46,6 @@ async function createUser({ username, password }) {
       [username, password]
     );
 
-    return rows;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function createPoll({ name, authorID }) {
-  try {
-    const { rows } = await client.query(
-      `
-        INSERT INTO polls("dateCreated", name, "authorID")
-        VALUES ($1, $2, $3)
-        RETURNING *;`,
-      [today(), name, authorID]
-    );
     return rows;
   } catch (error) {
     throw error;
