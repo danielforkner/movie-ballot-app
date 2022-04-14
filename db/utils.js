@@ -24,7 +24,6 @@ async function mapOptions(rows) {
     }
     if (row.optionId) {
       let movies = await getMoviesByOptionId(row.optionId);
-      console.log(movies);
       let option = {
         id: row.optionId,
         name: row.option_name,

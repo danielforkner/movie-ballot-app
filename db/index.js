@@ -1,6 +1,6 @@
 const client = require('./client');
 const { today } = require('./utils');
-const { getAllPolls } = require('./polls');
+const { getAllPolls, getAllPollsByUserId } = require('./polls');
 const { getMoviesByOptionId } = require('./movies');
 
 async function getAllUsers() {
@@ -119,12 +119,12 @@ async function createMovie({ title, year, option }) {
 }
 
 module.exports = {
-  client,
   getAllUsers,
   getUserByUsername,
   createUser,
   createPoll,
   getAllPolls,
+  getAllPollsByUserId,
   createOption,
   createMovie,
   getMoviesByOptionId,
