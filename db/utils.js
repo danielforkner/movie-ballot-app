@@ -1,3 +1,5 @@
+const { getMoviesByOptionId } = require('./movies');
+
 function today() {
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
@@ -7,7 +9,7 @@ function today() {
   return today;
 }
 
-function mapOptions(rows) {
+async function mapOptions(rows) {
   let map = {};
   for (const row of rows) {
     // id is from polls.id
@@ -21,17 +23,13 @@ function mapOptions(rows) {
       };
     }
     if (row.optionId) {
+      let movies = await getMoviesByOptionId(row.optionId);
+      console.log(movies);
       let option = {
         id: row.optionId,
         name: row.option_name,
-        movies: [],
+        movies: movies,
       };
-      if (row.movieId) {
-        option.movies.push({
-          title: row.movie_title,
-          year: row.movie_year,
-        });
-      }
       map[row.id].options.push(option);
     }
   }
