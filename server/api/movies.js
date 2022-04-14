@@ -18,11 +18,12 @@ const fetchMovies = async (title, year) => {
 };
 
 // ROUTES
-moviesRouter.get('/', async (req, res, next) => {
-  const { title, year } = req.body;
+moviesRouter.get('/:title&:year?', async (req, res, next) => {
+  console.log('req.params', req.params);
+  const { title, year } = req.params;
 
   if (title === undefined) {
-    res.status(401);
+    res.status(409);
     next({ name: 'bad search', message: 'title must be provided for search' });
   } else {
     try {

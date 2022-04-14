@@ -1,6 +1,6 @@
 const express = require('express');
-const { getAllUsers, getUserByUsername, createUser } = require('../../db');
 const usersRouter = express.Router();
+const { getAllUsers, getUserByUsername, createUser } = require('../../db');
 
 usersRouter.get('/', async (req, res, next) => {
   console.log('A get request for all users was made');

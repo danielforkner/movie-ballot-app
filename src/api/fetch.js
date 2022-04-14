@@ -1,22 +1,7 @@
 import axios from 'axios';
 
-// ombdbapi variables
-const KEY = '1ab89983';
-const BASE_URL = 'https://www.omdbapi.com/?apikey=';
-
 // database variables
 const DB_URL = '/api';
-
-// FETCH FROM OMDBAPI
-export const fetchMovies = async (title, year) => {
-  try {
-    const response = await fetch(`${BASE_URL}${KEY}&s=${title}&y=${year}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 // FETCH FROM OUR DATABASE
 export const registerUser = async (usr, pwd) => {
@@ -25,4 +10,14 @@ export const registerUser = async (usr, pwd) => {
     password: pwd,
   });
   console.log('registerUser response from src/api/fetch.js:', response);
+};
+
+export const fetchMovies = async (title, year) => {
+  try {
+    const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

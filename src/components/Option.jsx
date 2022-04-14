@@ -18,13 +18,17 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
             // remove the option
             currentPoll.options = currentPoll.options.filter((element) => {
               return element !== currentOption;
-            })
+            });
             // set the polls
-            setPolls({data: [...polls.data.map((element)=> {
-              if (+pollID !== element.index) {
-                return element;
-              } else return currentPoll;
-            })]})
+            setPolls({
+              data: [
+                ...polls.data.map((element) => {
+                  if (+pollID !== element.index) {
+                    return element;
+                  } else return currentPoll;
+                }),
+              ],
+            });
           }}
         >
           Remove this option
@@ -35,6 +39,7 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
             // isSearchingTRUE display spinning gear
             try {
               const data = await fetchMovies(title, year);
+              console.log(data);
               if (data.Response === 'False') throw new Error(`${data.Error}`);
               setSearchResults(data.Search);
             } catch (error) {
