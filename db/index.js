@@ -104,6 +104,7 @@ async function createMovie({ title, year, option }) {
 }
 
 module.exports = {
+  client,
   getAllUsers,
   getUserByUsername,
   createUser,

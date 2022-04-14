@@ -4,7 +4,7 @@ const express = require('express');
 const moviesRouter = express.Router();
 
 // ombdbapi variables
-const KEY = '1ab89983';
+const KEY = process.env.API_KEY;
 const BASE_URL = 'https://www.omdbapi.com/?apikey=';
 
 // FETCH FROM OMDBAPI

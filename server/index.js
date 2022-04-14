@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log('.env API_KEY: ', process.env.API_KEY);
 const { client } = require('../db');
 client.connect(); // WHERE DO I client.end() ??
 
