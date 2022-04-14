@@ -1,7 +1,6 @@
-const { Client } = require('pg');
+const client = require('./client');
 const { today } = require('./utils');
-
-const client = new Client('postgres://localhost:5432/movie-app');
+const { getAllPolls } = require('./polls');
 
 async function getAllUsers() {
   try {
@@ -124,6 +123,7 @@ module.exports = {
   getUserByUsername,
   createUser,
   createPoll,
+  getAllPolls,
   createOption,
   createMovie,
 };

@@ -15,7 +15,7 @@ export const registerUser = async (usr, pwd) => {
 export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
-    console.log(response);
+    console.log('fetchMovies response ln 18 fetch.js', response);
     return response.data;
   } catch (error) {
     console.error(error);
