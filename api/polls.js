@@ -1,6 +1,6 @@
 const express = require('express');
 const pollsRouter = express.Router();
-const { getAllPolls } = require('../../db');
+const { getAllPolls } = require('../db');
 
 pollsRouter.get('/allPolls', async (req, res, next) => {
   console.log('A get request for all polls was made');

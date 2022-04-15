@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api/fetch';
+import { registerUser } from '../../api/fetch';
 
 const Register = () => {
   const [username, setUsername] = useState('');

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Login, Register } from './';
+import useAuth from '../hooks/useAuth';
 
-const Home = () => {
+const Navbar = () => {
+  const { username } = useAuth();
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
 
   return (
     <div>
-      <Link to="/polls">Continue as Guest</Link>
+      <h1>{`Hello, ${username}`}</h1>
       <button
         onClick={() => {
           setRegisterBtn(false);
@@ -31,4 +32,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Navbar;

@@ -1,8 +1,8 @@
 require('dotenv').config();
-const { client } = require('../db');
+const { client } = require('./db');
 client.connect(); // WHERE DO I client.end() ??
 
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || 3000;
 const path = require('path');
 
 const express = require('express');
@@ -15,8 +15,8 @@ server.use(express.urlencoded());
 server.use(express.json());
 
 // LOAD REACT APP
-server.use(express.static(path.join(__dirname, '..', 'build')));
-server.use(express.static('public'));
+server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, './client', 'build')));
 
 // SERVER ROUTES
 const apiRouter = require('./api');
@@ -32,7 +32,7 @@ server.use('/api', apiRouter);
 // IF NONE OF THE INCOMING ROUTES MATCH A SERVER ROUTE,
 // THE SERVER WILL TRANSFER THE ROUTE TO REACT ROUTER
 server.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, './client/build', 'index.html'));
 });
 
 // ERROR;
