@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Login, Register } from './';
+import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
