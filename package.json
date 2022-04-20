@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "start:server": "node index.js",
+    "seed": "node ./db/seed.js",
+    "build": "(cd client && npm run build)"
   },
   "keywords": [],
   "author": "",

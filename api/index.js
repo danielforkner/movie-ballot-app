@@ -14,4 +14,9 @@ apiRouter.use('/movies', moviesRouter);
 
 apiRouter.use('/polls', pollsRouter);
 
+// error;
+apiRouter.use((err, req, res, next) => {
+  res.send(error);
+});
+
 module.exports = apiRouter;

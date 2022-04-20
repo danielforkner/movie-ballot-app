@@ -1,25 +1,18 @@
 require('dotenv').config();
-const { client } = require('./db');
-client.connect(); // WHERE DO I client.end() ??
-
-const PORT = process.env.PORT || 3000;
-const path = require('path');
-
 const express = require('express');
 const server = express();
 
+// logs
 const morgan = require('morgan');
-
 server.use(morgan('dev'));
-server.use(express.urlencoded());
-server.use(express.json());
 
-// LOAD REACT APP
+// load react app
+const path = require('path');
 server.use(express.static(path.join(__dirname, 'public')));
 server.use(express.static(path.join(__dirname, './client', 'build')));
 
-// SERVER ROUTES
-const apiRouter = require('./api');
+// handle application/json requests
+server.use(express.json());
 server.use((req, res, next) => {
   console.log('<____Body Logger START____>');
   console.log(req.body);
@@ -27,6 +20,9 @@ server.use((req, res, next) => {
 
   next();
 });
+
+// SERVER ROUTES
+const apiRouter = require('./api');
 server.use('/api', apiRouter);
 
 // IF NONE OF THE INCOMING ROUTES MATCH A SERVER ROUTE,
@@ -43,6 +39,13 @@ server.use((err, req, res, next) => {
     res.send(err);
   }
 });
+
+// bring in DB connection
+const { client } = require('./db');
+client.connect();
+
+// connect to server
+const PORT = process.env.PORT || 3000;
 
 // START THE SERVER
 server.listen(PORT, () => {
