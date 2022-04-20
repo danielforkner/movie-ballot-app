@@ -7,7 +7,7 @@
     "start:dev": "nodemon index.js",
     "start:server": "node index.js",
     "seed": "node ./db/seed.js",
-    "build": "(cd client && npm i && npm run build)"
+    "build": "(cd client && npm i && npm run build && cd ..)"
   },
   "keywords": [],
   "author": "",
