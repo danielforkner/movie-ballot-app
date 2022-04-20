@@ -8,7 +8,7 @@ server.use(morgan('dev'));
 
 // load react app
 const path = require('path');
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, './client', 'public')));
 server.use(express.static(path.join(__dirname, './client', 'build')));
 
 // handle application/json requests
@@ -21,23 +21,13 @@ server.use((req, res, next) => {
   next();
 });
 
-// SERVER ROUTES
+// server routes
 const apiRouter = require('./api');
 server.use('/api', apiRouter);
 
-// IF NONE OF THE INCOMING ROUTES MATCH A SERVER ROUTE,
-// THE SERVER WILL TRANSFER THE ROUTE TO REACT ROUTER
+// fallback to react server if no server routes match
 server.use((req, res, next) => {
   res.sendFile(path.join(__dirname, './client/build', 'index.html'));
-});
-
-// ERROR;
-server.use((err, req, res, next) => {
-  if (err.message) {
-    res.send(err.message);
-  } else {
-    res.send(err);
-  }
 });
 
 // bring in DB connection
