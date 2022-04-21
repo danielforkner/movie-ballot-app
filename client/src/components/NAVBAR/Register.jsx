@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../api/fetch';
+import useAuth from '../hooks/useAuth';
 
 const Register = () => {
+  const { setToken } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,6 +22,7 @@ const Register = () => {
         const response = await registerUser(username, password);
         console.log('REGISTER RESPONSE: ', response);
         localStorage.setItem('fridayNightMoviesToken', response.token);
+        setToken(response.token);
       } catch (error) {
         console.error(error);
       } finally {

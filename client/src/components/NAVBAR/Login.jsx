@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { loginUser } from '../../api/fetch';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
+  const { setToken } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const resetForm = () => {
@@ -15,6 +17,7 @@ const Login = () => {
       const response = await loginUser(username, password);
       console.log('LOGIN RESPONSE: ', response);
       localStorage.setItem('fridayNightMoviesToken', response.token);
+      setToken(response.token);
     } catch (error) {
       console.error(error);
     } finally {

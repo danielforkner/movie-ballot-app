@@ -3,13 +3,21 @@ import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
-  const { username } = useAuth();
+  const { user, setToken } = useAuth();
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
 
   return (
     <div>
-      <h1>{`Hello, ${username}`}</h1>
+      <h1>{`Hello, ${user.username}`}</h1>
+      <button
+        onClick={() => {
+          localStorage.removeItem('fridayNightMoviesToken');
+          setToken('');
+        }}
+      >
+        Logout
+      </button>
       <button
         onClick={() => {
           setRegisterBtn(false);
