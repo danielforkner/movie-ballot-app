@@ -1,5 +1,6 @@
 const client = require('./client');
 
+const { getUserByUsername } = require('./users');
 const { createPoll, getAllPolls, getAllPollsByUserId } = require('./polls');
 const { getMoviesByOptionId } = require('./movies');
 
@@ -9,27 +10,6 @@ async function getAllUsers() {
     SELECT *
     FROM users;`);
     return rows;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function getUserByUsername(usr) {
-  try {
-    const { rows } = await client.query(
-      `
-      SELECT username 
-      FROM users
-      WHERE username=$1;
-    `,
-      [usr]
-    );
-
-    if (rows.length < 1) {
-      return;
-    }
-    const username = rows[0].username; // how can you deconstruct this on line 18?
-    return username;
   } catch (error) {
     throw error;
   }

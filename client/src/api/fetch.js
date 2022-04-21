@@ -29,6 +29,20 @@ export const registerUser = async (username, password) => {
   }
 };
 
+export const getMe = async (token) => {
+  try {
+    const { data } = await axios.get(`/api/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
