@@ -8,34 +8,45 @@ const Navbar = () => {
   const [registerBtn, setRegisterBtn] = useState(false);
 
   return (
-    <div>
-      <h1>{`Hello, ${user.username}`}</h1>
-      <button
-        onClick={() => {
-          localStorage.removeItem('fridayNightMoviesToken');
-          setToken('');
-        }}
-      >
-        Logout
-      </button>
-      <button
-        onClick={() => {
-          setRegisterBtn(false);
-          setLoginBtn(!loginBtn);
-        }}
-      >
-        Login
-      </button>
-      {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : null}
-      <button
-        onClick={() => {
-          setRegisterBtn(!registerBtn);
-          setLoginBtn(false);
-        }}
-      >
-        Register new Account
-      </button>
-      {registerBtn ? <Register setRegisterBtn={setRegisterBtn} /> : null}
+    <div className="continer">
+      <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <h1>{`Hello, ${user.username}`}</h1>
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <button
+              onClick={() => {
+                localStorage.removeItem('fridayNightMoviesToken');
+                setToken('');
+              }}
+            >
+              Logout
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              onClick={() => {
+                setRegisterBtn(false);
+                setLoginBtn(!loginBtn);
+              }}
+            >
+              Login
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              onClick={() => {
+                setRegisterBtn(!registerBtn);
+                setLoginBtn(false);
+              }}
+            >
+              Register new Account
+            </button>
+          </li>
+          {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : null}
+
+          {registerBtn ? <Register setRegisterBtn={setRegisterBtn} /> : null}
+        </ul>
+      </header>
     </div>
   );
 };
