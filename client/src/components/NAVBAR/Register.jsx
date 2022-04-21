@@ -11,15 +11,26 @@ const Register = () => {
     setConfirmPassword('');
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (confirmPassword !== password) {
+      resetForm();
+    } else {
+      try {
+        const response = await registerUser(username, password);
+        console.log('REGISTER RESPONSE: ', response);
+        localStorage.setItem('fridayNightMoviesToken', response.token);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        resetForm();
+      }
+    }
+  };
+
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          registerUser(username, password);
-          resetForm();
-        }}
-      >
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input
           value={username}

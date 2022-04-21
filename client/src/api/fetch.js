@@ -1,15 +1,32 @@
 import axios from 'axios';
 
 // database variables
-const DB_URL = '/api';
+const DB_URL = 'http://localhost:3500';
 
 // FETCH FROM OUR DATABASE
-export const registerUser = async (usr, pwd) => {
-  const response = await axios.post(`${DB_URL}/users/register`, {
-    username: usr,
-    password: pwd,
-  });
-  console.log('registerUser response from src/api/fetch.js:', response);
+export const loginUser = async (username, password) => {
+  console.log(username, password);
+  try {
+    const { data } = await axios.post(`/api/users/login`, {
+      username,
+      password,
+    });
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const registerUser = async (username, password) => {
+  try {
+    const { data } = await axios.post(`api/users/register`, {
+      username,
+      password,
+    });
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 export const fetchMovies = async (title, year) => {

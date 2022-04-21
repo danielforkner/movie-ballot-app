@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { loginUser } from '../../api/fetch';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -8,20 +9,22 @@ const Login = () => {
     setPassword('');
   };
 
-  // const getUsers = async () => {
-  //   const response = await axios.get('/api/users');
-  //   console.log(response.data.data);
-  //   setUsers([]);
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await loginUser(username, password);
+      console.log('LOGIN RESPONSE: ', response);
+      localStorage.setItem('fridayNightMoviesToken', response.token);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      resetForm();
+    }
+  };
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          resetForm();
-        }}
-      >
+      <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input
           value={username}

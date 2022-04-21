@@ -4,8 +4,9 @@ const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const pollsRouter = require('./polls');
 
-apiRouter.get('/', (req, res, next) => {
+apiRouter.use('/', (req, res, next) => {
   console.log('A request is being made to the api');
+  next();
 });
 
 apiRouter.use('/users', usersRouter);
@@ -16,7 +17,7 @@ apiRouter.use('/polls', pollsRouter);
 
 // error;
 apiRouter.use((err, req, res, next) => {
-  res.send(error);
+  res.send(err);
 });
 
 module.exports = apiRouter;
