@@ -85,6 +85,11 @@ async function createInitialUsers() {
       username: 'affogato',
       password: 'caramel',
     });
+
+    await createUser({
+      username: 'daniel',
+      password: 'daniel',
+    });
   } catch (error) {
     throw error;
   }
@@ -93,11 +98,10 @@ async function createInitialUsers() {
 async function createInitialPolls() {
   try {
     console.log('Creating Polls...');
-    const [user] = await getAllUsers();
 
     await createPoll({
       name: 'Weekend Blast',
-      authorID: user.id,
+      authorID: 3,
     });
   } catch (error) {
     throw error;

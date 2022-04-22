@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 // database variables
-const DB_URL = 'http://localhost:3500';
+const DB_URL = 'http://localhost:4000';
 
 // FETCH FROM OUR DATABASE
 export const loginUser = async (username, password) => {
   console.log(username, password);
   try {
-    const { data } = await axios.post(`/api/users/login`, {
+    const { data } = await axios.post(`${DB_URL}/api/users/login`, {
       username,
       password,
     });
@@ -19,7 +19,7 @@ export const loginUser = async (username, password) => {
 
 export const registerUser = async (username, password) => {
   try {
-    const { data } = await axios.post(`api/users/register`, {
+    const { data } = await axios.post(`${DB_URL}/api/users/register`, {
       username,
       password,
     });
@@ -31,7 +31,7 @@ export const registerUser = async (username, password) => {
 
 export const getMe = async (token) => {
   try {
-    const { data } = await axios.get(`/api/users/me`, {
+    const { data } = await axios.get(`${DB_URL}/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

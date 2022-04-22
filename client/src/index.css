@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
+/* MAIN - START */
+
+.main {
+  min-height: 50vh;
+}
+
+/* MAIN - END */
+
+/* OLD - START */
 .app {
   display: flex;
   flex-direction: column;
@@ -74,3 +83,4 @@ code {
 .generateLinkBtn {
   margin-top: 25px;
 }
+/* OLD - END */

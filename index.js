@@ -2,6 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 
+// enable cross-origin resource sharing to proxy api requests
+// from localhost:3000 to localhost:4000 in local dev env
+const cors = require('cors');
+server.use(cors());
+
 // logs
 const morgan = require('morgan');
 server.use(morgan('dev'));
@@ -35,7 +40,7 @@ const { client } = require('./db');
 client.connect();
 
 // connect to server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 // START THE SERVER
 server.listen(PORT, () => {

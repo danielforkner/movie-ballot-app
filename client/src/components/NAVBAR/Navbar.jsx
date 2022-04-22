@@ -9,8 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="continer">
-      <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <h1>{`Hello, ${user.username}`}</h1>
+      <header className="d-flex justify-content-center py-3">
         <ul className="nav nav-pills">
           <li className="nav-item">
             <button
