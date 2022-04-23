@@ -43,6 +43,20 @@ export const getMe = async (token) => {
   }
 };
 
+export const fetchMyPolls = async (token) => {
+  try {
+    const { data } = await axios.get(`${DB_URL}/api/polls/myPolls`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);

@@ -50,7 +50,8 @@ async function getAllPollsByUserId(id) {
             `,
       [id]
     );
-    return mapOptions(rows);
+    const polls = await mapOptions(rows);
+    return polls;
   } catch (error) {
     throw error;
   }

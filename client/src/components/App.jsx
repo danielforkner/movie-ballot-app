@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar } from './NAVBAR';
 import { FooterLinks } from './FOOTER';
-import { Main } from './MAIN';
+import Main from './MAIN/Main';
 import AuthProvider from './context/AuthContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <div className="app-container">
-        <Navbar />
-        <Router>
+    <Router>
+      <AuthProvider>
+        <div className="app-container">
+          <Navbar />
           <Main />
-        </Router>
-        <FooterLinks />
-      </div>
-    </AuthProvider>
+          <FooterLinks />
+        </div>
+      </AuthProvider>
+    </Router>
   );
 };
 

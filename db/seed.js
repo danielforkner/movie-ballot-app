@@ -38,7 +38,8 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "dateCreated" DATE NOT NULL,
         name VARCHAR(255) NOT NULL,
-        "authorID" INTEGER
+        "authorID" INTEGER,
+        "publicURL" VARCHAR(255)
         );`);
     await client.query(`
     CREATE TABLE options (
