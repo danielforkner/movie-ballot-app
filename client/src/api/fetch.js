@@ -1,10 +1,10 @@
-import axios from 'axios';
+const axios = require('axios');
 
 // database variables
 const DB_URL = 'http://localhost:4000';
 
 // FETCH FROM OUR DATABASE
-export const loginUser = async (username, password) => {
+const loginUser = async (username, password) => {
   console.log(username, password);
   try {
     const { data } = await axios.post(`${DB_URL}/api/users/login`, {
@@ -17,7 +17,7 @@ export const loginUser = async (username, password) => {
   }
 };
 
-export const registerUser = async (username, password) => {
+const registerUser = async (username, password) => {
   try {
     const { data } = await axios.post(`${DB_URL}/api/users/register`, {
       username,
@@ -29,7 +29,7 @@ export const registerUser = async (username, password) => {
   }
 };
 
-export const getMe = async (token) => {
+const getMe = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/api/users/me`, {
       headers: {
@@ -43,7 +43,7 @@ export const getMe = async (token) => {
   }
 };
 
-export const fetchMyPolls = async (token) => {
+const fetchMyPolls = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/api/polls/myPolls`, {
       headers: {
@@ -57,7 +57,7 @@ export const fetchMyPolls = async (token) => {
   }
 };
 
-export const fetchMovies = async (title, year) => {
+const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/api/movies/${title}&${year}`);
     console.log('fetchMovies response ln 18 fetch.js', response);
@@ -65,4 +65,54 @@ export const fetchMovies = async (title, year) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const addMovieToOption = async (token, title, year, optionId) => {
+  try {
+    const { data } = await axios.patch(
+      `${DB_URL}/api/polls/options/addMovie`,
+      { title, year, optionId },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const removeMovieFromOption = async (token, title, optionId) => {
+  try {
+    const { data } = await axios.delete(
+      `${DB_URL}/api/polls/options/removeMovie`,
+      {
+        data: {
+          title,
+          optionId,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  removeMovieFromOption,
+  addMovieToOption,
+  fetchMovies,
+  fetchMyPolls,
+  getMe,
+  registerUser,
+  loginUser,
 };

@@ -123,15 +123,15 @@ async function createInitialOptions() {
 async function createInitialMovies() {
   try {
     console.log('Creating Movies...');
-    await createMovie({ title: 'Home Alone', year: 1990, option: 1 });
-    await createMovie({ title: 'Home Alone 2', year: 1992, option: 1 });
-    await createMovie({ title: 'Home Alone 3', year: 1995, option: 1 });
-    await createMovie({ title: 'Spider Man 1', year: 1997, option: 2 });
-    await createMovie({ title: 'Spider Man 2', year: 1999, option: 2 });
-    await createMovie({ title: 'Spider Man 3', year: 2000, option: 2 });
-    await createMovie({ title: 'Mystery Man 1', year: 2018, option: 3 });
-    await createMovie({ title: 'Mystery Man 2', year: 2019, option: 3 });
-    await createMovie({ title: 'Mystery Man 3', year: 2020, option: 3 });
+    await createMovie('Home Alone', 1990, 1);
+    await createMovie('Home Alone 2', 1992, 1);
+    await createMovie('Home Alone 3', 1995, 1);
+    await createMovie('Spider Man 1', 1997, 2);
+    await createMovie('Spider Man 2', 1999, 2);
+    await createMovie('Spider Man 3', 2000, 2);
+    await createMovie('Mystery Man 1', 2018, 3);
+    await createMovie('Mystery Man 2', 2019, 3);
+    await createMovie('Mystery Man 3', 2020, 3);
   } catch (error) {
     throw error;
   }

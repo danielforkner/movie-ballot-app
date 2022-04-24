@@ -1,5 +1,33 @@
 const client = require('./client');
 
+async function createMovie(title, year, option) {
+  try {
+    const {
+      rows: [movie],
+    } = await client.query(
+      `
+    INSERT INTO movies(title, year)
+    VALUES ($1, $2)
+    RETURNING *;
+    `,
+      [title, year]
+    );
+
+    await client.query(
+      `
+    INSERT INTO option_movies("optionId", "movieId")
+    VALUES ($1, $2)
+    RETURNING *;
+    `,
+      [option, movie.id]
+    );
+
+    return movie;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getMovieIdByTitle(title) {
   try {
     const {
@@ -36,6 +64,7 @@ async function getMoviesByOptionId(id) {
 }
 
 module.exports = {
+  createMovie,
   getMoviesByOptionId,
   getMovieIdByTitle,
 };

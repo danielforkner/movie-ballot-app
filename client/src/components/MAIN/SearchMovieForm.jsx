@@ -23,27 +23,33 @@ const SearchMovieForm = ({ searchResults, setSearchResults }) => {
         }
       }}
     >
-      <label htmlFor="title">Title:</label>
-      <input
-        required
-        type="text"
-        value={title}
-        name="title"
-        placeholder="Home Alone"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-      />
-      <label htmlFor="year">Year:</label>
-      <input
-        type="text"
-        value={year}
-        name="year"
-        placeholder="1990"
-        onChange={(e) => {
-          setYear(e.target.value);
-        }}
-      />
+      <div className="form-floating">
+        <input
+          required
+          className="form-control"
+          type="text"
+          value={title}
+          name="title"
+          placeholder="Home Alone"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <label htmlFor="title">Title:</label>
+      </div>
+      <div className="form-floating">
+        <input
+          type="text"
+          className="form-control"
+          value={year}
+          name="year"
+          placeholder="1990"
+          onChange={(e) => {
+            setYear(e.target.value);
+          }}
+        />
+        <label htmlFor="year">Year:</label>
+      </div>
       <button type="submit">Search for Movies</button>
     </form>
   );

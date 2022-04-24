@@ -1,7 +1,17 @@
 const express = require('express');
 const pollsRouter = express.Router();
-const { getAllPolls, getAllPollsByUserId } = require('../db');
+const {
+  getAllPolls,
+  getAllPollsByUserId,
+  removeMovieFromOption,
+  createMovie,
+} = require('../db');
 const { requireUser } = require('./utils');
+
+pollsRouter.use('/', (req, res, next) => {
+  console.log('A request to /polls is being made');
+  next();
+});
 
 pollsRouter.get('/allPolls', async (req, res, next) => {
   console.log('A get request for all polls was made');
@@ -22,5 +32,35 @@ pollsRouter.get('/myPolls', requireUser, async (req, res, next) => {
     throw error;
   }
 });
+
+pollsRouter.patch('/options/addMovie', requireUser, async (req, res, next) => {
+  console.log('trying to add a movie to option...');
+  const { title, year, optionId } = req.body;
+  try {
+    const inserted = await createMovie(title, year, optionId);
+    console.log('inserted', inserted);
+    const polls = await getAllPollsByUserId(req.user.id);
+    res.send(polls);
+  } catch (error) {
+    throw error;
+  }
+});
+
+pollsRouter.delete(
+  '/options/removeMovie',
+  requireUser,
+  async (req, res, next) => {
+    console.log('trying to delete a movie from option...');
+    const { title, optionId } = req.body;
+    try {
+      const deleted = await removeMovieFromOption(title, optionId);
+      console.log('deleted: ', deleted);
+      const polls = await getAllPollsByUserId(req.user.id);
+      res.send(polls);
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 module.exports = pollsRouter;

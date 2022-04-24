@@ -2,7 +2,11 @@ const client = require('./client');
 
 const { getUserByUsername } = require('./users');
 const { createPoll, getAllPolls, getAllPollsByUserId } = require('./polls');
-const { getMoviesByOptionId, getMovieIdByTitle } = require('./movies');
+const {
+  getMoviesByOptionId,
+  getMovieIdByTitle,
+  createMovie,
+} = require('./movies');
 const { removeMovieFromOption } = require('./option_movies');
 
 async function getAllUsers() {
@@ -53,32 +57,6 @@ async function createOption({ name, poll }) {
       [poll, option.id]
     );
     return option;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function createMovie({ title, year, option }) {
-  try {
-    const {
-      rows: [movie],
-    } = await client.query(
-      `
-    INSERT INTO movies(title, year)
-    VALUES ($1, $2)
-    RETURNING *;
-    `,
-      [title, year]
-    );
-
-    await client.query(
-      `
-    INSERT INTO option_movies("optionId", "movieId")
-    VALUES ($1, $2)
-    RETURNING *;
-    `,
-      [option, movie.id]
-    );
   } catch (error) {
     throw error;
   }

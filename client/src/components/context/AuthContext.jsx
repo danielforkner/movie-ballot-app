@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(
     localStorage.getItem('fridayNightMoviesToken')
   );
-  const [myPolls, setMyPolls] = useState({});
+  const [myPolls, setMyPolls] = useState([]);
 
   // set user
   const getUser = async () => {
@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
       getMyPolls();
     } else {
       console.log('no token');
-      setMyPolls({});
+      setMyPolls([]);
       setUser({});
     }
   };
