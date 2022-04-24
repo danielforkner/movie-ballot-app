@@ -32,7 +32,7 @@ pollsRouter.get('/poll/:pollId', async (req, res, next) => {
         message: 'The page you requested does not exist',
       });
     } else {
-      res.send({ poll: poll, isOwner: req.user.id === poll.authorID });
+      res.send({ poll: poll, isOwner: req.user.id === poll[0].authorID });
     }
   } catch (error) {
     throw error;

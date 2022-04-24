@@ -23,17 +23,21 @@ async function createPoll({ name, authorID }) {
 
 async function getPollById(id) {
   try {
-    const {
-      rows: [poll],
-    } = await client.query(
+    const { rows } = await client.query(
       `
-    SELECT * FROM POLLS
-    WHERE id=$1;
+    SELECT 
+        polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID",
+        poll_options."optionId",
+        options.name as option_name
+    FROM POLLS
+    LEFT JOIN poll_options ON poll_options."pollId" = polls.id
+    LEFT JOIN options on options.id = poll_options."optionId"
+    WHERE polls.id=$1
     `,
       [id]
     );
 
-    return poll;
+    return mapOptions(rows);
   } catch (error) {
     throw error;
   }

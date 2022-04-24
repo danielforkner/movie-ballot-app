@@ -8,7 +8,7 @@ import Option from './Option';
 const SinglePoll = () => {
   const [isAddingNewOption, setisAddingNewOption] = useState(false);
   const pollId = useParams().pollId;
-  const { user, token, myPolls, setMyPolls } = useAuth();
+  const { token, myPolls, setMyPolls } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [active, setActive] = useState(false);
 
@@ -26,7 +26,8 @@ const SinglePoll = () => {
     } else {
       try {
         const response = await fetchPollById(token, pollId);
-        const poll = response.poll;
+        console.log('get poll response: ', response);
+        const poll = response.poll[0];
         if (!response.isOwner) {
           console.log('user does not own this poll, redirecting...');
           navigate('/', { replace: true });
