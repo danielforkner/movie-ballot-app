@@ -19,6 +19,7 @@ async function mapOptions(rows) {
         dateCreated: row.dateCreated,
         name: row.poll_name,
         authorID: row.authorID,
+        deleted: row.deleted,
         options: [],
       };
     }

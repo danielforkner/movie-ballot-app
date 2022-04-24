@@ -125,6 +125,40 @@ export const fetchCreateNewPoll = async (token, pollName, authorID) => {
   }
 };
 
+export const fetchDeletePoll = async (token, pollId) => {
+  try {
+    const { data } = await axios.delete(`${DB_URL}/polls/deletePoll`, {
+      data: {
+        pollId,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteOption = async (token, optionId) => {
+  try {
+    const { data } = await axios.delete(`${DB_URL}/polls/deleteOption`, {
+      data: {
+        optionId,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const fetchCreateNewOption = async (token, optionName, pollId) => {
   try {
     const { data } = await axios.post(

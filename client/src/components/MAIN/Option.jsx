@@ -1,5 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { addMovieToOption, removeMovieFromOption } from '../../api/fetch';
+import {
+  addMovieToOption,
+  removeMovieFromOption,
+  deleteOption,
+} from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 import SearchMovieForm from './SearchMovieForm';
 
@@ -20,10 +24,21 @@ const Option = ({ poll, option }) => {
     setMyPolls(response);
   };
 
+  const handleDeleteOption = async (optionId) => {
+    //
+    const response = await deleteOption(token, option.id);
+    setMyPolls(response);
+  };
+
   return (
     <div className="card shadow-sm">
       <div className="card-body">
-        <strong className="optionName">{option.name}</strong>
+        <div className="d-flex justify-content-between">
+          <strong className="optionName">{option.name}</strong>
+          <span className="btn btn-sm btn-danger" onClick={handleDeleteOption}>
+            X
+          </span>
+        </div>
         <div className="list-group">
           {option.movies && option.movies.length > 0
             ? option.movies.map((movie, i) => {

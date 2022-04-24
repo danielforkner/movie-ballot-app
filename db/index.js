@@ -1,14 +1,19 @@
 const client = require('./client');
 
 const { getUserByUsername } = require('./users');
-const { createPoll, getAllPolls, getAllPollsByUserId } = require('./polls');
+const {
+  createPoll,
+  getAllPolls,
+  getAllPollsByUserId,
+  deletePoll,
+} = require('./polls');
 const {
   getMoviesByOptionId,
   getMovieIdByTitle,
   createMovie,
 } = require('./movies');
 const { removeMovieFromOption } = require('./option_movies');
-const { createOption } = require('./options');
+const { createOption, deleteOption } = require('./options');
 
 async function getAllUsers() {
   try {
@@ -44,9 +49,11 @@ module.exports = {
   getUserByUsername,
   createUser,
   createPoll,
+  deletePoll,
   getAllPolls,
   getAllPollsByUserId,
   createOption,
+  deleteOption,
   createMovie,
   getMoviesByOptionId,
   getMovieIdByTitle,

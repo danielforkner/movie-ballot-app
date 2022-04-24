@@ -39,6 +39,7 @@ async function createTables() {
         "dateCreated" DATE NOT NULL,
         name VARCHAR(255) NOT NULL,
         "authorID" INTEGER,
+        deleted BOOLEAN DEFAULT FALSE,
         "publicURL" VARCHAR(255)
         );`);
     await client.query(`

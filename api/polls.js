@@ -7,6 +7,8 @@ const {
   createMovie,
   createPoll,
   createOption,
+  deletePoll,
+  deleteOption,
 } = require('../db');
 const { requireUser } = require('./utils');
 
@@ -32,6 +34,32 @@ pollsRouter.post('/newPoll', requireUser, async (req, res, next) => {
   try {
     const poll = await createPoll({ name: pollName, authorID: req.user.id });
     console.log('poll created: ', poll);
+    const polls = await getAllPollsByUserId(req.user.id);
+    res.send(polls);
+  } catch (error) {
+    throw error;
+  }
+});
+
+pollsRouter.delete('/deletePoll', requireUser, async (req, res, next) => {
+  console.log('A poll is being deleted');
+  const { pollId } = req.body;
+  try {
+    const poll = await deletePoll(pollId);
+    console.log('poll deleted: ', poll);
+    const polls = await getAllPollsByUserId(req.user.id);
+    res.send(polls);
+  } catch (error) {
+    throw error;
+  }
+});
+
+pollsRouter.delete('/deleteOption', requireUser, async (req, res, next) => {
+  console.log('An option is being deleted');
+  const { optionId } = req.body;
+  try {
+    const option = await deleteOption(optionId);
+    console.log('option deleted: ', option);
     const polls = await getAllPollsByUserId(req.user.id);
     res.send(polls);
   } catch (error) {

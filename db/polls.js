@@ -44,7 +44,7 @@ async function getAllPollsByUserId(id) {
     const { rows } = await client.query(
       `
         SELECT
-            polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID",
+            polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted,
             poll_options."optionId",
             options.name as option_name
         FROM polls
@@ -63,8 +63,27 @@ async function getAllPollsByUserId(id) {
   }
 }
 
+async function deletePoll(pollId) {
+  try {
+    const {
+      rows: [poll],
+    } = await client.query(
+      `
+        UPDATE polls
+        SET deleted = true
+        WHERE id=$1;
+            `,
+      [pollId]
+    );
+    return poll;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllPolls,
   getAllPollsByUserId,
   createPoll,
+  deletePoll,
 };
