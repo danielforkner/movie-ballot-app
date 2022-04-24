@@ -4,7 +4,7 @@ const axios = require('axios');
 const DB_URL = 'http://localhost:4000';
 
 // FETCH FROM OUR DATABASE
-const loginUser = async (username, password) => {
+export const loginUser = async (username, password) => {
   console.log(username, password);
   try {
     const { data } = await axios.post(`${DB_URL}/api/users/login`, {
@@ -17,7 +17,7 @@ const loginUser = async (username, password) => {
   }
 };
 
-const registerUser = async (username, password) => {
+export const registerUser = async (username, password) => {
   try {
     const { data } = await axios.post(`${DB_URL}/api/users/register`, {
       username,
@@ -29,7 +29,7 @@ const registerUser = async (username, password) => {
   }
 };
 
-const getMe = async (token) => {
+export const getMe = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/api/users/me`, {
       headers: {
@@ -43,7 +43,7 @@ const getMe = async (token) => {
   }
 };
 
-const fetchMyPolls = async (token) => {
+export const fetchMyPolls = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/api/polls/myPolls`, {
       headers: {
@@ -57,7 +57,7 @@ const fetchMyPolls = async (token) => {
   }
 };
 
-const fetchMovies = async (title, year) => {
+export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/api/movies/${title}&${year}`);
     console.log('fetchMovies response ln 18 fetch.js', response);
@@ -67,7 +67,7 @@ const fetchMovies = async (title, year) => {
   }
 };
 
-const addMovieToOption = async (token, title, year, optionId) => {
+export const addMovieToOption = async (token, title, year, optionId) => {
   try {
     const { data } = await axios.patch(
       `${DB_URL}/api/polls/options/addMovie`,
@@ -86,7 +86,7 @@ const addMovieToOption = async (token, title, year, optionId) => {
   }
 };
 
-const removeMovieFromOption = async (token, title, optionId) => {
+export const removeMovieFromOption = async (token, title, optionId) => {
   try {
     const { data } = await axios.delete(
       `${DB_URL}/api/polls/options/removeMovie`,
@@ -105,14 +105,4 @@ const removeMovieFromOption = async (token, title, optionId) => {
   } catch (error) {
     throw error;
   }
-};
-
-module.exports = {
-  removeMovieFromOption,
-  addMovieToOption,
-  fetchMovies,
-  fetchMyPolls,
-  getMe,
-  registerUser,
-  loginUser,
 };

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { removeMovieFromOption, addMovieToOption } from '../../api/fetch';
+import { addMovieToOption, removeMovieFromOption } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 import SearchMovieForm from './SearchMovieForm';
 
