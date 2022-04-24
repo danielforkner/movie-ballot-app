@@ -2,6 +2,7 @@ const express = require('express');
 const pollsRouter = express.Router();
 const {
   getAllPolls,
+  getPollById,
   getAllPollsByUserId,
   removeMovieFromOption,
   createMovie,
@@ -16,6 +17,26 @@ const { requireUser } = require('./utils');
 pollsRouter.use('/', (req, res, next) => {
   console.log('A request to /polls is being made');
   next();
+});
+
+pollsRouter.get('/poll/:pollId', async (req, res, next) => {
+  console.log('retrieving specific poll');
+  const { pollId } = req.params;
+  try {
+    const poll = await getPollById(pollId);
+    console.log('got the poll: ', poll);
+    if (poll === undefined) {
+      res.status(404);
+      next({
+        name: 'NoPageExists',
+        message: 'The page you requested does not exist',
+      });
+    } else {
+      res.send({ poll: poll, isOwner: req.user.id === poll.authorID });
+    }
+  } catch (error) {
+    throw error;
+  }
 });
 
 pollsRouter.get('/allPolls', async (req, res, next) => {

@@ -48,7 +48,12 @@ apiRouter.use('/polls', pollsRouter);
 
 // error;
 apiRouter.use((err, req, res, next) => {
-  res.send(err);
+  if (err.message) {
+    console.log('sending error message: ', err);
+    res.send(err);
+  } else {
+    res.send(err);
+  }
 });
 
 module.exports = apiRouter;

@@ -21,6 +21,24 @@ async function createPoll({ name, authorID }) {
   }
 }
 
+async function getPollById(id) {
+  try {
+    const {
+      rows: [poll],
+    } = await client.query(
+      `
+    SELECT * FROM POLLS
+    WHERE id=$1;
+    `,
+      [id]
+    );
+
+    return poll;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getAllPolls() {
   try {
     const { rows } = await client.query(`
@@ -101,6 +119,7 @@ async function activatePoll(pollId) {
 }
 
 module.exports = {
+  getPollById,
   getAllPolls,
   getAllPollsByUserId,
   createPoll,

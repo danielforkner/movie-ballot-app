@@ -7,7 +7,7 @@ import {
 import useAuth from '../hooks/useAuth';
 import SearchMovieForm from './SearchMovieForm';
 
-const Option = ({ poll, option }) => {
+const Option = ({ poll, option, active }) => {
   const { token, setMyPolls } = useAuth();
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -35,9 +35,14 @@ const Option = ({ poll, option }) => {
       <div className="card-body">
         <div className="d-flex justify-content-between">
           <strong className="optionName">{option.name}</strong>
-          <span className="btn btn-sm btn-danger" onClick={handleDeleteOption}>
-            X
-          </span>
+          {active ? null : (
+            <span
+              className="btn btn-sm btn-danger"
+              onClick={handleDeleteOption}
+            >
+              X
+            </span>
+          )}
         </div>
         <div className="list-group">
           {option.movies && option.movies.length > 0
@@ -47,24 +52,28 @@ const Option = ({ poll, option }) => {
                     key={`poll:${poll.id}option:${option.id}selectedMovie:${i}`}
                     className="list-group-item"
                   >
-                    <span
-                      onClick={() => handleRemoveMovie(movie.title)}
-                      className="btn btn-sm btn-outline-danger"
-                    >
-                      -
-                    </span>{' '}
+                    {active ? null : (
+                      <span
+                        onClick={() => handleRemoveMovie(movie.title)}
+                        className="btn btn-sm btn-outline-danger"
+                      >
+                        -
+                      </span>
+                    )}
                     {movie.title}, ({movie.year})
                   </div>
                 );
               })
             : 'No Movies Added Yet. Search Below!'}
         </div>
-        <button
-          onClick={() => setIsSearching(!isSearching)}
-          className="btn btn-secondary"
-        >
-          {isSearching ? 'Close Search' : 'Add Movies'}
-        </button>
+        {active ? null : (
+          <button
+            onClick={() => setIsSearching(!isSearching)}
+            className="btn btn-secondary"
+          >
+            {isSearching ? 'Close Search' : 'Add Movies'}
+          </button>
+        )}
         {isSearching ? (
           <Fragment>
             <SearchMovieForm
