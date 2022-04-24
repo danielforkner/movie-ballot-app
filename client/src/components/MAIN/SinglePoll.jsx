@@ -1,14 +1,15 @@
-import { user } from 'pg/lib/defaults';
 import React, { useEffect, useState } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Option from './Option';
 
 const SinglePoll = () => {
   const pollId = useParams().pollId;
-  const { myPolls } = useAuth();
+  const { user, myPolls } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
-  console.log('MY POLLS: ', myPolls);
-  console.log('CURRENT POLL: ', currentPoll);
+
+  console.log('CurrentPoll: ', currentPoll);
+
   useEffect(() => {
     if (myPolls.length) {
       const [poll] = myPolls.filter((poll) => {
@@ -21,6 +22,17 @@ const SinglePoll = () => {
     }
   }, [myPolls]);
 
-  return <div>{user.username ? currentPoll.name : <Navigate to="/" />}</div>;
+  return (
+    <div>
+      <h1>{`Poll: ${currentPoll.name}`}</h1>
+      <h4>Options</h4>
+      <button>Add an Option</button>
+      {currentPoll.options
+        ? currentPoll.options.map((option, i) => {
+            return <Option option={option} />;
+          })
+        : null}
+    </div>
+  );
 };
 export default SinglePoll;

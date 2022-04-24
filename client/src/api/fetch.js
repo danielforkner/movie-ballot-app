@@ -59,7 +59,7 @@ export const fetchMyPolls = async (token) => {
 
 export const fetchMovies = async (title, year) => {
   try {
-    const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
+    const response = await axios.get(`${DB_URL}/api/movies/${title}&${year}`);
     console.log('fetchMovies response ln 18 fetch.js', response);
     return response.data;
   } catch (error) {

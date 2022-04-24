@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
@@ -7,6 +7,7 @@ const Navbar = () => {
   const { user, setToken } = useAuth();
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="continer">
@@ -18,6 +19,7 @@ const Navbar = () => {
                 onClick={() => {
                   localStorage.removeItem('fridayNightMoviesToken');
                   setToken('');
+                  navigate('/', { replace: true });
                 }}
               >
                 Logout
