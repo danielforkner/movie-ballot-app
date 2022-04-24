@@ -1,5 +1,23 @@
 const client = require('./client');
 
+async function getMovieIdByTitle(title) {
+  try {
+    const {
+      rows: [data],
+    } = await client.query(
+      `
+    SELECT id
+    FROM movies
+    WHERE title=$1;
+    `,
+      [title]
+    );
+    return data.id;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getMoviesByOptionId(id) {
   try {
     const { rows } = await client.query(
@@ -19,4 +37,5 @@ async function getMoviesByOptionId(id) {
 
 module.exports = {
   getMoviesByOptionId,
+  getMovieIdByTitle,
 };

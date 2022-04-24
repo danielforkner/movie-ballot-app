@@ -2,7 +2,8 @@ const client = require('./client');
 
 const { getUserByUsername } = require('./users');
 const { createPoll, getAllPolls, getAllPollsByUserId } = require('./polls');
-const { getMoviesByOptionId } = require('./movies');
+const { getMoviesByOptionId, getMovieIdByTitle } = require('./movies');
+const { removeMovieFromOption } = require('./option_movies');
 
 async function getAllUsers() {
   try {
@@ -94,4 +95,6 @@ module.exports = {
   createOption,
   createMovie,
   getMoviesByOptionId,
+  getMovieIdByTitle,
+  removeMovieFromOption,
 };

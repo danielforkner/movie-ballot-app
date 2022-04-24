@@ -3,6 +3,7 @@ const {
   getAllPolls,
   getMoviesByOptionId,
   getAllPollsByUserId,
+  getMovieIdByTitle,
 } = require('./index');
 
 const testDb = async () => {
@@ -17,6 +18,10 @@ const testDb = async () => {
   console.log('testing get polls by user id (1)...');
   const authorPolls = await getAllPollsByUserId(1);
   console.log('authorPolls: ', authorPolls);
+
+  console.log('testing get movie ID by title ("Home Alone")...');
+  const id = await getMovieIdByTitle('Home Alone');
+  console.log('movieID: ', id);
 };
 
 client
