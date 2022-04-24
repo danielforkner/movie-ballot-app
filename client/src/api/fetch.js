@@ -86,6 +86,25 @@ export const addMovieToOption = async (token, title, year, optionId) => {
   }
 };
 
+export const activatePoll = async (token, pollId) => {
+  try {
+    const { data } = await axios.patch(
+      `${DB_URL}/polls/activate`,
+      { pollId },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const removeMovieFromOption = async (token, title, optionId) => {
   try {
     const { data } = await axios.delete(`${DB_URL}/polls/options/removeMovie`, {

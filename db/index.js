@@ -6,6 +6,7 @@ const {
   getAllPolls,
   getAllPollsByUserId,
   deletePoll,
+  activatePoll,
 } = require('./polls');
 const {
   getMoviesByOptionId,
@@ -50,6 +51,7 @@ module.exports = {
   createUser,
   createPoll,
   deletePoll,
+  activatePoll,
   getAllPolls,
   getAllPollsByUserId,
   createOption,

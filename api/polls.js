@@ -9,6 +9,7 @@ const {
   createOption,
   deletePoll,
   deleteOption,
+  activatePoll,
 } = require('../db');
 const { requireUser } = require('./utils');
 
@@ -95,6 +96,19 @@ pollsRouter.patch('/options/addMovie', requireUser, async (req, res, next) => {
   try {
     const inserted = await createMovie(title, year, optionId);
     console.log('inserted', inserted);
+    const polls = await getAllPollsByUserId(req.user.id);
+    res.send(polls);
+  } catch (error) {
+    throw error;
+  }
+});
+
+pollsRouter.patch('/activate', requireUser, async (req, res, next) => {
+  console.log('trying to activate a poll...');
+  const { pollId } = req.body;
+  try {
+    const activated = await activatePoll(pollId);
+    console.log('activated: ', activated);
     const polls = await getAllPollsByUserId(req.user.id);
     res.send(polls);
   } catch (error) {

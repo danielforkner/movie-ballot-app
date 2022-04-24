@@ -40,7 +40,7 @@ async function createTables() {
         name VARCHAR(255) NOT NULL,
         "authorID" INTEGER,
         deleted BOOLEAN DEFAULT FALSE,
-        "publicURL" VARCHAR(255)
+        active BOOLEAN DEFAULT FALSE
         );`);
     await client.query(`
     CREATE TABLE options (

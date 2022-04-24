@@ -20,6 +20,7 @@ async function mapOptions(rows) {
         name: row.poll_name,
         authorID: row.authorID,
         deleted: row.deleted,
+        active: row.active,
         options: [],
       };
     }

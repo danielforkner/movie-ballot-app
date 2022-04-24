@@ -7,7 +7,6 @@ import PollCard from './PollCard';
 
 const Polls = () => {
   const { myPolls, setMyPolls, token } = useAuth();
-
   const [isAddingNewPoll, setIsAddingNewPoll] = useState(false);
   console.log('My polls: ', myPolls);
 
@@ -29,7 +28,21 @@ const Polls = () => {
       <h1>Active Polls</h1>
       {myPolls.length && myPolls.length > 0
         ? myPolls.map((poll, i) => {
-            if (poll.deleted === false) {
+            if (poll.deleted === false && poll.active) {
+              return (
+                <PollCard
+                  key={`activePollcard:${i}`}
+                  poll={poll}
+                  handleDeletePoll={handleDeletePoll}
+                />
+              );
+            }
+          })
+        : 'No Active Polls'}
+      <h1>In Progress</h1>
+      {myPolls.length && myPolls.length > 0
+        ? myPolls.map((poll, i) => {
+            if (poll.deleted === false && poll.active === false) {
               return (
                 <PollCard
                   key={`activePollcard:${i}`}
