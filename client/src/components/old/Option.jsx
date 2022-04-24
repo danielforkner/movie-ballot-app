@@ -86,7 +86,7 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
             return (
               <div
                 className="option"
-                key={i}
+                key={`${movie.imdbID}:${i}`}
                 onClick={() => {
                   addMovie(currentOption, movie, polls, pollID, setPolls);
                 }}
@@ -94,7 +94,7 @@ const Option = ({ currentPoll, setPolls, polls, pollID, optionIndex }) => {
                 {movie.Title}, ({movie.Year})
               </div>
             );
-          }, [])}
+          })}
         </div>
         <ChosenOptions
           currentOption={currentOption}

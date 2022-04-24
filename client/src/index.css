@@ -20,6 +20,42 @@ code {
 
 /* MAIN - END */
 
+/* OPTION - START */
+
+.optionContainer {
+  max-width: 350px;
+  padding: 10px;
+  border: 5px dotted rgb(226, 22, 56);
+}
+
+.optionName {
+  text-decoration: underline;
+}
+
+.movieOptionsList {
+  border: 1px solid black;
+}
+
+.movieOption:hover {
+  cursor: pointer;
+  background-color: rgba(22, 233, 3, 0.5);
+}
+
+.removeMovieList {
+  border: 1px solid black;
+}
+
+.removeMovieList > p {
+  margin: 0;
+  padding: 0;
+}
+.removeMovieList > p:hover {
+  background-color: rgba(155, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+/* OPTION - END */
+
 /* OLD - START */
 .app {
   display: flex;
@@ -54,30 +90,6 @@ code {
   gap: 10px;
   justify-content: center;
   padding: 10px;
-}
-
-.optionContainer {
-  max-width: 350px;
-  padding: 10px;
-  border: 5px dotted rgb(226, 22, 56);
-}
-
-.option:hover {
-  cursor: pointer;
-  background-color: rgba(22, 233, 3, 0.5);
-}
-
-.removeMovieList {
-  border: 1px solid black;
-}
-
-.removeMovieList > p {
-  margin: 0;
-  padding: 0;
-}
-.removeMovieList > p:hover {
-  background-color: rgba(155, 0, 0, 0.5);
-  cursor: pointer;
 }
 
 .generateLinkBtn {

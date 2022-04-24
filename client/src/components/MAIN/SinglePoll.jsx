@@ -29,7 +29,13 @@ const SinglePoll = () => {
       <button>Add an Option</button>
       {currentPoll.options
         ? currentPoll.options.map((option, i) => {
-            return <Option option={option} />;
+            return (
+              <Option
+                key={`poll:${currentPoll.id}option:${option.id}`}
+                option={option}
+                poll={currentPoll}
+              />
+            );
           })
         : null}
     </div>
