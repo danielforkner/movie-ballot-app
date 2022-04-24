@@ -5,7 +5,7 @@ function today() {
   let dd = String(today.getDate()).padStart(2, '0');
   let mm = String(today.getMonth() + 1).padStart(2, '0');
   let yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
+  today = yyyy + '-' + mm + '-' + dd;
   return today;
 }
 
@@ -13,8 +13,8 @@ async function mapOptions(rows) {
   let map = {};
   for (const row of rows) {
     // id is from polls.id
-    if (!map[row.id]) {
-      map[row.id] = {
+    if (!map[row.poll_id]) {
+      map[row.poll_id] = {
         id: row.poll_id,
         dateCreated: row.dateCreated,
         name: row.poll_name,
@@ -29,7 +29,7 @@ async function mapOptions(rows) {
         name: row.option_name,
         movies: movies,
       };
-      map[row.id].options.push(option);
+      map[row.poll_id].options.push(option);
     }
   }
   return Object.values(map);

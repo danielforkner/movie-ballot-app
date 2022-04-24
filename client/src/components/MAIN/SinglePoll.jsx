@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import NewOptionForm from './NewOptionForm';
 import Option from './Option';
 
 const SinglePoll = () => {
+  const [isAddingNewOption, setisAddingNewOption] = useState(false);
   const pollId = useParams().pollId;
-  const { user, myPolls } = useAuth();
+  const { myPolls } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
-
-  console.log('CurrentPoll: ', currentPoll);
 
   useEffect(() => {
     if (myPolls.length) {
@@ -26,7 +26,10 @@ const SinglePoll = () => {
     <div>
       <h1>{`Poll: ${currentPoll.name}`}</h1>
       <h4>Options</h4>
-      <button>Add an Option</button>
+      <button onClick={() => setisAddingNewOption(!isAddingNewOption)}>
+        Add an Option
+      </button>
+      {isAddingNewOption ? <NewOptionForm currentPoll={currentPoll} /> : null}
       <div className="album py-5 bg-light">
         <div className="container">
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

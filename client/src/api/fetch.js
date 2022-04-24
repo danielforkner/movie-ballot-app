@@ -1,13 +1,13 @@
 const axios = require('axios');
 
 // database variables
-const DB_URL = 'api/';
+const DB_URL = '/api';
 
 // FETCH FROM OUR DATABASE
 export const loginUser = async (username, password) => {
   console.log(username, password);
   try {
-    const { data } = await axios.post(`${DB_URL}users/login`, {
+    const { data } = await axios.post(`${DB_URL}/users/login`, {
       username,
       password,
     });
@@ -60,7 +60,7 @@ export const fetchMyPolls = async (token) => {
 export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
-    console.log('fetchMovies response ln 18 fetch.js', response);
+    console.log('fetchMovies response', response);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -98,6 +98,48 @@ export const removeMovieFromOption = async (token, title, optionId) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchCreateNewPoll = async (token, pollName, authorID) => {
+  try {
+    const { data } = await axios.post(
+      `${DB_URL}/polls/newPoll`,
+      {
+        pollName,
+        authorID,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchCreateNewOption = async (token, optionName, pollId) => {
+  try {
+    const { data } = await axios.post(
+      `${DB_URL}/polls/newOption`,
+      {
+        optionName,
+        pollId,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return data;
   } catch (error) {
     throw error;

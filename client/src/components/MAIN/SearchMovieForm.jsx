@@ -8,7 +8,7 @@ const SearchMovieForm = ({ searchResults, setSearchResults }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        // isSearchingTRUE display spinning gear
+        // setIsLoading(true) display spinning gear
         try {
           const data = await fetchMovies(title, year);
           console.log(data);
@@ -17,7 +17,7 @@ const SearchMovieForm = ({ searchResults, setSearchResults }) => {
         } catch (error) {
           console.error(error);
         } finally {
-          // isSearchingFALSE
+          // setIsLoading(false)
           setTitle('');
           setYear('');
         }
