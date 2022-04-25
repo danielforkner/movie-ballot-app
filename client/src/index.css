@@ -56,6 +56,14 @@ code {
 
 /* OPTION - END */
 
+/* VOTE - START */
+.rankDwnBtn:hover,
+.rankUpBtn:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+}
+/* VOTE - END */
+
 /* OLD - START */
 .app {
   display: flex;
