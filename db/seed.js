@@ -18,6 +18,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS polls;
     DROP TABLE IF EXISTS movies;
+    DROP TABLE IF EXISTS votes;
         `);
   } catch (error) {
     throw error;
@@ -68,6 +69,13 @@ async function createTables() {
         "movieId" INTEGER,
         FOREIGN KEY ("optionId") REFERENCES options(id),
         FOREIGN KEY ("movieId") REFERENCES movies(id)
+        );`);
+    await client.query(`
+    CREATE TABLE votes (
+        id SERIAL PRIMARY KEY,
+        "pollId" INTEGER,
+        FOREIGN KEY ("pollId") REFERENCES polls(id),
+        vote json NOT NULL
         );`);
   } catch (error) {
     throw error;

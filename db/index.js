@@ -1,5 +1,6 @@
 const client = require('./client');
 
+const { createVote } = require('./votes');
 const { getUserByUsername } = require('./users');
 const {
   createPoll,
@@ -47,6 +48,7 @@ async function createUser({ username, password }) {
 
 module.exports = {
   client,
+  createVote,
   getAllUsers,
   getUserByUsername,
   createUser,

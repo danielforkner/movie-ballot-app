@@ -11,6 +11,7 @@ const {
   deletePoll,
   deleteOption,
   activatePoll,
+  createVote,
 } = require('../db');
 const { requireUser } = require('./utils');
 
@@ -153,5 +154,17 @@ pollsRouter.delete(
     }
   }
 );
+
+pollsRouter.post('/castVote', async (req, res, next) => {
+  console.log('attempting to cast a vote...');
+  const { rankList, pollId } = req.body;
+  try {
+    const vote = await createVote(rankList, pollId);
+    console.log('Voted: ', vote);
+    res.send(vote);
+  } catch (error) {
+    throw error;
+  }
+});
 
 module.exports = pollsRouter;

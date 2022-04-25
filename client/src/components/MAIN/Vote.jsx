@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchPollById } from '../../api/fetch';
+import { castVote, fetchPollById } from '../../api/fetch';
 import { createRankList, swap } from './helpers';
 
 const Vote = () => {
   const { pollId } = useParams();
   const [currentPoll, setCurrentPoll] = useState([]);
+  const [voted, setVoted] = useState(false);
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
   const [rankList, setRankList] = useState(null);
@@ -30,12 +31,10 @@ const Vote = () => {
     getPoll();
   }, []);
 
-  // useEffect that triggers on state change
-  // of "hasvoted" that looks for localstorage
-  // variable of this poll.
-
   useEffect(() => {
-    if (currentPoll.options && currentPoll.options.length > 0) {
+    if (localStorage.getItem(`voted:poll:${pollId}`)) {
+      setVoted(true);
+    } else if (currentPoll.options && currentPoll.options.length > 0) {
       setRankList(createRankList(currentPoll.options));
     } else {
       return;
@@ -74,12 +73,25 @@ const Vote = () => {
     }
   };
 
+  const handleSubmitRank = async () => {
+    try {
+      const response = await castVote(rankList, pollId);
+      console.log('Vote cast response: ', response);
+      localStorage.setItem(`voted:poll:${pollId}`, true);
+      setVoted(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div>
+    <Fragment>
       {rankList ? (
         <div className="rank-container">
-          <h1>{`(render from ranklist) Cast your ranked choice for: ${currentPoll.name}`}</h1>
-          <p>{rankList[1].movies[0].title}</p>
+          <h1>{`Cast your ranked choice for: ${currentPoll.name}`}</h1>
+          <button className="btn btn-success" onClick={handleSubmitRank}>
+            Finalize and submit your ranked choice.
+          </button>
           <div className="album bg-light">
             <div className="container">
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -147,6 +159,7 @@ const Vote = () => {
           </div>
         </div>
       ) : (
+        // null ?? why do you need anything below here
         <div className="rank-container">
           {currentPoll.options && currentPoll.options.length > 0 && active ? (
             <div>
@@ -208,7 +221,7 @@ const Vote = () => {
           )}
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

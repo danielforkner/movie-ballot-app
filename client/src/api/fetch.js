@@ -208,3 +208,15 @@ export const fetchCreateNewOption = async (token, optionName, pollId) => {
     throw error;
   }
 };
+
+export const castVote = async (rankList, pollId) => {
+  try {
+    const { data } = await axios.post(`${DB_URL}/polls/castVote`, {
+      rankList,
+      pollId,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
