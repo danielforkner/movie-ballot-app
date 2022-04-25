@@ -26,7 +26,7 @@ async function getPollById(id) {
     const { rows } = await client.query(
       `
     SELECT 
-        polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID",
+        polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active,
         poll_options."optionId",
         options.name as option_name
     FROM POLLS
@@ -47,7 +47,7 @@ async function getAllPolls() {
   try {
     const { rows } = await client.query(`
     SELECT
-        polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID",
+        polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active,
         poll_options."optionId",
         options.name as option_name
     FROM polls

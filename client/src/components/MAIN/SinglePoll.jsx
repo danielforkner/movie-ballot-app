@@ -8,7 +8,7 @@ import Option from './Option';
 const SinglePoll = () => {
   const [isAddingNewOption, setisAddingNewOption] = useState(false);
   const pollId = useParams().pollId;
-  const { token, myPolls, setMyPolls } = useAuth();
+  const { token, myPolls, setMyPolls, user } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [active, setActive] = useState(false);
 
@@ -25,16 +25,10 @@ const SinglePoll = () => {
       navigate('/', { replace: true });
     } else {
       try {
-        const response = await fetchPollById(token, pollId);
+        const response = await fetchPollById(pollId);
         console.log('get poll response: ', response);
-        const poll = response.poll[0];
-        if (!response.isOwner) {
-          console.log('user does not own this poll, redirecting...');
-          navigate('/', { replace: true });
-        } else {
-          setCurrentPoll(poll);
-          setActive(poll.active);
-        }
+        setCurrentPoll(response[0]);
+        setActive(response[0].active);
       } catch (error) {
         if (error.name === 'NoPageExists') {
           console.error(error.message);
@@ -53,43 +47,53 @@ const SinglePoll = () => {
 
   return (
     <div>
-      <h1>{`Poll: ${currentPoll.name}`}</h1>
-      {active ? null : (
-        <button className="btn btn-success" onClick={handleFinalize}>
-          Finalize and Create Public Link
-        </button>
-      )}
-      <div className="album py-5 bg-light">
-        {active ? null : (
-          <Fragment>
-            <h4>Options</h4>
-            <button onClick={() => setisAddingNewOption(!isAddingNewOption)}>
-              Add an Option
+      {user.username ? (
+        <Fragment>
+          <h1>{`Poll: ${currentPoll.name}`}</h1>
+          {active ? null : (
+            <button className="btn btn-success" onClick={handleFinalize}>
+              Finalize and Create Public Link
             </button>
-          </Fragment>
-        )}
-        {isAddingNewOption ? <NewOptionForm currentPoll={currentPoll} /> : null}
-        <div className="container">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {currentPoll.options
-              ? currentPoll.options.map((option, i) => {
-                  return (
-                    <div
-                      className="col"
-                      key={`poll:${currentPoll.id}option:${option.id}`}
-                    >
-                      <Option
-                        active={active}
-                        option={option}
-                        poll={currentPoll}
-                      />
-                    </div>
-                  );
-                })
-              : null}
+          )}
+          <div className="album py-5 bg-light">
+            {active ? null : (
+              <Fragment>
+                <h4>Options</h4>
+                <button
+                  onClick={() => setisAddingNewOption(!isAddingNewOption)}
+                >
+                  Add an Option
+                </button>
+              </Fragment>
+            )}
+            {isAddingNewOption ? (
+              <NewOptionForm currentPoll={currentPoll} />
+            ) : null}
+            <div className="container">
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {currentPoll.options
+                  ? currentPoll.options.map((option, i) => {
+                      return (
+                        <div
+                          className="col"
+                          key={`poll:${currentPoll.id}option:${option.id}`}
+                        >
+                          <Option
+                            active={active}
+                            option={option}
+                            poll={currentPoll}
+                          />
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </Fragment>
+      ) : (
+        <p>Page not available</p>
+      )}
     </div>
   );
 };

@@ -25,14 +25,14 @@ pollsRouter.get('/poll/:pollId', async (req, res, next) => {
   try {
     const poll = await getPollById(pollId);
     console.log('got the poll: ', poll);
-    if (poll === undefined) {
+    if (poll.length === 0) {
       res.status(404);
       next({
         name: 'NoPageExists',
         message: 'The page you requested does not exist',
       });
     } else {
-      res.send({ poll: poll, isOwner: req.user.id === poll[0].authorID });
+      res.send(poll);
     }
   } catch (error) {
     throw error;
