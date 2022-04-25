@@ -10,12 +10,20 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="continer">
-      <header className="d-flex justify-content-center py-3">
-        <ul className="nav nav-pills">
-          {user.username ? (
-            <li className="nav-item">
+    <header className="p-3 bg-dark text-white">
+      <div className="container">
+        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+              <Link to="/polls" className="nav-link px-2 text-white">
+                My Polls
+              </Link>
+            </li>
+          </ul>
+          <div className="text-end">
+            {user.username ? (
               <button
+                className="btn btn-outline-light me-2"
                 onClick={() => {
                   localStorage.removeItem('fridayNightMoviesToken');
                   setToken('');
@@ -24,11 +32,10 @@ const Navbar = () => {
               >
                 Logout
               </button>
-            </li>
-          ) : (
-            <Fragment>
-              <li className="nav-item">
+            ) : (
+              <Fragment>
                 <button
+                  className="btn btn-outline-light me-2"
                   onClick={() => {
                     setRegisterBtn(false);
                     setLoginBtn(!loginBtn);
@@ -36,9 +43,8 @@ const Navbar = () => {
                 >
                   Login
                 </button>
-              </li>
-              <li className="nav-item">
                 <button
+                  className="btn btn-warning"
                   onClick={() => {
                     setRegisterBtn(!registerBtn);
                     setLoginBtn(false);
@@ -46,19 +52,14 @@ const Navbar = () => {
                 >
                   Register new Account
                 </button>
-              </li>
-            </Fragment>
-          )}
-          <li>
-            <Link to="/polls">
-              <button>My Polls</button>
-            </Link>
-          </li>
-        </ul>
+              </Fragment>
+            )}
+          </div>
+        </div>
         {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : null}
         {registerBtn ? <Register setRegisterBtn={setRegisterBtn} /> : null}
-      </header>
-    </div>
+      </div>
+    </header>
   );
 };
 

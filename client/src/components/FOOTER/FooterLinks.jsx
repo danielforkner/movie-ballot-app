@@ -4,8 +4,8 @@ import useAuth from '../hooks/useAuth';
 const FooterLinks = () => {
   const { user } = useAuth();
   return (
-    <div className="container">
-      <footer className="py-3 my-4">
+    <footer className="container">
+      <div className="py-3 my-4">
         <ul className="nav justify-content-center border-bottom pb-3 mb-3">
           <li className="nav-item">
             <p className="nav-link px-2 text-muted">My Polls</p>
@@ -18,8 +18,8 @@ const FooterLinks = () => {
           </li>
         </ul>
         <p className="text-center text-muted">{`${user.username}'s profile`}</p>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 };
 

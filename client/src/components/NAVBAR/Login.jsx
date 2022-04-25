@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { loginUser } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 
-const Login = () => {
+const Login = ({ setLoginBtn }) => {
   const { setToken } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,6 +18,7 @@ const Login = () => {
       console.log('LOGIN RESPONSE: ', response);
       localStorage.setItem('fridayNightMoviesToken', response.token);
       setToken(response.token);
+      setLoginBtn(false);
     } catch (error) {
       console.error(error);
     } finally {
