@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { fetchCreateNewPoll } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 
 const NewPollForm = () => {
-  const { token, setMyPolls, user } = useAuth();
+  const { setMyPolls } = usePolls();
+  const { token, user } = useAuth();
   const [pollName, setPollName] = useState('');
 
   const handleAddNewPoll = async (e) => {

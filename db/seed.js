@@ -12,13 +12,13 @@ async function dropTables() {
     console.log('Dropping tables...');
 
     await client.query(`
+    DROP TABLE IF EXISTS votes;
     DROP TABLE IF EXISTS poll_options; 
     DROP TABLE IF EXISTS option_movies;
     DROP TABLE IF EXISTS options;   
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS polls;
     DROP TABLE IF EXISTS movies;
-    DROP TABLE IF EXISTS votes;
         `);
   } catch (error) {
     throw error;

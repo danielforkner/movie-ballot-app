@@ -5,10 +5,12 @@ import {
   deleteOption,
 } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 import SearchMovieForm from './SearchMovieForm';
 
 const Option = ({ poll, option, active }) => {
-  const { token, setMyPolls } = useAuth();
+  const { setMyPolls } = usePolls();
+  const { token } = useAuth();
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 

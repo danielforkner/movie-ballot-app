@@ -1,21 +1,19 @@
 import React from 'react';
 import { Navbar } from './NAVBAR';
-import { FooterLinks } from './FOOTER';
 import Main from './MAIN/Main';
 import AuthProvider from './context/AuthContext';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Dashboard from './DASHBOARD/Dashboard';
+import PollsProvider from './context/PollsContext';
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <div className="dashboard-container" />
-        <div className="app-container">
+        <PollsProvider>
           <Navbar />
           <Main />
-          <FooterLinks />
-        </div>
+          {/* <FooterLinks /> */}
+        </PollsProvider>
       </AuthProvider>
     </Router>
   );

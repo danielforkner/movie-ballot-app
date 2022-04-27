@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchDeletePoll, fetchMyPolls } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 import NewPollForm from './NewPollForm';
 import PollCard from './PollCard';
 
 const Polls = () => {
-  const { myPolls, setMyPolls, token } = useAuth();
+  const { token } = useAuth();
+  const { myPolls, setMyPolls } = usePolls();
   const [isAddingNewPoll, setIsAddingNewPoll] = useState(false);
   console.log('My polls: ', myPolls);
 

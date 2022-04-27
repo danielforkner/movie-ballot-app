@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
@@ -8,15 +8,37 @@ const Navbar = () => {
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  console.log('user: ', user);
 
   return (
-    <header className="p-3 bg-dark text-white">
+    <header className="p-2 bg-dark sticky-top text-white">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
-              <Link to="/polls" className="nav-link px-2 text-white">
+              <Link
+                to="/polls"
+                className={`nav-link px-2 ${
+                  location.pathname === '/polls'
+                    ? 'text-white active'
+                    : 'text-secondary'
+                }`}
+              >
                 My Polls
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard"
+                className={`nav-link px-2 ${
+                  location.pathname === '/dashboard'
+                    ? 'text-white active'
+                    : 'text-secondary'
+                }`}
+              >
+                Dashboard
               </Link>
             </li>
           </ul>

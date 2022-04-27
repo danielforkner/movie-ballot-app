@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { fetchCreateNewOption } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 
 const NewOptionForm = ({ currentPoll }) => {
-  const { token, setMyPolls } = useAuth();
+  const { setMyPolls } = usePolls();
+  const { token } = useAuth();
   const [optionName, setOptionName] = useState('');
 
   const handleNewOption = async () => {

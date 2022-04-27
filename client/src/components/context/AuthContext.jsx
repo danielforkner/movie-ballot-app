@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMe, fetchMyPolls } from '../../api/fetch';
+import { getMe } from '../../api/fetch';
 
 export const AuthContext = React.createContext();
 
@@ -8,7 +8,6 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(
     localStorage.getItem('fridayNightMoviesToken')
   );
-  const [myPolls, setMyPolls] = useState([]);
 
   // set user
   const getUser = async () => {
@@ -16,27 +15,19 @@ const AuthProvider = ({ children }) => {
       const user = await getMe(token);
       setUser(user);
       console.log('ME THE USER: ', user);
-      getMyPolls();
     } else {
       console.log('no token');
-      setMyPolls([]);
       setUser({});
     }
   };
 
-  const getMyPolls = async () => {
-    const polls = await fetchMyPolls(token);
-    setMyPolls(polls);
-  };
-
   useEffect(() => {
+    console.log('token change');
     getUser();
   }, [token]);
 
   return (
-    <AuthContext.Provider
-      value={{ user, setUser, token, setToken, myPolls, setMyPolls }}
-    >
+    <AuthContext.Provider value={{ user, setUser, token, setToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,13 +2,15 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { activatePoll, fetchPollById } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 import NewOptionForm from './NewOptionForm';
 import Option from './Option';
 
 const SinglePoll = () => {
   const [isAddingNewOption, setisAddingNewOption] = useState(false);
   const pollId = useParams().pollId;
-  const { token, myPolls, setMyPolls, user } = useAuth();
+  const { myPolls, setMyPolls } = usePolls();
+  const { token, user } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [active, setActive] = useState(false);
 
