@@ -37,4 +37,18 @@ async function mapOptions(rows) {
   return Object.values(map);
 }
 
-module.exports = { today, mapOptions };
+function calculateWinner(votes, optionId) {
+  let results = {};
+  let majority = votes.length / 2;
+  let winners = [],
+    losers = [];
+
+  // get first choices
+  votes.forEach((voter, i) => {
+    voter.vote[optionId].movies.forEach((vote, i) => {
+      results[movie];
+    });
+  });
+}
+
+module.exports = { today, mapOptions, calculateWinner };

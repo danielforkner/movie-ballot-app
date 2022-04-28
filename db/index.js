@@ -1,6 +1,6 @@
 const client = require('./client');
 
-const { createVote } = require('./votes');
+const { createVote, getVotesByPollId } = require('./votes');
 const { getUserByUsername } = require('./users');
 const {
   createPoll,
@@ -64,4 +64,5 @@ module.exports = {
   getMoviesByOptionId,
   getMovieIdByTitle,
   removeMovieFromOption,
+  getVotesByPollId,
 };

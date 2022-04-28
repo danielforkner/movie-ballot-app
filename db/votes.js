@@ -17,4 +17,21 @@ async function createVote(rankList, pollId) {
   }
 }
 
-module.exports = { createVote };
+async function getVotesByPollId(pollId) {
+  try {
+    const { rows } = await client.query(
+      `
+    SELECT vote 
+    FROM votes
+    WHERE "pollId"=$1; 
+    `,
+      [pollId]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { createVote, getVotesByPollId };

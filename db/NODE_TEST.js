@@ -4,7 +4,9 @@ const {
   getMoviesByOptionId,
   getAllPollsByUserId,
   getMovieIdByTitle,
+  getVotesByPollId,
 } = require('./index');
+const { calculateWinner } = require('./utils');
 
 const testDb = async () => {
   console.log('testing get all polls...');
@@ -22,6 +24,14 @@ const testDb = async () => {
   console.log('testing get movie ID by title ("Home Alone")...');
   const id = await getMovieIdByTitle('Home Alone');
   console.log('movieID: ', id);
+
+  console.log('testing get all votes for poll ID 1...');
+  const votes = await getVotesByPollId(1);
+  console.log('votes: ', votes);
+
+  console.log('testing calculate winner of votes for option ID 1...');
+  const winner = calculateWinner(votes, 1);
+  console.log('winner: ', winner);
 };
 
 client
