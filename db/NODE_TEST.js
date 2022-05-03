@@ -17,8 +17,8 @@ const testDb = async () => {
   const movies = await getMoviesByOptionId(1);
   console.log('movies: ', movies);
 
-  console.log('testing get polls by user id (1)...');
-  const authorPolls = await getAllPollsByUserId(1);
+  console.log('testing get polls by user id (3)...');
+  const authorPolls = await getAllPollsByUserId(3);
   console.log('authorPolls: ', authorPolls);
 
   console.log('testing get movie ID by title ("Home Alone")...');
@@ -30,8 +30,8 @@ const testDb = async () => {
   console.log('votes: ', votes);
 
   console.log('testing calculate winner of votes for option ID 1...');
-  const winner = calculateWinner(votes, 1);
-  console.log('winner: ', winner);
+  const winner = await calculateWinner(votes, 1);
+  // console.log('winner: ', winner);
 };
 
 client

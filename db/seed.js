@@ -6,6 +6,7 @@ const {
   createOption,
   createMovie,
 } = require('./index');
+const { createVote } = require('./votes');
 
 async function dropTables() {
   try {
@@ -146,6 +147,180 @@ async function createInitialMovies() {
   }
 }
 
+async function createInitialVotes() {
+  try {
+    console.log('Casting votes...');
+    await createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+              },
+              rank: 3,
+            },
+          ],
+        },
+        2: {
+          name: 'Late Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Spider Man 1',
+                year: '1997',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Spider Man 2',
+                year: '1999',
+              },
+              rank: 3,
+            },
+          ],
+        },
+        3: {
+          name: 'Saturday Matinee',
+          movies: [
+            {
+              movie: {
+                title: 'Mystery Man 1',
+                year: '2018',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 2',
+                year: '2019',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 3',
+                year: '2020',
+              },
+              rank: 3,
+            },
+          ],
+        },
+      },
+      1
+    );
+    await createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+              },
+              rank: 3,
+            },
+          ],
+        },
+        2: {
+          name: 'Late Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Spider Man 1',
+                year: '1997',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Spider Man 2',
+                year: '1999',
+              },
+              rank: 3,
+            },
+          ],
+        },
+        3: {
+          name: 'Saturday Matinee',
+          movies: [
+            {
+              movie: {
+                title: 'Mystery Man 3',
+                year: '2020',
+              },
+              rank: 1,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 1',
+                year: '2018',
+              },
+              rank: 2,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 2',
+                year: '2019',
+              },
+              rank: 3,
+            },
+          ],
+        },
+      },
+      1
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -156,6 +331,7 @@ async function rebuildDB() {
     await createInitialPolls();
     await createInitialOptions();
     await createInitialMovies();
+    await createInitialVotes();
   } catch (error) {
     console.error(error);
   }

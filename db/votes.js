@@ -27,8 +27,9 @@ async function getVotesByPollId(pollId) {
     `,
       [pollId]
     );
-
-    return rows;
+    const votes = [];
+    for (const row of rows) votes.push(row.vote);
+    return votes;
   } catch (error) {
     throw error;
   }

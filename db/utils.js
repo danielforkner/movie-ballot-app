@@ -37,18 +37,37 @@ async function mapOptions(rows) {
   return Object.values(map);
 }
 
-function calculateWinner(votes, optionId) {
-  let results = {};
+// https://cs50.harvard.edu/x/2022/psets/3/runoff/
+async function calculateWinner(votes, optionId) {
+  let candidates;
+  let preferences = [];
+  try {
+    candidates = await getMoviesByOptionId(optionId);
+    for (const candidate of candidates) {
+      candidate.votes = 0;
+      candidate.elim = false;
+    }
+  } catch (error) {
+    throw error;
+  }
+  let num_candidates = candidates.length;
+  let num_voters = votes.length;
   let majority = votes.length / 2;
-  let winners = [],
-    losers = [];
 
-  // get first choices
-  votes.forEach((voter, i) => {
-    voter.vote[optionId].movies.forEach((vote, i) => {
-      results[movie];
-    });
-  });
+  // build preferences matrix
+  for (let i = 0; i < num_voters; i++) {
+    preferences.push([]);
+    for (let j = 0; j < num_candidates; j++) {
+      preferences[i];
+    }
+  }
+
+  console.log('Candidates: ', candidates);
+  console.log('Number of candidates: ', num_candidates);
+  console.log('Number of voters: ', num_voters);
+  console.log('Majority: ', majority);
 }
+
+function tabulate() {}
 
 module.exports = { today, mapOptions, calculateWinner };

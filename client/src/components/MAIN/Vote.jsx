@@ -35,7 +35,9 @@ const Vote = () => {
     if (localStorage.getItem(`voted:poll:${pollId}`)) {
       setVoted(true);
     } else if (currentPoll.options && currentPoll.options.length > 0) {
-      setRankList(createRankList(currentPoll.options));
+      const newRankList = createRankList(currentPoll.options);
+      console.log('new rank list: ', newRankList);
+      setRankList(newRankList);
     } else {
       return;
     }

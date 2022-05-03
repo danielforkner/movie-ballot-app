@@ -17,6 +17,7 @@ const Table = ({ pollList, setCurrentPoll }) => {
           {pollList.length && pollList.length > 0 ? (
             <Fragment>
               {pollList.map((poll, i) => {
+                if (!poll.active) return null;
                 return (
                   <tr
                     className="tableSelectRow"
