@@ -9,7 +9,7 @@ export const createRankList = (options) => {
     }
     if (option.movies && option.movies.length > 0) {
       option.movies.forEach((movie, i) => {
-        map[option.id].movies.push({ movie: movie, rank: i + 1 });
+        map[option.id].movies.push({ movie: movie, rank: i + 1, id: movie.id });
       });
     }
   });

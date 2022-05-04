@@ -50,24 +50,70 @@ async function calculateWinner(votes, optionId) {
   } catch (error) {
     throw error;
   }
+
   let num_candidates = candidates.length;
   let num_voters = votes.length;
   let majority = votes.length / 2;
 
   // build preferences matrix
+  // i is the voterIdx
   for (let i = 0; i < num_voters; i++) {
-    preferences.push([]);
-    for (let j = 0; j < num_candidates; j++) {
-      preferences[i];
+    if (votes[i][optionId]) {
+      for (const movie of votes[i][optionId].movies) {
+        castVote(preferences, candidates, i, movie.rank - 1, movie.id);
+      }
     }
   }
+
+  // tabulate initial votes
+  tabulate(preferences, candidates, num_voters);
 
   console.log('Candidates: ', candidates);
   console.log('Number of candidates: ', num_candidates);
   console.log('Number of voters: ', num_voters);
   console.log('Majority: ', majority);
+  console.log('Preferences: ', preferences);
 }
 
-function tabulate() {}
+// record preference for each vote one at a time
+function castVote(preferences, candidates, voterIdx, rank, movieId) {
+  // get index of candidate
+  let candidateIdx;
+  for (let i = 0; i < candidates.length; i++) {
+    if (candidates[i].id === movieId) {
+      candidateIdx = i;
+      break;
+    }
+  }
+  if (!preferences[voterIdx]) preferences.push([]);
+  preferences[voterIdx][rank] = candidateIdx;
+}
+
+function tabulate(preferences, candidates, num_voters, round = 0) {
+  for (let i = 0; i < num_voters; i++) {
+    for (let j = 0; j < candidates.length; j++) {
+      let index = preferences[i][j];
+      if (candidates[index].elim === false) {
+        candidates[index].votes++;
+        break;
+      }
+    }
+  }
+
+  // verfify vote counts
+  console.log(`Round ${round}`);
+  for (const candidate of candidates) {
+    console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
+  }
+
+  // check for tie
+
+  // check for  !winner
+
+  // eliminate the loser and
+  // recursive call tabulate();
+
+  // else return
+}
 
 module.exports = { today, mapOptions, calculateWinner };

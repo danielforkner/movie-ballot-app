@@ -28,6 +28,7 @@ const testDb = async () => {
   console.log('testing get all votes for poll ID 1...');
   const votes = await getVotesByPollId(1);
   console.log('votes: ', votes);
+  console.log('votes[0][1].movies: ', votes[0][1].movies);
 
   console.log('testing calculate winner of votes for option ID 1...');
   const winner = await calculateWinner(votes, 1);

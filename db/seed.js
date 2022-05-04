@@ -157,24 +157,30 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Home Alone',
-                year: '1990',
+                title: 'Home Alone 2',
+                year: '1992',
+                id: 2,
               },
               rank: 1,
+              id: 2,
             },
             {
               movie: {
-                title: 'Home Alone 2',
-                year: '1992',
+                title: 'Home Alone',
+                year: '1990',
+                id: 1,
               },
               rank: 2,
+              id: 1,
             },
             {
               movie: {
                 title: 'Home Alone 3',
                 year: '1995',
+                id: 3,
               },
               rank: 3,
+              id: 3,
             },
           ],
         },
@@ -183,24 +189,30 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Spider Man 3',
-                year: '2000',
-              },
-              rank: 1,
-            },
-            {
-              movie: {
                 title: 'Spider Man 1',
                 year: '1997',
+                id: 4,
               },
-              rank: 2,
+              rank: 1,
+              id: 4,
             },
             {
               movie: {
                 title: 'Spider Man 2',
                 year: '1999',
+                id: 5,
+              },
+              rank: 2,
+              id: 5,
+            },
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+                id: 6,
               },
               rank: 3,
+              id: 6,
             },
           ],
         },
@@ -209,24 +221,30 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Mystery Man 1',
-                year: '2018',
+                title: 'Mystery Man 2',
+                year: '2019',
+                id: 8,
               },
               rank: 1,
+              id: 8,
             },
             {
               movie: {
-                title: 'Mystery Man 2',
-                year: '2019',
+                title: 'Mystery Man 1',
+                year: '2018',
+                id: 7,
               },
               rank: 2,
+              id: 7,
             },
             {
               movie: {
                 title: 'Mystery Man 3',
                 year: '2020',
+                id: 9,
               },
               rank: 3,
+              id: 9,
             },
           ],
         },
@@ -240,24 +258,30 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-              },
-              rank: 1,
-            },
-            {
-              movie: {
                 title: 'Home Alone',
                 year: '1990',
+                id: 1,
               },
-              rank: 2,
+              rank: 1,
+              id: 1,
             },
             {
               movie: {
                 title: 'Home Alone 2',
                 year: '1992',
+                id: 2,
+              },
+              rank: 2,
+              id: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+                id: 3,
               },
               rank: 3,
+              id: 3,
             },
           ],
         },
@@ -266,24 +290,30 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Spider Man 3',
-                year: '2000',
-              },
-              rank: 1,
-            },
-            {
-              movie: {
                 title: 'Spider Man 1',
                 year: '1997',
+                id: 4,
               },
-              rank: 2,
+              rank: 1,
+              id: 4,
             },
             {
               movie: {
                 title: 'Spider Man 2',
                 year: '1999',
+                id: 5,
+              },
+              rank: 2,
+              id: 5,
+            },
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+                id: 6,
               },
               rank: 3,
+              id: 6,
             },
           ],
         },
@@ -292,24 +322,232 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Mystery Man 3',
-                year: '2020',
-              },
-              rank: 1,
-            },
-            {
-              movie: {
                 title: 'Mystery Man 1',
                 year: '2018',
+                id: 7,
               },
-              rank: 2,
+              rank: 1,
+              id: 7,
             },
             {
               movie: {
                 title: 'Mystery Man 2',
                 year: '2019',
+                id: 8,
+              },
+              rank: 2,
+              id: 8,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 3',
+                year: '2020',
+                id: 9,
               },
               rank: 3,
+              id: 9,
+            },
+          ],
+        },
+      },
+      1
+    );
+    await createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+                id: 1,
+              },
+              rank: 1,
+              id: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+                id: 2,
+              },
+              rank: 2,
+              id: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+                id: 3,
+              },
+              rank: 3,
+              id: 3,
+            },
+          ],
+        },
+        2: {
+          name: 'Late Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Spider Man 1',
+                year: '1997',
+                id: 4,
+              },
+              rank: 1,
+              id: 4,
+            },
+            {
+              movie: {
+                title: 'Spider Man 2',
+                year: '1999',
+                id: 5,
+              },
+              rank: 2,
+              id: 5,
+            },
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+                id: 6,
+              },
+              rank: 3,
+              id: 6,
+            },
+          ],
+        },
+        3: {
+          name: 'Saturday Matinee',
+          movies: [
+            {
+              movie: {
+                title: 'Mystery Man 1',
+                year: '2018',
+                id: 7,
+              },
+              rank: 1,
+              id: 7,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 2',
+                year: '2019',
+                id: 8,
+              },
+              rank: 2,
+              id: 8,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 3',
+                year: '2020',
+                id: 9,
+              },
+              rank: 3,
+              id: 9,
+            },
+          ],
+        },
+      },
+      1
+    );
+    await createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+                id: 1,
+              },
+              rank: 1,
+              id: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+                id: 2,
+              },
+              rank: 2,
+              id: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+                id: 3,
+              },
+              rank: 3,
+              id: 3,
+            },
+          ],
+        },
+        2: {
+          name: 'Late Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Spider Man 1',
+                year: '1997',
+                id: 4,
+              },
+              rank: 1,
+              id: 4,
+            },
+            {
+              movie: {
+                title: 'Spider Man 2',
+                year: '1999',
+                id: 5,
+              },
+              rank: 2,
+              id: 5,
+            },
+            {
+              movie: {
+                title: 'Spider Man 3',
+                year: '2000',
+                id: 6,
+              },
+              rank: 3,
+              id: 6,
+            },
+          ],
+        },
+        3: {
+          name: 'Saturday Matinee',
+          movies: [
+            {
+              movie: {
+                title: 'Mystery Man 1',
+                year: '2018',
+                id: 7,
+              },
+              rank: 1,
+              id: 7,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 2',
+                year: '2019',
+                id: 8,
+              },
+              rank: 2,
+              id: 8,
+            },
+            {
+              movie: {
+                title: 'Mystery Man 3',
+                year: '2020',
+                id: 9,
+              },
+              rank: 3,
+              id: 9,
             },
           ],
         },
