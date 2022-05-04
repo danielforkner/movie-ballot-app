@@ -53,7 +53,6 @@ async function calculateWinner(votes, optionId) {
 
   let num_candidates = candidates.length;
   let num_voters = votes.length;
-  let majority = votes.length / 2;
 
   // build preferences matrix
   // i is the voterIdx
@@ -65,14 +64,13 @@ async function calculateWinner(votes, optionId) {
     }
   }
 
-  // tabulate initial votes
-  tabulate(preferences, candidates, num_voters);
-
   console.log('Candidates: ', candidates);
   console.log('Number of candidates: ', num_candidates);
   console.log('Number of voters: ', num_voters);
-  console.log('Majority: ', majority);
   console.log('Preferences: ', preferences);
+
+  // tabulate initial votes
+  return tabulate(preferences, candidates, num_voters);
 }
 
 // record preference for each vote one at a time
@@ -90,6 +88,8 @@ function castVote(preferences, candidates, voterIdx, rank, movieId) {
 }
 
 function tabulate(preferences, candidates, num_voters, round = 0) {
+  let majority = num_voters / 2;
+
   for (let i = 0; i < num_voters; i++) {
     for (let j = 0; j < candidates.length; j++) {
       let index = preferences[i][j];
@@ -100,20 +100,44 @@ function tabulate(preferences, candidates, num_voters, round = 0) {
     }
   }
 
-  // verfify vote counts
+  // display / verfify vote counts
   console.log(`Round ${round}`);
   for (const candidate of candidates) {
     console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
   }
 
   // check for tie
+  if (checkForTie(candidates)) {
+    let ties = [];
+    for (const candidate of candidates) {
+      if (!candidate.elim) {
+        ties.push(candidate);
+      }
+    }
+    return ties;
+  }
 
-  // check for  !winner
+  // check for winner and return if there is one
+  for (const candidate of candidates) {
+    if (candidate.votes > majority) {
+      return [candidate];
+    }
+  }
 
-  // eliminate the loser and
-  // recursive call tabulate();
+  // else eliminate the loser and
+  // recursive call return tabulate();
+  // eliminate(candidates, mininmum);
+}
 
-  // else return
+function checkForTie(candidates) {
+  for (let i = 0; i < candidates.length - 1; i++) {
+    if (candidates[i].elim === false) {
+      if (candidates[i].votes !== candidates[i + 1].votes) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 module.exports = { today, mapOptions, calculateWinner };

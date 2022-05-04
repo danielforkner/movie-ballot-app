@@ -31,8 +31,8 @@ const testDb = async () => {
   console.log('votes[0][1].movies: ', votes[0][1].movies);
 
   console.log('testing calculate winner of votes for option ID 1...');
-  const winner = await calculateWinner(votes, 1);
-  // console.log('winner: ', winner);
+  const result = await calculateWinner(votes, 1);
+  console.log('result: ', result);
 };
 
 client
