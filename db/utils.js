@@ -127,6 +127,9 @@ function tabulate(preferences, candidates, num_voters, round = 0) {
   // else eliminate the loser and
   // recursive call return tabulate();
   // eliminate(candidates, mininmum);
+  eliminate(candidates, find_min(candidates))
+  round++
+  return tabulate(preferences, candidates, num_voters, round);
 }
 
 function checkForTie(candidates) {
@@ -138,6 +141,12 @@ function checkForTie(candidates) {
     }
   }
   return true;
+}
+
+function find_min(candidates) {
+  let min = 0;
+  let found_first = false;
+  for (let i = 0; i < candidates.length)
 }
 
 module.exports = { today, mapOptions, calculateWinner };
