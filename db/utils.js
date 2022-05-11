@@ -87,7 +87,8 @@ function castVote(preferences, candidates, voterIdx, rank, movieId) {
   preferences[voterIdx][rank] = candidateIdx;
 }
 
-function tabulate(preferences, candidates, num_voters, round = 0) {
+function tabulate(preferences, candidates, num_voters, round = 1) {
+  let min = find_min(candidates)
   let majority = num_voters / 2;
 
   for (let i = 0; i < num_voters; i++) {
@@ -107,19 +108,21 @@ function tabulate(preferences, candidates, num_voters, round = 0) {
   }
 
   // check for tie
-  if (checkForTie(candidates)) {
+  if (checkForTie(candidates, min)) {
     let ties = [];
     for (const candidate of candidates) {
       if (!candidate.elim) {
         ties.push(candidate);
       }
     }
+    console.log("There is a tie!")
     return ties;
   }
 
   // check for winner and return if there is one
   for (const candidate of candidates) {
     if (candidate.votes > majority) {
+      console.log("Winner!")
       return [candidate];
     }
   }
@@ -127,17 +130,18 @@ function tabulate(preferences, candidates, num_voters, round = 0) {
   // else eliminate the loser and
   // recursive call return tabulate();
   // eliminate(candidates, mininmum);
-  eliminate(candidates, find_min(candidates))
+  eliminate(candidates, min)
   round++
   return tabulate(preferences, candidates, num_voters, round);
 }
 
-function checkForTie(candidates) {
-  for (let i = 0; i < candidates.length - 1; i++) {
-    if (candidates[i].elim === false) {
-      if (candidates[i].votes !== candidates[i + 1].votes) {
-        return false;
-      }
+function checkForTie(candidates, min) {
+  for (let i = 0; i < candidates.length; i++) {
+    if (candidates[i].votes === min && !candidates[i].elim) {
+      continue;
+    }
+    else {
+      return false
     }
   }
   return true;
@@ -146,7 +150,30 @@ function checkForTie(candidates) {
 function find_min(candidates) {
   let min = 0;
   let found_first = false;
-  for (let i = 0; i < candidates.length)
+  for (let i = 0; i < candidates.length; i++) {
+    if (!candidates[i].elim) {
+      if (!found_first) {
+        found_first = true;
+        min = candidates[i].votes;
+      } else if (candidates[i].votes < min) {
+        min = candidates[i].votes;
+      }
+    }
+  }
+  return min;
+}
+
+function eliminate(candidates, min) {
+  for (let i = 0; i < candidates.length; i++) {
+    if (candidates[i].votes === min) {
+      candidates[i].elim = true;
+      console.log(`${candidates[i]} has been eliminated!`)
+    }
+  }
+  // reset votes
+  for (let i = 0; i < candidates.length; i++) {
+    candidates[i].votes = 0;
+  }
 }
 
 module.exports = { today, mapOptions, calculateWinner };
