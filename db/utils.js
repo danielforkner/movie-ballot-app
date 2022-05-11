@@ -1,5 +1,5 @@
 const { getMoviesByOptionId } = require('./movies');
-const { recordWinner } = require('./options');
+const { recordWinner, recordRounds } = require('./options');
 
 function today() {
   let today = new Date();
@@ -55,6 +55,11 @@ async function calculateWinner(votes, optionId) {
 
   let num_candidates = candidates.length;
   let num_voters = votes.length;
+  try {
+
+  } catch (error) {
+    await recordVoters(optionId, num_voters)
+  }
 
   // build preferences matrix
   // i is the voterIdx
@@ -130,6 +135,7 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
       console.log("Winner!")
       try {
         await recordWinner(optionId, candidate.id)
+        await recordRounds(optionId, round);
       } catch (error) {
         throw (error)
       }

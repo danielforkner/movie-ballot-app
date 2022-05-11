@@ -40,6 +40,18 @@ async function getOption(optionId) {
   }
 }
 
+async function recordRounds(optionId, rounds) {
+  try {
+    await client.query(`
+    UPDATE options
+    SET rounds = $2
+    WHERE id=$1;
+    `, [optionId, rounds])
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function recordWinner(optionId, movieId) {
   try {
     await client.query(
@@ -103,6 +115,7 @@ async function deleteOption(optionId) {
 module.exports = {
   createOption,
   getOption,
+  recordRounds,
   recordWinner,
   deleteOption,
 };

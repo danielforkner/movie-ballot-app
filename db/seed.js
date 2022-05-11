@@ -57,6 +57,7 @@ async function createTables() {
         winner INTEGER,
         ties json,
         numvoters INTEGER,
+        rounds INTEGER,
         FOREIGN KEY (winner) REFERENCES movies(id)
         );`);
     await client.query(`
