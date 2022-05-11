@@ -16,7 +16,7 @@ const {
   createMovie,
 } = require('./movies');
 const { removeMovieFromOption } = require('./option_movies');
-const { createOption, deleteOption } = require('./options');
+const { createOption, getOption, deleteOption } = require('./options');
 
 async function getAllUsers() {
   try {
@@ -49,6 +49,7 @@ async function createUser({ username, password }) {
 module.exports = {
   client,
   createVote,
+  getOption,
   getAllUsers,
   getUserByUsername,
   createUser,

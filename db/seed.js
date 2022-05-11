@@ -45,15 +45,19 @@ async function createTables() {
         active BOOLEAN DEFAULT FALSE
         );`);
     await client.query(`
-    CREATE TABLE options (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
-        );`);
-    await client.query(`
     CREATE TABLE movies (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         year VARCHAR(255) NOT NULL
+        );`);
+    await client.query(`
+    CREATE TABLE options (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        winner INTEGER,
+        ties json,
+        numvoters INTEGER,
+        FOREIGN KEY (winner) REFERENCES movies(id)
         );`);
     await client.query(`
     CREATE TABLE poll_options (

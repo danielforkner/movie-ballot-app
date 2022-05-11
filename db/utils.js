@@ -1,4 +1,5 @@
 const { getMoviesByOptionId } = require('./movies');
+const { recordWinner } = require('./options');
 
 function today() {
   let today = new Date();
@@ -37,7 +38,7 @@ async function mapOptions(rows) {
   return Object.values(map);
 }
 
-// Vote -------------------------------------------------------
+// START Vote -------------------------------------------------
 // https://cs50.harvard.edu/x/2022/psets/3/runoff/
 async function calculateWinner(votes, optionId) {
   let candidates;
@@ -71,7 +72,7 @@ async function calculateWinner(votes, optionId) {
   console.log('Preferences: ', preferences);
 
   // tabulate initial votes
-  return tabulate(preferences, candidates, num_voters);
+  return await tabulate(optionId, preferences, candidates, num_voters);
 }
 
 // record preference for each vote one at a time
@@ -88,7 +89,7 @@ function castVote(preferences, candidates, voterIdx, rank, movieId) {
   preferences[voterIdx][rank] = candidateIdx;
 }
 
-function tabulate(preferences, candidates, num_voters, round = 1) {
+async function tabulate(optionId, preferences, candidates, num_voters, round = 1) {
   let majority = num_voters / 2;
 
   for (let i = 0; i < num_voters; i++) {
@@ -119,6 +120,7 @@ function tabulate(preferences, candidates, num_voters, round = 1) {
       }
     }
     console.log("There is a tie!")
+    // Update DB -> voting rounds, current tie, current winner, number of voters
     return ties;
   }
 
@@ -126,6 +128,11 @@ function tabulate(preferences, candidates, num_voters, round = 1) {
   for (const candidate of candidates) {
     if (candidate.votes > majority) {
       console.log("Winner!")
+      try {
+        await recordWinner(optionId, candidate.id)
+      } catch (error) {
+        throw (error)
+      }
       return [candidate];
     }
   }
@@ -135,7 +142,7 @@ function tabulate(preferences, candidates, num_voters, round = 1) {
   // eliminate(candidates, mininmum);
   eliminate(candidates, min)
   round++
-  return tabulate(preferences, candidates, num_voters, round);
+  return await tabulate(optionId, preferences, candidates, num_voters, round);
 }
 
 function checkForTie(candidates, min) {
@@ -179,5 +186,6 @@ function eliminate(candidates, min) {
     candidates[i].votes = 0;
   }
 }
+// END Vote ---------------------------------------------------
 
 module.exports = { today, mapOptions, calculateWinner };
