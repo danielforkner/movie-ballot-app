@@ -52,6 +52,18 @@ async function recordRounds(optionId, rounds) {
   }
 }
 
+async function recordVoters(optionId, voters) {
+  try {
+    await client.query(`
+    UPDATE options
+    SET voters = $2
+    WHERE id=$1;
+    `, [optionId, voters])
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function recordWinner(optionId, movieId) {
   try {
     await client.query(
@@ -67,6 +79,33 @@ async function recordWinner(optionId, movieId) {
 }
 
 async function resetWinner(optionId) {
+  try {
+    await client.query(
+      `
+      UPDATE options
+      SET winner = null
+      WHERE id=$1;
+      `, [optionId]
+    )
+  } catch (error) {
+    throw error
+  }
+}
+async function recordTies(optionId, ties) {
+  try {
+    await client.query(
+      `
+      UPDATE options
+      SET ties = $2
+      WHERE id=$1;
+      `, [optionId, ties]
+    )
+  } catch (error) {
+    throw error
+  }
+}
+
+async function resetTies(optionId) {
   try {
     await client.query(
       `
@@ -116,6 +155,10 @@ module.exports = {
   createOption,
   getOption,
   recordRounds,
+  resetTies,
+  recordTies,
+  recordVoters,
   recordWinner,
+  resetWinner,
   deleteOption,
 };

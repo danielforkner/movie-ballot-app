@@ -1,5 +1,5 @@
 const { getMoviesByOptionId } = require('./movies');
-const { recordWinner, recordRounds } = require('./options');
+const { recordWinner, recordRounds, recordVoters, resetWinner, recordTies, resetTies } = require('./options');
 
 function today() {
   let today = new Date();
@@ -56,9 +56,9 @@ async function calculateWinner(votes, optionId) {
   let num_candidates = candidates.length;
   let num_voters = votes.length;
   try {
-
-  } catch (error) {
     await recordVoters(optionId, num_voters)
+  } catch (error) {
+    throw error;
   }
 
   // build preferences matrix
@@ -107,10 +107,10 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
     }
   }
 
+  console.log(`Round ${round}`);
   let min = find_min(candidates)
 
   // display / verfify vote counts
-  console.log(`Round ${round}`);
   if (round === 5) return;
   for (const candidate of candidates) {
     console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
@@ -121,10 +121,17 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
     let ties = [];
     for (const candidate of candidates) {
       if (!candidate.elim) {
-        ties.push(candidate);
+        ties.push(candidate.id);
       }
     }
     console.log("There is a tie!")
+    try {
+      await resetWinner(optionId);
+      await recordTies(optionId, {ties})
+      await recordRounds(optionId, round);
+    } catch (error) {
+      throw error
+    }
     // Update DB -> voting rounds, current tie, current winner, number of voters
     return ties;
   }
@@ -134,7 +141,8 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
     if (candidate.votes > majority) {
       console.log("Winner!")
       try {
-        await recordWinner(optionId, candidate.id)
+        await resetTies(optionId);
+        await recordWinner(optionId, candidate.id);
         await recordRounds(optionId, round);
       } catch (error) {
         throw (error)
@@ -154,9 +162,10 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
 function checkForTie(candidates, min) {
   for (let i = 0; i < candidates.length; i++) {
     if (candidates[i].votes === min && !candidates[i].elim) {
+      console.log(`${candidates[i].title} votes equal min`)
       continue;
     }
-    else {
+    else if (candidates[i].votes !== min && !candidates[i].elim) {
       return false
     }
   }
