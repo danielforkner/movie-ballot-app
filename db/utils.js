@@ -37,6 +37,7 @@ async function mapOptions(rows) {
   return Object.values(map);
 }
 
+// Vote -------------------------------------------------------
 // https://cs50.harvard.edu/x/2022/psets/3/runoff/
 async function calculateWinner(votes, optionId) {
   let candidates;
@@ -88,7 +89,6 @@ function castVote(preferences, candidates, voterIdx, rank, movieId) {
 }
 
 function tabulate(preferences, candidates, num_voters, round = 1) {
-  let min = find_min(candidates)
   let majority = num_voters / 2;
 
   for (let i = 0; i < num_voters; i++) {
@@ -101,8 +101,11 @@ function tabulate(preferences, candidates, num_voters, round = 1) {
     }
   }
 
+  let min = find_min(candidates)
+
   // display / verfify vote counts
   console.log(`Round ${round}`);
+  if (round === 5) return;
   for (const candidate of candidates) {
     console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
   }
@@ -160,6 +163,7 @@ function find_min(candidates) {
       }
     }
   }
+  console.log("current min: ", min)
   return min;
 }
 
@@ -167,7 +171,7 @@ function eliminate(candidates, min) {
   for (let i = 0; i < candidates.length; i++) {
     if (candidates[i].votes === min) {
       candidates[i].elim = true;
-      console.log(`${candidates[i]} has been eliminated!`)
+      console.log(`${candidates[i].title} has been eliminated!`)
     }
   }
   // reset votes
