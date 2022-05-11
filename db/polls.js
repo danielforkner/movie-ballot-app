@@ -28,7 +28,7 @@ async function getPollById(id) {
     SELECT 
         polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active,
         poll_options."optionId",
-        options.name as option_name
+        options.name as option_name, options.winner, options.ties, options.voters, options.rounds
     FROM POLLS
     LEFT JOIN poll_options ON poll_options."pollId" = polls.id
     LEFT JOIN options on options.id = poll_options."optionId"

@@ -19,7 +19,7 @@ code {
 /* DASHBOARD - START */
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 1rem;
   bottom: 0;
   left: 0;
   z-index: 99;

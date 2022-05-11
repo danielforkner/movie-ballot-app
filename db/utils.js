@@ -30,6 +30,10 @@ async function mapOptions(rows) {
       let option = {
         id: row.optionId,
         name: row.option_name,
+        winner: row.winner,
+        ties: row.ties,
+        voters: row.voters,
+        rounds: row.rounds,
         movies: movies,
       };
       map[row.poll_id].options.push(option);
@@ -111,7 +115,8 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
   let min = find_min(candidates)
 
   // display / verfify vote counts
-  if (round === 5) return;
+  // if (round === 1000) return... this could be a way to prevent
+  // stack overflow or prevent a maliciously large vote slowing the server
   for (const candidate of candidates) {
     console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
   }
@@ -142,7 +147,7 @@ async function tabulate(optionId, preferences, candidates, num_voters, round = 1
       console.log("Winner!")
       try {
         await resetTies(optionId);
-        await recordWinner(optionId, candidate.id);
+        await recordWinner(optionId, candidate);
         await recordRounds(optionId, round);
       } catch (error) {
         throw (error)

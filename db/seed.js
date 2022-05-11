@@ -54,11 +54,10 @@ async function createTables() {
     CREATE TABLE options (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        winner INTEGER,
+        winner json,
         ties json,
         voters INTEGER,
-        rounds INTEGER,
-        FOREIGN KEY (winner) REFERENCES movies(id)
+        rounds INTEGER
         );`);
     await client.query(`
     CREATE TABLE poll_options (
@@ -222,6 +221,43 @@ async function createInitialVotes() {
                 id: 3,
               },
               rank: 1,
+              id: 3,
+            },
+          ],
+        },
+      },
+      1
+    );
+    await createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+                id: 2,
+              },
+              rank: 1,
+              id: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+                id: 3,
+              },
+              rank: 2,
+              id: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+                id: 3,
+              },
+              rank: 3,
               id: 3,
             },
           ],

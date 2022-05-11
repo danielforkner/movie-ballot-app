@@ -64,14 +64,14 @@ async function recordVoters(optionId, voters) {
   }
 }
 
-async function recordWinner(optionId, movieId) {
+async function recordWinner(optionId, winner) {
   try {
     await client.query(
       `
       UPDATE options
       SET winner = $2
       WHERE id=$1;
-      `, [optionId, movieId]
+      `, [optionId, winner]
     )
   } catch (error) {
     throw error
