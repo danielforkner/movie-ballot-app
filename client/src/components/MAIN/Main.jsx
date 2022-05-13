@@ -8,6 +8,7 @@ import Vote from './Vote';
 const Main = () => {
   return (
     // .main min-height: 50vh
+    // check useAuth for logged in, don't allow My Polls if not logged in
     <main>
       <Routes>
         <Route path="/polls/rank/:pollId" element={<Vote />} />
