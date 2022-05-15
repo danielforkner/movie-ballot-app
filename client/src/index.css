@@ -14,6 +14,10 @@ code {
 
 /* MAIN - START */
 
+.nav-link:hover {
+  cursor: pointer;
+}
+
 /* MAIN - END */
 
 /* DASHBOARD - START */

@@ -26,7 +26,7 @@ const Table = ({ pollList, setCurrentPoll }) => {
                     <td>{poll.id}</td>
                     <td>{poll.name}</td>
                     <td>{poll.dateCreated.slice(0, 10)}</td>
-                    <td>5</td>
+                    <td>{poll.voters}</td>
                     <td>{poll.options.length}</td>
                   </tr>
                 );

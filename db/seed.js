@@ -35,7 +35,8 @@ async function createTables() {
         name VARCHAR(255) NOT NULL,
         "authorID" INTEGER,
         deleted BOOLEAN DEFAULT FALSE,
-        active BOOLEAN DEFAULT FALSE
+        active BOOLEAN DEFAULT FALSE,
+        voters INTEGER
         );`);
     await client.query(`
     CREATE TABLE movies (

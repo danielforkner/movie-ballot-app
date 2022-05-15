@@ -65,7 +65,7 @@ async function getAllPollsByUserId(id) {
     const { rows } = await client.query(
       `
         SELECT
-            *, polls.id as poll_id, polls."dateCreated", polls.name as poll_name, 
+            *, polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls.voters as "pollVoters",
             options.name as option_name
         FROM polls
         LEFT JOIN poll_options ON poll_options."pollId" = polls.id
