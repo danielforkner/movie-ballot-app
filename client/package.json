@@ -2,9 +2,6 @@
   "name": "state",
   "version": "0.1.0",
   "private": true,
-  "resolutions": {
-    "mini-css-extract-plugin": "2.4.5"
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
@@ -21,13 +18,9 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "devDependencies": {
-    "mini-css-extract-plugin": "2.4.5"
-  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "preinstall": "npx npm-force-resolutions"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
