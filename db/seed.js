@@ -112,6 +112,8 @@ async function createInitialPolls() {
       name: 'Weekend Blast',
       authorID: 3,
     });
+
+    await Polls.activatePoll(1);
   } catch (error) {
     throw error;
   }
@@ -155,228 +157,6 @@ async function createInitialVotes() {
           movies: [
             {
               movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 3,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 1,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 2,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 3,
-              },
-              rank: 3,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 1,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 1,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 3,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 3,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 1,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 3,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 1,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 3,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 1,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 3,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
                 title: 'Home Alone',
                 year: '1990',
                 id: 1,
@@ -404,77 +184,67 @@ async function createInitialVotes() {
             },
           ],
         },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
+        2: {
+          name: 'Late Movie',
           movies: [
             {
               movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
+                title: 'Spider Man 1',
+                year: '1997',
+                id: 4,
               },
               rank: 1,
-              id: 1,
+              id: 4,
             },
             {
               movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
+                title: 'Spider Man 2',
+                year: '1999',
+                id: 5,
               },
               rank: 2,
-              id: 2,
+              id: 5,
             },
             {
               movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
+                title: 'Spider Man 3',
+                year: '2000',
+                id: 6,
               },
               rank: 3,
-              id: 3,
+              id: 6,
             },
           ],
         },
-      },
-      1
-    );
-    await Votes.createVote(
-      {
-        1: {
-          name: 'Early Movie',
+        3: {
+          name: 'Saturday Matinee',
           movies: [
             {
               movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
+                title: 'Mystery Man 1',
+                year: '2018',
+                id: 7,
               },
               rank: 1,
-              id: 1,
+              id: 7,
             },
             {
               movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
+                title: 'Mystery Man 2',
+                year: '2019',
+                id: 8,
               },
               rank: 2,
-              id: 2,
+              id: 8,
             },
             {
               movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
+                title: 'Mystery Man 3',
+                year: '2020',
+                id: 9,
               },
               rank: 3,
-              id: 3,
+              id: 9,
             },
           ],
         },

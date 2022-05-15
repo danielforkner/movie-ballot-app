@@ -10,8 +10,8 @@ const LandingPage = () => {
         the <em>only</em> ranked-choice movie voting app for you and your
         friends
       </p>
-      <div className="d-flex justify-content-around rounded">
-        <div className="bg-dark bg-gradient">
+      <div className="d-flex justify-content-around">
+        <div className="bg-dark bg-gradient rounded">
           <button className="btn btn-outline-light" id="landingLoginBtn">
             Create Poll
           </button>
