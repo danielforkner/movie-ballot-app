@@ -220,3 +220,20 @@ export const castVote = async (rankList, pollId) => {
     throw error;
   }
 };
+
+export const fetchCalculateVotes = async (token, pollId) => {
+  try {
+    const { data } = await axios.get(
+      `${DB_URL}/polls/calculateVotes/${pollId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

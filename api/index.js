@@ -5,7 +5,7 @@ const apiRouter = express.Router();
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const pollsRouter = require('./polls');
-const { getUserByUsername } = require('../db');
+const { Users } = require('../db/models');
 
 apiRouter.use(async (req, res, next) => {
   console.log('Checking for authorization');
@@ -19,7 +19,7 @@ apiRouter.use(async (req, res, next) => {
     try {
       const { username } = jwt.verify(token, JWT_SECRET);
       if (username) {
-        user = await getUserByUsername(username);
+        user = await Users.getUserByUsername(username);
         delete user.password;
         req.user = user;
         console.log('Good token. User Set.');

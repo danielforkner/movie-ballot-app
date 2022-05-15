@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../client');
 
 async function createVote(rankList, pollId) {
   try {
@@ -11,6 +11,16 @@ async function createVote(rankList, pollId) {
             RETURNING *;`,
       [rankList, pollId]
     );
+
+    await client.query(
+      `
+    UPDATE polls
+    SET voters = coalesce(voters + 1, 1)
+    WHERE id=$1
+     `,
+      [pollId]
+    );
+
     return vote;
   } catch (error) {
     throw error;

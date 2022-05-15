@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../client');
 
 async function createOption({ name, poll }) {
   try {
@@ -27,13 +27,16 @@ async function createOption({ name, poll }) {
 
 async function getOption(optionId) {
   try {
-    const { rows: [option] } = await client.query(
+    const {
+      rows: [option],
+    } = await client.query(
       `
       SELECT * 
       FROM options
       WHERE id=$1;
-      `, [optionId]
-    )
+      `,
+      [optionId]
+    );
     return option;
   } catch (error) {
     throw error;
@@ -42,11 +45,14 @@ async function getOption(optionId) {
 
 async function recordRounds(optionId, rounds) {
   try {
-    await client.query(`
+    await client.query(
+      `
     UPDATE options
     SET rounds = $2
     WHERE id=$1;
-    `, [optionId, rounds])
+    `,
+      [optionId, rounds]
+    );
   } catch (error) {
     throw error;
   }
@@ -54,11 +60,14 @@ async function recordRounds(optionId, rounds) {
 
 async function recordVoters(optionId, voters) {
   try {
-    await client.query(`
+    await client.query(
+      `
     UPDATE options
     SET voters = $2
     WHERE id=$1;
-    `, [optionId, voters])
+    `,
+      [optionId, voters]
+    );
   } catch (error) {
     throw error;
   }
@@ -71,10 +80,11 @@ async function recordWinner(optionId, winner) {
       UPDATE options
       SET winner = $2
       WHERE id=$1;
-      `, [optionId, winner]
-    )
+      `,
+      [optionId, winner]
+    );
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -85,10 +95,11 @@ async function resetWinner(optionId) {
       UPDATE options
       SET winner = null
       WHERE id=$1;
-      `, [optionId]
-    )
+      `,
+      [optionId]
+    );
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 async function recordTies(optionId, ties) {
@@ -98,10 +109,11 @@ async function recordTies(optionId, ties) {
       UPDATE options
       SET ties = $2
       WHERE id=$1;
-      `, [optionId, ties]
-    )
+      `,
+      [optionId, ties]
+    );
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -112,10 +124,11 @@ async function resetTies(optionId) {
       UPDATE options
       SET winner = null
       WHERE id=$1;
-      `, [optionId]
-    )
+      `,
+      [optionId]
+    );
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
