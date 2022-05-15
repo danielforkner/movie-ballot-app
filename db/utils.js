@@ -52,7 +52,6 @@ async function mapOptions(rows) {
 }
 
 // START Vote -------------------------------------------------
-// https://cs50.harvard.edu/x/2022/psets/3/runoff/
 async function calculateWinner(votes, optionId) {
   let candidates;
   let preferences = [];

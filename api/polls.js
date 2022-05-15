@@ -6,6 +6,7 @@ const {
   Votes,
   Option_Movies,
 } = require('../db/models');
+const { calculateWinner } = require('../db/utils');
 
 const { requireUser } = require('./utils');
 
@@ -169,5 +170,33 @@ pollsRouter.post('/castVote', async (req, res, next) => {
     throw error;
   }
 });
+
+pollsRouter.get(
+  '/calculateVotes/:pollId',
+  requireUser,
+  async (req, res, next) => {
+    const { pollId } = req.params;
+    console.log('calculating votes...');
+    try {
+      const votes = await Votes.getVotesByPollId(pollId);
+      if (votes.length === 0) {
+        res.status(400);
+        next({
+          name: 'No votes error',
+          message: 'There have been no votes placed for this poll yet',
+        });
+      } else {
+        const options = Object.keys(votes[0]);
+        console.log('options: ', options);
+        for (const option of options) {
+          await calculateWinner(votes, option);
+        }
+      }
+      res.send('votes updated');
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  }
+);
 
 module.exports = pollsRouter;
