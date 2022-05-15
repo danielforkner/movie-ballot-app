@@ -4,7 +4,7 @@ import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, setToken } = useAuth();
+  const { user, setToken, isLoggedIn } = useAuth();
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
   const navigate = useNavigate();
@@ -19,31 +19,48 @@ const Navbar = () => {
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
               <Link
-                to="/polls"
+                to="/"
                 className={`nav-link px-2 ${
-                  location.pathname === '/polls'
+                  location.pathname === '/'
                     ? 'text-white active'
-                    : 'text-secondary'
+                    : 'text-warning'
                 }`}
               >
-                My Polls
+                Home
               </Link>
             </li>
-            <li>
-              <Link
-                to="/dashboard"
-                className={`nav-link px-2 ${
-                  location.pathname === '/dashboard'
-                    ? 'text-white active'
-                    : 'text-secondary'
-                }`}
-              >
-                Dashboard
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                {' '}
+                <li>
+                  <Link
+                    to="/polls"
+                    className={`nav-link px-2 ${
+                      location.pathname === '/polls'
+                        ? 'text-white active'
+                        : 'text-warning'
+                    }`}
+                  >
+                    My Polls
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className={`nav-link px-2 ${
+                      location.pathname === '/dashboard'
+                        ? 'text-white active'
+                        : 'text-warning'
+                    }`}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              </>
+            ) : null}
           </ul>
           <div className="text-end">
-            {user.username ? (
+            {isLoggedIn ? (
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => {
