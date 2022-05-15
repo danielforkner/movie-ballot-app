@@ -3,7 +3,7 @@ import usePolls from '../hooks/usePolls';
 import useAuth from '../hooks/useAuth';
 import { fetchCalculateVotes, fetchMyPolls } from '../../api/fetch';
 
-const CurrentPoll = ({ currentPoll }) => {
+const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
   const { token } = useAuth();
   const { myPolls, setMyPolls } = usePolls();
 
@@ -13,6 +13,11 @@ const CurrentPoll = ({ currentPoll }) => {
       console.log(response);
       const polls = await fetchMyPolls(token);
       setMyPolls(polls);
+      let [updatedCurrentPoll] = polls.filter(
+        (poll) => poll.id === currentPoll.id
+      );
+      console.log('updatedCurrentPoll: ', updatedCurrentPoll);
+      setCurrentPoll(updatedCurrentPoll);
     } catch (error) {
       console.error(error);
     }
@@ -36,6 +41,9 @@ const CurrentPoll = ({ currentPoll }) => {
                   {option.winner
                     ? `Current winner: ${option.winner.title} with a total of ${option.winner.votes} votes after ${option.rounds} rounds.`
                     : 'no winner yet'}
+                </p>
+                <p>
+                  {option.ties ? `There is a tie between ${option.ties}` : null}
                 </p>
               </>
             );

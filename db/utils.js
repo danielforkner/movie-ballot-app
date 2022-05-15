@@ -140,7 +140,7 @@ async function tabulate(
     let ties = [];
     for (const candidate of candidates) {
       if (!candidate.elim) {
-        ties.push(candidate.id);
+        ties.push(candidate);
       }
     }
     console.log('There is a tie!');
