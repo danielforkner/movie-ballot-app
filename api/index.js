@@ -41,9 +41,7 @@ apiRouter.use(async (req, res, next) => {
 });
 
 apiRouter.use('/users', usersRouter);
-
 apiRouter.use('/movies', moviesRouter);
-
 apiRouter.use('/polls', pollsRouter);
 
 // error;
