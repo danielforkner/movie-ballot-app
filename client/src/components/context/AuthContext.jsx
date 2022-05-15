@@ -4,30 +4,34 @@ import { getMe } from '../../api/fetch';
 export const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [token, setToken] = useState(
     localStorage.getItem('fridayNightMoviesToken')
   );
 
-  // set user
-  const getUser = async () => {
-    if (localStorage.getItem('fridayNightMoviesToken')) {
-      const user = await getMe(token);
-      setUser(user);
-      console.log('ME THE USER: ', user);
-    } else {
-      console.log('no token');
-      setUser({});
-    }
-  };
-
   useEffect(() => {
+    const getUser = async () => {
+      if (localStorage.getItem('fridayNightMoviesToken')) {
+        const user = await getMe(token);
+        setUser(user);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        setUser({});
+      }
+    };
+
     console.log('token change');
+
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, token, setToken }}>
+    <AuthContext.Provider
+      value={{ user, setUser, token, setToken, isLoggedIn }}
+    >
       {children}
     </AuthContext.Provider>
   );

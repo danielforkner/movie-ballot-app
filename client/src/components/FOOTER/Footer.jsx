@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import useAuth from '../hooks/useAuth';
 
-const FooterLinks = () => {
+const Footer = () => {
   const { user } = useAuth();
   return (
     <footer className="container">
@@ -23,4 +23,4 @@ const FooterLinks = () => {
   );
 };
 
-export default FooterLinks;
+export default Footer;

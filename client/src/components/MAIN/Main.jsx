@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Wrapper from '../DASHBOARD/Wrapper';
+import LandingPage from './LandingPage';
 import Polls from './Polls';
 import SinglePoll from './SinglePoll';
 import Vote from './Vote';
@@ -15,7 +16,7 @@ const Main = () => {
         <Route path="/polls/:pollId" element={<SinglePoll />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/dashboard" element={<Wrapper />} />
-        <Route path="/" element={<Link to="/polls">My Polls</Link>} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </main>
   );
