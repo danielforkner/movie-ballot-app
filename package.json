@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "resolutions": {
-    "mini-css-extract-plugin": "2.4.5"
-  },
   "scripts": {
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
@@ -28,7 +25,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "mini-css-extract-plugin": "2.4.5"
   },
   "devDependencies": {
     "mini-css-extract-plugin": "2.4.5"
