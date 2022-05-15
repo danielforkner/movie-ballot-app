@@ -1,6 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
-const { getAllUsers, getUserByUsername, createUser } = require('../db');
+const { Users } = require('../db/models');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const { requireUser } = require('./utils');
@@ -13,7 +13,7 @@ usersRouter.use('/', (req, res, next) => {
 usersRouter.get('/', async (req, res, next) => {
   console.log('A get request for all users was made');
   try {
-    const users = await getAllUsers();
+    const users = await Users.getAllUsers();
     console.log('got the users');
     res.send(users);
   } catch (error) {
@@ -29,7 +29,7 @@ usersRouter.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
-    const user = await getUserByUsername(username);
+    const user = await Users.getUserByUsername(username);
     console.log('USER: ', user);
 
     //  BCRYPT
@@ -61,7 +61,7 @@ usersRouter.post('/register', async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
-    const _user = await getUserByUsername(username);
+    const _user = await Users.getUserByUsername(username);
 
     if (_user) {
       res.status(409);
@@ -71,7 +71,7 @@ usersRouter.post('/register', async (req, res, next) => {
           'user already exists, please try again with a different username',
       });
     } else {
-      const user = await createUser({
+      const user = await Users.createUser({
         username,
         password,
       });

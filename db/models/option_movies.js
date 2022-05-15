@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../client');
 const { getMovieIdByTitle } = require('./movies');
 
 async function removeMovieFromOption(title, optionId) {

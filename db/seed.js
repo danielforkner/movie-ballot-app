@@ -1,12 +1,5 @@
-const {
-  client,
-  getAllUsers,
-  createUser,
-  createPoll,
-  createOption,
-  createMovie,
-} = require('./index');
-const { createVote } = require('./votes');
+const { client } = require('./index');
+const { Users, Polls, Options, Movies, Votes } = require('./models');
 
 async function dropTables() {
   try {
@@ -91,17 +84,17 @@ async function createInitialUsers() {
   try {
     console.log('Creating users...');
 
-    await createUser({
+    await Users.createUser({
       username: 'dforkner',
       password: 'admin',
     });
 
-    await createUser({
+    await Users.createUser({
       username: 'affogato',
       password: 'caramel',
     });
 
-    await createUser({
+    await Users.createUser({
       username: 'daniel',
       password: 'daniel',
     });
@@ -114,7 +107,7 @@ async function createInitialPolls() {
   try {
     console.log('Creating Polls...');
 
-    await createPoll({
+    await Polls.createPoll({
       name: 'Weekend Blast',
       authorID: 3,
     });
@@ -126,9 +119,9 @@ async function createInitialPolls() {
 async function createInitialOptions() {
   try {
     console.log('Creating Options...');
-    await createOption({ name: 'Early Movie', poll: 1 });
-    await createOption({ name: 'Late Movie', poll: 1 });
-    await createOption({ name: 'Saturday Matinee', poll: 1 });
+    await Options.createOption({ name: 'Early Movie', poll: 1 });
+    await Options.createOption({ name: 'Late Movie', poll: 1 });
+    await Options.createOption({ name: 'Saturday Matinee', poll: 1 });
   } catch (error) {
     throw error;
   }
@@ -137,15 +130,15 @@ async function createInitialOptions() {
 async function createInitialMovies() {
   try {
     console.log('Creating Movies...');
-    await createMovie('Home Alone', 1990, 1);
-    await createMovie('Home Alone 2', 1992, 1);
-    await createMovie('Home Alone 3', 1995, 1);
-    await createMovie('Spider Man 1', 1997, 2);
-    await createMovie('Spider Man 2', 1999, 2);
-    await createMovie('Spider Man 3', 2000, 2);
-    await createMovie('Mystery Man 1', 2018, 3);
-    await createMovie('Mystery Man 2', 2019, 3);
-    await createMovie('Mystery Man 3', 2020, 3);
+    await Movies.createMovie('Home Alone', 1990, 1);
+    await Movies.createMovie('Home Alone 2', 1992, 1);
+    await Movies.createMovie('Home Alone 3', 1995, 1);
+    await Movies.createMovie('Spider Man 1', 1997, 2);
+    await Movies.createMovie('Spider Man 2', 1999, 2);
+    await Movies.createMovie('Spider Man 3', 2000, 2);
+    await Movies.createMovie('Mystery Man 1', 2018, 3);
+    await Movies.createMovie('Mystery Man 2', 2019, 3);
+    await Movies.createMovie('Mystery Man 3', 2020, 3);
   } catch (error) {
     throw error;
   }
@@ -154,7 +147,7 @@ async function createInitialMovies() {
 async function createInitialVotes() {
   try {
     console.log('Casting votes...');
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -191,7 +184,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -228,7 +221,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -265,44 +258,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
-      {
-        1: {
-          name: 'Early Movie',
-          movies: [
-            {
-              movie: {
-                title: 'Home Alone 2',
-                year: '1992',
-                id: 2,
-              },
-              rank: 1,
-              id: 2,
-            },
-            {
-              movie: {
-                title: 'Home Alone',
-                year: '1990',
-                id: 1,
-              },
-              rank: 2,
-              id: 1,
-            },
-            {
-              movie: {
-                title: 'Home Alone 3',
-                year: '1995',
-                id: 3,
-              },
-              rank: 3,
-              id: 3,
-            },
-          ],
-        },
-      },
-      1
-    );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -339,7 +295,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -376,7 +332,44 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
+      {
+        1: {
+          name: 'Early Movie',
+          movies: [
+            {
+              movie: {
+                title: 'Home Alone 2',
+                year: '1992',
+                id: 2,
+              },
+              rank: 1,
+              id: 2,
+            },
+            {
+              movie: {
+                title: 'Home Alone',
+                year: '1990',
+                id: 1,
+              },
+              rank: 2,
+              id: 1,
+            },
+            {
+              movie: {
+                title: 'Home Alone 3',
+                year: '1995',
+                id: 3,
+              },
+              rank: 3,
+              id: 3,
+            },
+          ],
+        },
+      },
+      1
+    );
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -413,7 +406,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
@@ -450,7 +443,7 @@ async function createInitialVotes() {
       },
       1
     );
-    await createVote(
+    await Votes.createVote(
       {
         1: {
           name: 'Early Movie',
