@@ -43,7 +43,16 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
                     : 'no winner yet'}
                 </p>
                 <p>
-                  {option.ties ? `There is a tie between ${option.ties}` : null}
+                  {option.ties ? (
+                    <>
+                      There is a tie between{' '}
+                      <ul>
+                        {option.ties.ties.map((movie) => {
+                          return <li>{movie.title}</li>;
+                        })}
+                      </ul>
+                    </>
+                  ) : null}
                 </p>
               </>
             );
