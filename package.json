@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
+    "build": "cd client && npm run build",
     "seed": "node ./db/seed.js",
     "server:dev": "nodemon index.js",
     "client:build": "(cd client && npm run build)",
