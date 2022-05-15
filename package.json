@@ -25,6 +25,10 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "mini-css-extract-plugin": "2.4.5"
+  },
+  "devDependencies": {
+    "mini-css-extract-plugin": "2.4.5"
   }
 }
