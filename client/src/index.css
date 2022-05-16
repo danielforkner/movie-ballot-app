@@ -13,6 +13,12 @@ code {
     monospace;
 }
 
+/* Login */
+.errorMessage {
+  color: red;
+  font-weight: 900;
+}
+
 /* LANDING - START */
 
 #landingPage {

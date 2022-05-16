@@ -95,8 +95,12 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : null}
-        {registerBtn ? <Register setRegisterBtn={setRegisterBtn} /> : null}
+        {loginBtn ? (
+          <Login setLoginBtn={setLoginBtn} loginBtn={loginBtn} />
+        ) : null}
+        {registerBtn ? (
+          <Register setRegisterBtn={setRegisterBtn} registerBtn={registerBtn} />
+        ) : null}
       </div>
     </header>
   );
