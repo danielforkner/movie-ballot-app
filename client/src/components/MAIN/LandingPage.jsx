@@ -48,7 +48,9 @@ const LandingPage = () => {
               onChange={(e) => setGoToPoll(e.target.value)}
               type="text"
             />
-            <button type="submit">Go</button>
+            <button className="btn-warning rounded" type="submit">
+              Go
+            </button>
           </form>
         </div>
       ) : null}

@@ -10,7 +10,6 @@ const Polls = () => {
   const { token } = useAuth();
   const { myPolls, setMyPolls } = usePolls();
   const [isAddingNewPoll, setIsAddingNewPoll] = useState(false);
-  console.log('My polls: ', myPolls);
 
   const handleDeletePoll = async (pollId) => {
     try {

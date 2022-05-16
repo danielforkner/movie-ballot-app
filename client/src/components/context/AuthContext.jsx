@@ -22,8 +22,6 @@ const AuthProvider = ({ children }) => {
       }
     };
 
-    console.log('token change');
-
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);

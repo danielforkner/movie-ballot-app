@@ -3,7 +3,6 @@ import usePolls from '../hooks/usePolls';
 
 const Sidebar = () => {
   const { myPolls } = usePolls();
-  console.log(myPolls);
   return (
     <nav
       id="sidebarMenu"
