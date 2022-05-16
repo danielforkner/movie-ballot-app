@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loginUser } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 
@@ -7,10 +7,16 @@ const Login = ({ loginBtn, setLoginBtn }) => {
   const { setToken } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const resetForm = () => {
     setUsername('');
     setPassword('');
   };
+
+  useEffect(() => {
+    setIsError(false);
+  }, []);
 
   const handleClose = () => setLoginBtn(false);
 
@@ -18,12 +24,12 @@ const Login = ({ loginBtn, setLoginBtn }) => {
     e.preventDefault();
     try {
       const response = await loginUser(username, password);
-      console.log('LOGIN RESPONSE: ', response);
       localStorage.setItem('fridayNightMoviesToken', response.token);
       setToken(response.token);
       setLoginBtn(false);
     } catch (error) {
-      console.error(error);
+      setIsError(true);
+      setErrorMessage(error.message);
     } finally {
       resetForm();
     }
@@ -73,6 +79,11 @@ const Login = ({ loginBtn, setLoginBtn }) => {
             Submit
           </button>
         </form>
+        {isError ? (
+          <div className="errorMessage">
+            <small>{`${errorMessage}`}</small>
+          </div>
+        ) : null}
       </div>
     </Modal>
   );

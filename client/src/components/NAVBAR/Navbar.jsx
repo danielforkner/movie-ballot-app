@@ -98,7 +98,9 @@ const Navbar = () => {
         {loginBtn ? (
           <Login setLoginBtn={setLoginBtn} loginBtn={loginBtn} />
         ) : null}
-        {registerBtn ? <Register setRegisterBtn={setRegisterBtn} /> : null}
+        {registerBtn ? (
+          <Register setRegisterBtn={setRegisterBtn} registerBtn={registerBtn} />
+        ) : null}
       </div>
     </header>
   );
