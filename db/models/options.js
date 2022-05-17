@@ -122,7 +122,7 @@ async function resetTies(optionId) {
     await client.query(
       `
       UPDATE options
-      SET winner = null
+      SET ties = null
       WHERE id=$1;
       `,
       [optionId]
