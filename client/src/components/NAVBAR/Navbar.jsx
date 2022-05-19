@@ -9,8 +9,6 @@ const Navbar = () => {
   const [registerBtn, setRegisterBtn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
-  console.log('user: ', user);
 
   return (
     <header className="p-2 bg-dark sticky-top text-white">

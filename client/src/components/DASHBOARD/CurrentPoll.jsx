@@ -10,13 +10,11 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
   const handleClick = async () => {
     try {
       const response = await fetchCalculateVotes(token, currentPoll.id);
-      console.log(response);
       const polls = await fetchMyPolls(token);
       setMyPolls(polls);
       let [updatedCurrentPoll] = polls.filter(
         (poll) => poll.id === currentPoll.id
       );
-      console.log('updatedCurrentPoll: ', updatedCurrentPoll);
       setCurrentPoll(updatedCurrentPoll);
     } catch (error) {
       console.error(error);

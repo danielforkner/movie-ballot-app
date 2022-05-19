@@ -5,7 +5,6 @@ const DB_URL = '/api';
 
 // FETCH FROM OUR DATABASE
 export const loginUser = async (username, password) => {
-  console.log(username, password);
   try {
     const { data } = await axios.post(`${DB_URL}/users/login`, {
       username,
@@ -70,7 +69,6 @@ export const fetchMyPolls = async (token) => {
 export const fetchMovies = async (title, year) => {
   try {
     const response = await axios.get(`${DB_URL}/movies/${title}&${year}`);
-    console.log('fetchMovies response', response);
     return response.data;
   } catch (error) {
     console.error(error);

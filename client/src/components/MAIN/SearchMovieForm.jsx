@@ -11,7 +11,6 @@ const SearchMovieForm = ({ searchResults, setSearchResults }) => {
         // setIsLoading(true) display spinning gear
         try {
           const data = await fetchMovies(title, year);
-          console.log(data);
           if (data.Response === 'False') throw new Error(`${data.Error}`);
           setSearchResults(data.Search);
         } catch (error) {

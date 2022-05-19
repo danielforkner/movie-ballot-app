@@ -23,12 +23,10 @@ const SinglePoll = () => {
 
   const getPoll = async () => {
     if (!token) {
-      console.log('no user logged in, redirecting...');
       navigate('/', { replace: true });
     } else {
       try {
         const response = await fetchPollById(pollId);
-        console.log('get poll response: ', response);
         setCurrentPoll(response[0]);
         setActive(response[0].active);
       } catch (error) {

@@ -14,7 +14,6 @@ const Vote = () => {
   const getPoll = async () => {
     try {
       const response = await fetchPollById(pollId);
-      console.log('get poll response: ', response);
       setCurrentPoll(response[0]);
       setActive(response[0].active);
     } catch (error) {
@@ -36,7 +35,6 @@ const Vote = () => {
       setVoted(true);
     } else if (currentPoll.options && currentPoll.options.length > 0) {
       const newRankList = createRankList(currentPoll.options);
-      console.log('new rank list: ', newRankList);
       setRankList(newRankList);
     } else {
       return;
@@ -78,7 +76,6 @@ const Vote = () => {
   const handleSubmitRank = async () => {
     try {
       const response = await castVote(rankList, pollId);
-      console.log('Vote cast response: ', response);
       localStorage.setItem(`voted:poll:${pollId}`, true);
       setVoted(true);
     } catch (error) {
