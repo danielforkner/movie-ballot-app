@@ -8,7 +8,8 @@ const NewOptionForm = ({ currentPoll }) => {
   const { token } = useAuth();
   const [optionName, setOptionName] = useState('');
 
-  const handleNewOption = async () => {
+  const handleNewOption = async (e) => {
+    e.preventDefault();
     const updatedPolls = await fetchCreateNewOption(
       token,
       optionName,
@@ -18,25 +19,19 @@ const NewOptionForm = ({ currentPoll }) => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <div className="container">
-        <div className="row">
-          <span
-            onClick={(e) => handleNewOption(e)}
-            className="btn btn-sm btn-success col-1"
-          >
-            +
-          </span>
-          <input
-            className="col-11"
-            name="optionName"
-            placeholder="Option Name"
-            value={optionName}
-            onChange={(e) => setOptionName(e.target.value)}
-          ></input>
-        </div>
-      </div>
-    </form>
+    <div className="container m-2">
+      <form onSubmit={(e) => handleNewOption(e)}>
+        <input
+          name="optionName"
+          placeholder="Option Name"
+          value={optionName}
+          onChange={(e) => setOptionName(e.target.value)}
+        ></input>
+        <button className="btn-warning rounded" type="submit">
+          Add
+        </button>
+      </form>
+    </div>
   );
 };
 

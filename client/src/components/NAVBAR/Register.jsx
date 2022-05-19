@@ -91,12 +91,14 @@ const Register = ({ setRegisterBtn, registerBtn }) => {
             ></input>
             <label htmlFor="confirmPassword">Confirm Password</label>
           </div>
-          <button
-            className="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
-            type="submit"
-          >
-            Submit
-          </button>
+          <div className="bg-dark bg-gradient rounded">
+            <button
+              className="w-100 btn btn-lg rounded btn-outline-warning"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
         </form>
         {isError ? (
           <div className="errorMessage">

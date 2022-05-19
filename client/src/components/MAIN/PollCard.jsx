@@ -11,7 +11,7 @@ const PollCard = ({ poll, handleDeletePoll }) => {
           <p>
             {`Public link: `}
             <Link to={`rank/${poll.id}`}>
-              {`${window.location.href}/rank/${poll.id}`}
+              {`${window.location.href}/vote/${poll.id}`}
             </Link>
           </p>
         </Fragment>

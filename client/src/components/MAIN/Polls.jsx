@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchDeletePoll, fetchMyPolls } from '../../api/fetch';
+import { fetchDeletePoll } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 import usePolls from '../hooks/usePolls';
 import NewPollForm from './NewPollForm';
@@ -25,7 +24,12 @@ const Polls = () => {
       <button onClick={() => setIsAddingNewPoll(!isAddingNewPoll)}>
         Add new Poll
       </button>
-      {isAddingNewPoll ? <NewPollForm /> : null}
+      {isAddingNewPoll ? (
+        <NewPollForm
+          isAddingNewPoll={isAddingNewPoll}
+          setIsAddingNewPoll={setIsAddingNewPoll}
+        />
+      ) : null}
       <h1>Active Polls</h1>
       {myPolls.length && myPolls.length > 0
         ? myPolls.map((poll, i) => {

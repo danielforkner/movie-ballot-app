@@ -12,7 +12,7 @@ const Main = () => {
     // check useAuth for logged in, don't allow My Polls if not logged in
     <main>
       <Routes>
-        <Route path="/polls/rank/:pollId" element={<Vote />} />
+        <Route path="/polls/vote/:pollId" element={<Vote />} />
         <Route path="/polls/:pollId" element={<SinglePoll />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/dashboard" element={<Wrapper />} />

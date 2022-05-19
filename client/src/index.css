@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+/* MODAL */
+.modal-content {
+  background-color: #363636;
+}
+.modal-header {
+  background-color: #ffc107;
+}
+
 /* Login */
 .errorMessage {
   color: red;

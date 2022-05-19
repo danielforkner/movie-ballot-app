@@ -13,13 +13,13 @@ const LandingPage = () => {
   };
 
   return (
-    <div id="landingPage" className="text-center">
+    <div className="text-center m-5 p-5">
       <h2>Welcome to Friday Night Movies</h2>
       <p>
         the <em>only</em> ranked-choice movie voting app for you and your
         friends
       </p>
-      <div className="d-flex justify-content-around">
+      <div className="d-flex justify-content-center gap-2">
         {isLoggedIn ? (
           <div className="bg-dark bg-gradient rounded">
             <Link to="/polls">
@@ -40,7 +40,7 @@ const LandingPage = () => {
         </div>
       </div>
       {showLink ? (
-        <div className="container">
+        <div className="container m-2">
           <form onSubmit={handleSubmit}>
             <input
               name="goToPoll"
