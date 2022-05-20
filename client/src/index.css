@@ -21,13 +21,13 @@ code {
   background-color: #ffc107;
 }
 
-/* Login */
+/* LOGIN */
 .errorMessage {
   color: red;
   font-weight: 900;
 }
 
-/* LANDING - START */
+/* LANDING */
 
 #landingPage {
   position: absolute;
@@ -36,17 +36,13 @@ code {
   transform: translate(-50%, -50%);
 }
 
-/* LANDING - END */
-
-/* MAIN - START */
+/* MAIN */
 
 .nav-link:hover {
   cursor: pointer;
 }
 
-/* MAIN - END */
-
-/* DASHBOARD - START */
+/* DASHBOARD */
 .sidebar {
   position: fixed;
   top: 1rem;
@@ -61,10 +57,8 @@ code {
   background-color: rgb(164, 223, 164);
   cursor: pointer;
 }
-/* DASHBOARD - END */
 
-/* OPTION - START */
-
+/* OPTION */
 .optionContainer {
   max-width: 350px;
   padding: 10px;
@@ -97,12 +91,24 @@ code {
   cursor: pointer;
 }
 
-/* OPTION - END */
-
-/* VOTE - START */
+/* VOTE */
 .rankDwnBtn:hover,
 .rankUpBtn:hover {
   cursor: pointer;
   transform: scale(1.25);
 }
-/* VOTE - END */
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}

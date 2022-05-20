@@ -113,46 +113,32 @@ const Vote = () => {
                               return (
                                 <li
                                   key={`movieRank${i}:option${option.id}`}
-                                  className="list-group-item"
+                                  className="list-group-item d-flex gap-2 align-items-center"
                                 >
                                   {i === 0 ? null : (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    <button
+                                      className="btn btn-sm btn-warning"
                                       onClick={() =>
                                         handleRankUp(option.id, movie)
                                       }
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      className="bi bi-arrow-up rankUpBtn"
-                                      viewBox="0 0 16 16"
                                     >
-                                      <path
-                                        fill-rule="evenodd"
-                                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
-                                      />
-                                    </svg>
+                                      <i className="down arrow"></i>
+                                    </button>
                                   )}
                                   {i === len - 1 ? null : (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    <button
+                                      className="btn btn-sm btn-warning"
                                       onClick={() =>
-                                        handleRankDown(option.id, movie)
+                                        handleRankUp(option.id, movie)
                                       }
-                                      width="16"
-                                      height="16"
-                                      fill="currentColor"
-                                      className="bi bi-arrow-down rankDwnBtn"
-                                      viewBox="0 0 16 16"
                                     >
-                                      <path
-                                        fill-rule="evenodd"
-                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
-                                      />
-                                    </svg>
+                                      <i className="up arrow"></i>
+                                    </button>
                                   )}
-                                  Rank: {movie.rank} {movie.movie.title}, (
-                                  {movie.movie.year})
+                                  <span style={{ fontWeight: '900' }}>
+                                    Rank: {movie.rank}
+                                  </span>{' '}
+                                  {movie.movie.title}, ({movie.movie.year})
                                 </li>
                               );
                             })}
