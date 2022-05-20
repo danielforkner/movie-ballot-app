@@ -113,26 +113,26 @@ const Vote = () => {
                                   key={`movieRank${i}:option${option.id}`}
                                   className="list-group-item d-flex gap-2 align-items-center"
                                 >
-                                  {i === 0 ? null : (
-                                    <button
-                                      className="btn btn-sm btn-warning"
-                                      onClick={() =>
-                                        handleRankDown(option.id, movie)
-                                      }
-                                    >
-                                      <i className="down arrow"></i>
-                                    </button>
-                                  )}
-                                  {i === len - 1 ? null : (
-                                    <button
-                                      className="btn btn-sm btn-warning"
-                                      onClick={() =>
-                                        handleRankUp(option.id, movie)
-                                      }
-                                    >
-                                      <i className="up arrow"></i>
-                                    </button>
-                                  )}
+                                  {/* {i === 0 ? null : (
+                                    {i === len - 1 ? null : (
+                                      )}
+                                    )} */}
+                                  <button
+                                    className="btn btn-sm btn-warning"
+                                    onClick={() =>
+                                      handleRankDown(option.id, movie)
+                                    }
+                                  >
+                                    <i className="down arrow"></i>
+                                  </button>
+                                  <button
+                                    className="btn btn-sm btn-warning"
+                                    onClick={() =>
+                                      handleRankUp(option.id, movie)
+                                    }
+                                  >
+                                    <i className="up arrow"></i>
+                                  </button>
                                   <span style={{ fontWeight: '900' }}>
                                     Rank: {movie.rank}
                                   </span>{' '}
