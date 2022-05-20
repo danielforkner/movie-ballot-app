@@ -94,9 +94,7 @@ const Vote = () => {
           {rankList ? (
             <div className="rank-container d-flex flex-column align-items-center">
               <h1>{`Cast your ranked choice for: ${currentPoll.name}`}</h1>
-              <button className="btn btn-success" onClick={handleSubmitRank}>
-                Finalize and submit your ranked choice.
-              </button>
+
               <div className="album p-5 w-100">
                 <div className="d-flex flex-wrap justify-content-center gap-4">
                   {currentPoll.options.map((option, i) => {
@@ -119,7 +117,7 @@ const Vote = () => {
                                     <button
                                       className="btn btn-sm btn-warning"
                                       onClick={() =>
-                                        handleRankUp(option.id, movie)
+                                        handleRankDown(option.id, movie)
                                       }
                                     >
                                       <i className="down arrow"></i>
@@ -149,6 +147,9 @@ const Vote = () => {
                   })}
                 </div>
               </div>
+              <button className="btn btn-success" onClick={handleSubmitRank}>
+                Finalize and submit your ranked choice.
+              </button>
             </div>
           ) : null}
         </Fragment>
