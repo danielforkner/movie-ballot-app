@@ -19,7 +19,7 @@ const NewOptionForm = ({ currentPoll }) => {
   };
 
   return (
-    <div className="container m-2">
+    <div className="container m-2 d-flex justify-content-center">
       <form onSubmit={(e) => handleNewOption(e)}>
         <input
           name="optionName"

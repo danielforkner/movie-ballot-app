@@ -9,7 +9,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate(`/polls/rank/${goToPoll}`, { replace: true });
+    navigate(`/polls/vote/${goToPoll}`, { replace: true });
   };
 
   return (
@@ -40,11 +40,12 @@ const LandingPage = () => {
         </div>
       </div>
       {showLink ? (
-        <div className="container m-2">
+        <div className="d-flex justify-content-center m-2">
           <form onSubmit={handleSubmit}>
             <input
               name="goToPoll"
               value={goToPoll}
+              placeholder="enter poll number here"
               onChange={(e) => setGoToPoll(e.target.value)}
               type="text"
             />

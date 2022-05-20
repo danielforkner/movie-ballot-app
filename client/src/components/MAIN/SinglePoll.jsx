@@ -21,73 +21,68 @@ const SinglePoll = () => {
     setMyPolls(updatedPolls);
   };
 
-  const getPoll = async () => {
-    if (!token) {
-      navigate('/', { replace: true });
-    } else {
-      try {
-        const response = await fetchPollById(pollId);
-        setCurrentPoll(response[0]);
-        setActive(response[0].active);
-      } catch (error) {
-        if (error.name === 'NoPageExists') {
-          console.error(error.message);
-          navigate('/', { replace: true });
-        } else {
-          throw error;
-        }
-      }
-    }
-  };
-
   // on page load, get poll by id. If authorId is not user.id, redirect. otherwise setCurrentPoll.
   useEffect(() => {
+    const getPoll = async () => {
+      if (!token) {
+        navigate('/', { replace: true });
+      } else {
+        try {
+          const response = await fetchPollById(pollId);
+          setCurrentPoll(response[0]);
+          setActive(response[0].active);
+        } catch (error) {
+          if (error.name === 'NoPageExists') {
+            console.error(error.message);
+            navigate('/', { replace: true });
+          } else {
+            throw error;
+          }
+        }
+      }
+    };
     getPoll();
   }, [myPolls]);
 
   return (
-    <div>
+    <div className="rank-container d-flex flex-column align-items-center">
       {user.username ? (
         <Fragment>
           <h1>{`Poll: ${currentPoll.name}`}</h1>
-          {active ? null : (
-            <button className="btn btn-success" onClick={handleFinalize}>
-              Finalize and Create Public Link
-            </button>
+          {active && currentPoll.options.length > 0 ? null : (
+            <>
+              <button className="btn btn-success" onClick={handleFinalize}>
+                Finalize and Create Public Link
+              </button>
+              {active ? null : (
+                <Fragment>
+                  <h4>Options</h4>
+                  <button
+                    onClick={() => setisAddingNewOption(!isAddingNewOption)}
+                  >
+                    Add a poll option, aka ballot
+                  </button>
+                </Fragment>
+              )}
+              {isAddingNewOption ? (
+                <NewOptionForm currentPoll={currentPoll} />
+              ) : null}
+            </>
           )}
-          <div className="album py-5 bg-light">
-            {active ? null : (
-              <Fragment>
-                <h4>Options</h4>
-                <button
-                  onClick={() => setisAddingNewOption(!isAddingNewOption)}
-                >
-                  Add an Option
-                </button>
-              </Fragment>
-            )}
-            {isAddingNewOption ? (
-              <NewOptionForm currentPoll={currentPoll} />
-            ) : null}
-            <div className="container">
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {currentPoll.options
-                  ? currentPoll.options.map((option, i) => {
-                      return (
-                        <div
-                          className="col"
-                          key={`poll:${currentPoll.id}option:${option.id}`}
-                        >
-                          <Option
-                            active={active}
-                            option={option}
-                            poll={currentPoll}
-                          />
-                        </div>
-                      );
-                    })
-                  : null}
-              </div>
+          <div className="album p-5 w-100">
+            <div className="d-flex flex-wrap justify-content-center gap-4">
+              {currentPoll.options
+                ? currentPoll.options.map((option, i) => {
+                    return (
+                      <Option
+                        active={active}
+                        option={option}
+                        poll={currentPoll}
+                        key={`poll:${currentPoll.id}option:${option.id}`}
+                      />
+                    );
+                  })
+                : null}
             </div>
           </div>
         </Fragment>
