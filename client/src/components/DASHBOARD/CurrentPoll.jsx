@@ -24,31 +24,31 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
   return (
     <div id="currentPoll-container">
       {currentPoll ? (
-        <>
-          <div className="bg-dark bg-gradient rounded">
-            {' '}
-            <button className="btn btn-outline-warning" onClick={refreshVotes}>
-              Refresh vote count
-            </button>
-          </div>
+        <div className="d-flex flex-column gap-3">
           <h1>{currentPoll.name}</h1>
           <h2>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h2>
+          <button className="btn bg-light btn-warning" onClick={refreshVotes}>
+            Refresh vote count
+          </button>
           {currentPoll.options.map((option, i) => {
             return (
-              <>
-                <h2>{option.name}</h2>
-                <p>{`Current vote count: ${
-                  option.voters || 'no one has voted yet'
-                }`}</p>
-                <p>
-                  {option.winner
-                    ? `Current winner: ${option.winner.title} with a total of ${option.winner.votes} votes after ${option.rounds} rounds.`
-                    : 'no winner yet'}
-                </p>
-                <p>
+              <div className="card">
+                <div className="card-header">
+                  <h2>{option.name}</h2>
+                </div>
+                <div className="card-body">
+                  <p>{`Current vote count: ${
+                    option.voters || 'no one has voted yet'
+                  }`}</p>
+                  <p>
+                    {option.winner
+                      ? `Current winner: ${option.winner.title} with a total of ${option.winner.votes} votes after ${option.rounds} rounds.`
+                      : 'no winner yet'}
+                  </p>
+
                   {option.ties ? (
                     <>
-                      There is a tie between{' '}
+                      There is a tie between
                       <ul>
                         {option.ties.ties.map((movie) => {
                           return <li>{movie.title}</li>;
@@ -56,11 +56,11 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
                       </ul>
                     </>
                   ) : null}
-                </p>
-              </>
+                </div>
+              </div>
             );
           })}
-        </>
+        </div>
       ) : (
         'Select a poll from the table below'
       )}
