@@ -10,11 +10,6 @@ const { calculateWinner } = require('../db/utils');
 
 const { requireUser } = require('./utils');
 
-pollsRouter.use('/', (req, res, next) => {
-  console.log('A request to /polls is being made');
-  next();
-});
-
 pollsRouter.get('/poll/:pollId', async (req, res, next) => {
   console.log('retrieving specific poll');
   const { pollId } = req.params;

@@ -3,7 +3,6 @@ const { mapOptions, today } = require('../utils');
 
 async function createPoll({ name, authorID }) {
   const date = today();
-  console.log('Date created: ', date);
   try {
     const {
       rows: [poll],
@@ -76,7 +75,6 @@ async function getAllPollsByUserId(id) {
       [id]
     );
     const polls = await mapOptions(rows);
-    console.log('All mapped polls with options: ', polls);
     return polls;
   } catch (error) {
     throw error;

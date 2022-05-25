@@ -1,6 +1,22 @@
 import React, { Fragment } from 'react';
+import { fetchCalculateVotes, fetchMyPolls } from '../../api/fetch';
+import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 
 const Table = ({ pollList, setCurrentPoll }) => {
+  const { token } = useAuth();
+  const { setMyPolls } = usePolls();
+  const handleClick = async (poll) => {
+    try {
+      await fetchCalculateVotes(token, poll.id);
+      const polls = await fetchMyPolls(token);
+      setMyPolls(polls);
+      let [updatedCurrentPoll] = polls.filter((item) => item.id === poll.id);
+      setCurrentPoll(updatedCurrentPoll);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div class="table-responsive">
       <table class="table table-striped table-sm">
@@ -21,12 +37,12 @@ const Table = ({ pollList, setCurrentPoll }) => {
                 return (
                   <tr
                     className="tableSelectRow"
-                    onClick={() => setCurrentPoll(poll)}
+                    onClick={() => handleClick(poll)}
                   >
                     <td>{poll.id}</td>
                     <td>{poll.name}</td>
                     <td>{poll.dateCreated.slice(0, 10)}</td>
-                    <td>{poll.voters}</td>
+                    <td>{poll.voters || 0}</td>
                     <td>{poll.options.length}</td>
                   </tr>
                 );

@@ -75,7 +75,7 @@ const Vote = () => {
 
   const handleSubmitRank = async () => {
     try {
-      const response = await castVote(rankList, pollId);
+      await castVote(rankList, pollId);
       localStorage.setItem(`voted:poll:${pollId}`, true);
       setVoted(true);
     } catch (error) {
@@ -113,26 +113,49 @@ const Vote = () => {
                                   key={`movieRank${i}:option${option.id}`}
                                   className="list-group-item d-flex gap-2 align-items-center"
                                 >
-                                  {/* {i === 0 ? null : (
-                                    {i === len - 1 ? null : (
+                                  {i === 0 ? (
+                                    <button
+                                      className="btn btn-sm btn-warning"
+                                      onClick={() =>
+                                        handleRankDown(option.id, movie)
+                                      }
+                                    >
+                                      <i className="down arrow"></i>
+                                    </button>
+                                  ) : (
+                                    <>
+                                      {i === len - 1 ? (
+                                        <button
+                                          className="btn btn-sm btn-warning"
+                                          onClick={() =>
+                                            handleRankUp(option.id, movie)
+                                          }
+                                        >
+                                          <i className="up arrow"></i>
+                                        </button>
+                                      ) : (
+                                        <>
+                                          {' '}
+                                          <button
+                                            className="btn btn-sm btn-warning"
+                                            onClick={() =>
+                                              handleRankUp(option.id, movie)
+                                            }
+                                          >
+                                            <i className="up arrow"></i>
+                                          </button>{' '}
+                                          <button
+                                            className="btn btn-sm btn-warning"
+                                            onClick={() =>
+                                              handleRankDown(option.id, movie)
+                                            }
+                                          >
+                                            <i className="down arrow"></i>
+                                          </button>
+                                        </>
                                       )}
-                                    )} */}
-                                  <button
-                                    className="btn btn-sm btn-warning"
-                                    onClick={() =>
-                                      handleRankDown(option.id, movie)
-                                    }
-                                  >
-                                    <i className="down arrow"></i>
-                                  </button>
-                                  <button
-                                    className="btn btn-sm btn-warning"
-                                    onClick={() =>
-                                      handleRankUp(option.id, movie)
-                                    }
-                                  >
-                                    <i className="up arrow"></i>
-                                  </button>
+                                    </>
+                                  )}
                                   <span style={{ fontWeight: '900' }}>
                                     Rank: {movie.rank}
                                   </span>{' '}

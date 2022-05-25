@@ -5,11 +5,11 @@ import { fetchCalculateVotes, fetchMyPolls } from '../../api/fetch';
 
 const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
   const { token } = useAuth();
-  const { myPolls, setMyPolls } = usePolls();
+  const { setMyPolls } = usePolls();
 
-  const handleClick = async () => {
+  const refreshVotes = async () => {
     try {
-      const response = await fetchCalculateVotes(token, currentPoll.id);
+      await fetchCalculateVotes(token, currentPoll.id);
       const polls = await fetchMyPolls(token);
       setMyPolls(polls);
       let [updatedCurrentPoll] = polls.filter(
@@ -23,9 +23,14 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
 
   return (
     <div id="currentPoll-container">
-      {currentPoll.name ? (
+      {currentPoll ? (
         <>
-          <button onClick={handleClick}>Refresh vote count</button>
+          <div className="bg-dark bg-gradient rounded">
+            {' '}
+            <button className="btn btn-outline-warning" onClick={refreshVotes}>
+              Refresh vote count
+            </button>
+          </div>
           <h1>{currentPoll.name}</h1>
           <h2>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h2>
           {currentPoll.options.map((option, i) => {

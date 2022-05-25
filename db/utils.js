@@ -19,7 +19,6 @@ function today() {
 
 async function mapOptions(rows) {
   let map = {};
-  console.log('rows: ', rows);
   for (const row of rows) {
     // id is from polls.id
     if (!map[row.poll_id]) {
