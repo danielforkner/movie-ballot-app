@@ -13,7 +13,7 @@ const Main = () => {
     <main>
       <Routes>
         <Route path="/polls/vote/:pollLink" element={<Vote />} />
-        <Route path="/polls/:pollId" element={<SinglePoll />} />
+        <Route path="/polls/:pollLink" element={<SinglePoll />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/dashboard" element={<Wrapper />} />
         <Route path="/" element={<LandingPage />} />
