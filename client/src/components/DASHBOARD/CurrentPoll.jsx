@@ -24,15 +24,23 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
   return (
     <div id="currentPoll-container">
       {currentPoll ? (
-        <div className="d-flex flex-column gap-3">
+        <div className="d-flex flex-column align-items-start gap-3 mb-3">
           <h1>{currentPoll.name}</h1>
           <h2>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h2>
-          <button className="btn bg-light btn-warning" onClick={refreshVotes}>
-            Refresh vote count
-          </button>
+          <div className="d-flex justify-content-start gap-3">
+            <button
+              className="btn bg-gradient btn-primary"
+              onClick={refreshVotes}
+            >
+              Refresh vote count
+            </button>
+            <button className="btn bg-gradient btn-warning" onClick={() => {}}>
+              Close Poll
+            </button>
+          </div>
           {currentPoll.options.map((option, i) => {
             return (
-              <div className="card">
+              <div className="card shadow-sm w-100">
                 <div className="card-header">
                   <h2>{option.name}</h2>
                 </div>
@@ -42,7 +50,7 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
                   }`}</p>
                   <p>
                     {option.winner
-                      ? `Current winner: ${option.winner.title} with a total of ${option.winner.votes} votes after ${option.rounds} rounds.`
+                      ? `Current winner: ${option.winner.title}`
                       : 'no winner yet'}
                   </p>
 

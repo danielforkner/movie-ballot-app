@@ -20,7 +20,7 @@ const Polls = () => {
   };
 
   return (
-    <div>
+    <div className="p-3 d-flex flex-column align-items-start ga-3">
       <button onClick={() => setIsAddingNewPoll(!isAddingNewPoll)}>
         Add new Poll
       </button>
