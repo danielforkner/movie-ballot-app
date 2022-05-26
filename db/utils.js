@@ -24,11 +24,13 @@ async function mapOptions(rows) {
     if (!map[row.poll_id]) {
       map[row.poll_id] = {
         id: row.poll_id,
+        link: row.link,
         dateCreated: row.dateCreated,
         name: row.poll_name,
         authorID: row.authorID,
         deleted: row.deleted,
         active: row.active,
+        closed: row.closed,
         voters: row.pollVoters,
         options: [],
       };

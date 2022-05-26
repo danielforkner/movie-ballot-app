@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PollCard = ({ poll, handleDeletePoll }) => {
@@ -12,8 +12,8 @@ const PollCard = ({ poll, handleDeletePoll }) => {
         {poll.active ? (
           <p>
             {`Public link: `}
-            <Link to={`vote/${poll.id}`}>
-              {`${window.location.href}/vote/${poll.id}`}
+            <Link to={`vote/${poll.link}`}>
+              {`${window.location.href}/vote/${poll.link}`}
             </Link>
           </p>
         ) : (

@@ -52,6 +52,16 @@ export const fetchPollById = async (pollId) => {
   }
 };
 
+export const fetchPollByLink = async (pollLink) => {
+  try {
+    const { data } = await axios.get(`${DB_URL}/polls/link/${pollLink}`);
+
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const fetchMyPolls = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/polls/myPolls`, {

@@ -30,6 +30,17 @@ pollsRouter.get('/poll/:pollId', async (req, res, next) => {
   }
 });
 
+pollsRouter.get('/link/:pollLink', async (req, res, next) => {
+  console.log('retrieving specific poll');
+  const { pollLink } = req.params;
+  try {
+    const poll = await Polls.getPollByLink(pollLink);
+    res.send(poll);
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
 pollsRouter.get('/allPolls', async (req, res, next) => {
   console.log('A get request for all polls was made');
   try {
@@ -102,6 +113,7 @@ pollsRouter.post('/newOption', requireUser, async (req, res, next) => {
 pollsRouter.get('/myPolls', requireUser, async (req, res, next) => {
   try {
     const polls = await Polls.getAllPollsByUserId(req.user.id);
+    console.log(`my polls: ${JSON.stringify(polls)}`);
     res.send(polls);
   } catch (error) {
     throw error;

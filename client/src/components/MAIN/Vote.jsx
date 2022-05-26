@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { castVote, fetchPollById } from '../../api/fetch';
+import { castVote, fetchPollByLink } from '../../api/fetch';
 import { createRankList, swap } from './helpers';
 
 const Vote = () => {
-  const { pollId } = useParams();
+  const { pollLink } = useParams();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [voted, setVoted] = useState(false);
   const [active, setActive] = useState(false);
@@ -13,7 +13,9 @@ const Vote = () => {
 
   const getPoll = async () => {
     try {
-      const response = await fetchPollById(pollId);
+      console.log('pollLink: ', pollLink);
+      const response = await fetchPollByLink(pollLink);
+      console.log(`response[0]!: ${response[0]}`);
       setCurrentPoll(response[0]);
       setActive(response[0].active);
     } catch (error) {
@@ -31,7 +33,7 @@ const Vote = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem(`voted:poll:${pollId}`)) {
+    if (localStorage.getItem(`voted:poll:${currentPoll.id}`)) {
       setVoted(true);
     } else if (currentPoll.options && currentPoll.options.length > 0) {
       const newRankList = createRankList(currentPoll.options);
@@ -75,8 +77,8 @@ const Vote = () => {
 
   const handleSubmitRank = async () => {
     try {
-      await castVote(rankList, pollId);
-      localStorage.setItem(`voted:poll:${pollId}`, true);
+      await castVote(rankList, currentPoll.id);
+      localStorage.setItem(`voted:poll:${currentPoll.id}`, true);
       setVoted(true);
     } catch (error) {
       console.error(error);

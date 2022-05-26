@@ -31,11 +31,13 @@ async function createTables() {
     await client.query(`
     CREATE TABLE polls (
         id SERIAL PRIMARY KEY,
+        link VARCHAR(255) NOT NULL,
         "dateCreated" DATE NOT NULL,
         name VARCHAR(255) NOT NULL,
         "authorID" INTEGER,
         deleted BOOLEAN DEFAULT FALSE,
         active BOOLEAN DEFAULT FALSE,
+        closed BOOLEAN DEFAULT FALSE,
         voters INTEGER
         );`);
     await client.query(`
