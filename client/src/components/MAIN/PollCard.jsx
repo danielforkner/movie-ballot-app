@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { closePoll } from '../../api/fetch';
+import useAuth from '../hooks/useAuth';
+import usePolls from '../hooks/usePolls';
 
 const PollCard = ({ poll, handleDeletePoll }) => {
+  const { setMyPolls } = usePolls();
+  const { token } = useAuth();
+  const handleClosePoll = async () => {
+    const updatedPolls = await closePoll(token, poll.id);
+    setMyPolls(updatedPolls);
+  };
   return (
     <div className="card shadow-sm w-100">
       <div className="card-header">
@@ -21,12 +30,20 @@ const PollCard = ({ poll, handleDeletePoll }) => {
             <button>Manage</button>
           </Link>
         )}
-        <button
-          className="btn btn-danger bg-gradient"
-          onClick={() => handleDeletePoll(poll.id)}
-        >
-          Delete Poll
-        </button>
+        <div className="d-flex justify-content-start gap-3">
+          <button
+            className="btn btn-danger bg-gradient"
+            onClick={() => handleDeletePoll(poll.id)}
+          >
+            Delete Poll
+          </button>
+          <button
+            className="btn btn-warning bg-gradient"
+            onClick={handleClosePoll}
+          >
+            Close Poll
+          </button>
+        </div>
       </div>
     </div>
   );

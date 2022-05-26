@@ -15,7 +15,6 @@ const Vote = () => {
     try {
       console.log('pollLink: ', pollLink);
       const response = await fetchPollByLink(pollLink);
-      console.log(`response[0]!: ${response[0]}`);
       setCurrentPoll(response[0]);
       setActive(response[0].active);
     } catch (error) {
