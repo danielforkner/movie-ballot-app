@@ -1,4 +1,5 @@
 const client = require('../client');
+const { getPollById } = require('./polls');
 
 async function createVote(rankList, pollId) {
   try {

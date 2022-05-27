@@ -21,7 +21,6 @@ const Vote = () => {
   const getPoll = async () => {
     try {
       const [poll] = await fetchPollByLink(pollLink);
-      console.log('poll: ', poll);
       setCurrentPoll(poll);
       if (poll.closed) setClosed(true);
     } catch (error) {
@@ -208,8 +207,8 @@ const Vote = () => {
                                       <span style={{ fontWeight: '900' }}>
                                         Rank: {movie.rank}
                                       </span>{' '}
-                                      {movie.movie.title}, ({movie.movie.year}),
-                                      [{movie.movie.runtime}]{' '}
+                                      {movie.movie.title}, ({movie.movie.year})
+                                      [{movie.movie.runtime}]
                                       <button
                                         onClick={() =>
                                           handleDetails(movie.movie)

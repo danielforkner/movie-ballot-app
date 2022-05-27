@@ -8,12 +8,13 @@ const ClosePollModal = ({ poll, closingPoll, setClosingPoll }) => {
   const { setMyPolls } = usePolls();
   const { token } = useAuth();
 
+  const handleClose = () => setClosingPoll(false);
+
   const handleClosePoll = async () => {
     const updatedPolls = await closePoll(token, poll.id);
     setMyPolls(updatedPolls);
+    handleClose();
   };
-
-  const handleClose = () => setClosingPoll(false);
 
   return (
     <Modal show={closingPoll} onHide={handleClose}>

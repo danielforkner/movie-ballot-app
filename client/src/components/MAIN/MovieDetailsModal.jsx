@@ -18,7 +18,7 @@ const MovieDetailsModal = ({ movie, showDetails, setShowDetails }) => {
         ></button>
       </header>
       <div className="d-flex modal-body gap-2 align-items-center">
-        <img src={movie.poster} alt="movie poster" />
+        <img className="card shadow" src={movie.poster} alt="movie poster" />
         <div className="d-flex flex-column justify-content-center">
           <p>
             <strong>Director:</strong> {movie.director}
