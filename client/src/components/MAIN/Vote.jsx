@@ -172,7 +172,7 @@ const Vote = () => {
                                         <>
                                           {i === len - 1 ? (
                                             <button
-                                              className="btn btn-sm btn-warning"
+                                              className="btn bg-gradient btn-sm btn-warning"
                                               onClick={() =>
                                                 handleRankUp(option.id, movie)
                                               }
@@ -183,7 +183,7 @@ const Vote = () => {
                                             <>
                                               {' '}
                                               <button
-                                                className="btn btn-sm btn-warning"
+                                                className="btn bg-gradient btn-sm btn-warning"
                                                 onClick={() =>
                                                   handleRankUp(option.id, movie)
                                                 }
@@ -209,10 +209,12 @@ const Vote = () => {
                                         Rank: {movie.rank}
                                       </span>{' '}
                                       {movie.movie.title}, ({movie.movie.year}),
-                                      [{movie.runtime}]{' '}
+                                      [{movie.movie.runtime}]{' '}
                                       <button
-                                        onClick={() => handleDetails(movie)}
-                                        className="btn btn-outline-secondary rounded-5"
+                                        onClick={() =>
+                                          handleDetails(movie.movie)
+                                        }
+                                        className="btn btn-sm bg-gradient btn-primary"
                                       >
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"

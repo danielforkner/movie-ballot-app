@@ -66,7 +66,7 @@ async function getMoviesByOptionId(id) {
   try {
     const { rows } = await client.query(
       `
-    SELECT movies.title, movies.year, option_movies."movieId" as id
+    SELECT *, option_movies."movieId" as id
     FROM option_movies 
     LEFT JOIN movies on movies.id = option_movies."movieId"
     WHERE option_movies."optionId"=$1
