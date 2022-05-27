@@ -36,9 +36,9 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
           <h4>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h4>
           <h4>
             {`Public link: `}
-            <Link to={`vote/${currentPoll.link}`}>
+            <a href={`${window.origin}/polls/vote/${currentPoll.link}`}>
               {`${window.origin}/polls/vote/${currentPoll.link}`}
-            </Link>
+            </a>
           </h4>
           {currentPoll.closed ? null : (
             <div className="d-flex justify-content-start gap-3">

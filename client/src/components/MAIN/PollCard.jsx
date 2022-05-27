@@ -8,14 +8,17 @@ const PollCard = ({ poll, handleDeletePoll }) => {
   return (
     <div className="card shadow-sm w-100">
       <div className="card-header">
-        <h4>{poll.name}</h4>
+        <h2>{poll.name}</h2>
       </div>
       <div className="card-body">
-        <p>Date Created: {poll.dateCreated.slice(0, 10)}</p>
+        <p>
+          <strong>Date Created: </strong>
+          {poll.dateCreated.slice(0, 10)}
+        </p>
         {poll.active ? (
           <>
             <p>
-              {`Public link: `}
+              <strong>{`Public link: `}</strong>
               <Link to={`vote/${poll.link}`}>
                 {`${window.location.href}/vote/${poll.link}`}
               </Link>
@@ -36,9 +39,22 @@ const PollCard = ({ poll, handleDeletePoll }) => {
             </div>
           </>
         ) : (
-          <Link to={`${poll.link}`}>
-            <button>Manage</button>
-          </Link>
+          <>
+            {poll.closed ? (
+              <p>
+                <strong>{`Public link: `}</strong>
+                <Link to={`vote/${poll.link}`}>
+                  {`${window.location.href}/vote/${poll.link}`}
+                </Link>
+              </p>
+            ) : (
+              <Link to={`${poll.link}`}>
+                <button className="btn btn-secondary bg-gradient">
+                  Manage
+                </button>
+              </Link>
+            )}
+          </>
         )}
       </div>
       {closingPoll ? (

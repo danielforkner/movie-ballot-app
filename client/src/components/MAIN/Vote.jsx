@@ -9,7 +9,7 @@ const Vote = () => {
   const [showLog, setShowLog] = useState(false);
   const [currentOption, setCurrentOption] = useState(null);
   const { pollLink } = useParams();
-  const [currentPoll, setCurrentPoll] = useState([]);
+  const [currentPoll, setCurrentPoll] = useState(null);
   const [voted, setVoted] = useState(false);
   const [closed, setClosed] = useState(false);
   const navigate = useNavigate();
@@ -36,7 +36,8 @@ const Vote = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem(`voted:poll:${currentPoll.id}`)) {
+    if (!currentPoll) return;
+    else if (localStorage.getItem(`voted:poll:${currentPoll.id}`)) {
       setVoted(true);
     } else if (currentPoll.options && currentPoll.options.length > 0) {
       const newRankList = createRankList(currentPoll.options);

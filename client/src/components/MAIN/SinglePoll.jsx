@@ -52,6 +52,7 @@ const SinglePoll = () => {
           <h1>{`Poll: ${currentPoll.name}`}</h1>
           {active && currentPoll.options.length > 0 ? null : (
             <>
+              {console.log('currentpoll.options ', currentPoll.options)}
               <button
                 className="btn btn-success"
                 onClick={() => handleFinalize(currentPoll.id)}

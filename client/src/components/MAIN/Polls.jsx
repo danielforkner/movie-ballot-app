@@ -20,7 +20,7 @@ const Polls = () => {
   };
 
   return (
-    <div className="p-3 d-flex flex-column align-items-start ga-3">
+    <div className="p-3 d-flex flex-column align-items-start gap-3">
       <button onClick={() => setIsAddingNewPoll(!isAddingNewPoll)}>
         Add new Poll
       </button>
@@ -30,7 +30,7 @@ const Polls = () => {
           setIsAddingNewPoll={setIsAddingNewPoll}
         />
       ) : null}
-      <h1>Active Polls</h1>
+      <h1>Active</h1>
       {myPolls.length && myPolls.length > 0
         ? myPolls.map((poll, i) => {
             if (poll.deleted === false && poll.active) {
@@ -49,7 +49,7 @@ const Polls = () => {
         ? myPolls.map((poll, i) => {
             return !poll.deleted && !poll.active && !poll.closed ? (
               <PollCard
-                key={`activePollcard:${i}`}
+                key={`inProgressPollcard:${i}`}
                 poll={poll}
                 handleDeletePoll={handleDeletePoll}
               />
@@ -57,6 +57,20 @@ const Polls = () => {
           })
         : 'Create Your First Poll!'}
       {/* Move the below into an admin dashboard */}
+      <h1>Closed</h1>
+      {myPolls.length && myPolls.length > 0
+        ? myPolls.map((poll, i) => {
+            if (poll.closed) {
+              return (
+                <PollCard
+                  key={`closedPollcard:${i}`}
+                  poll={poll}
+                  handleDeletePoll={handleDeletePoll}
+                />
+              );
+            }
+          })
+        : null}
       {/* <h1>Deleted Polls</h1>
       {myPolls.length && myPolls.length > 0
         ? myPolls.map((poll, i) => {
