@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { activatePoll, fetchPollById, fetchPollByLink } from '../../api/fetch';
+import { activatePoll, fetchPollByLink } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 import usePolls from '../hooks/usePolls';
 import NewOptionForm from './NewOptionForm';

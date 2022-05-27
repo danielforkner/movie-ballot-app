@@ -1,16 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { closePoll } from '../../api/fetch';
-import useAuth from '../hooks/useAuth';
-import usePolls from '../hooks/usePolls';
+import ClosePollModal from '../DASHBOARD/ClosePollModal';
 
 const PollCard = ({ poll, handleDeletePoll }) => {
-  const { setMyPolls } = usePolls();
-  const { token } = useAuth();
-  const handleClosePoll = async () => {
-    const updatedPolls = await closePoll(token, poll.id);
-    setMyPolls(updatedPolls);
-  };
+  const [closingPoll, setClosingPoll] = useState(false);
+
   return (
     <div className="card shadow-sm w-100">
       <div className="card-header">
@@ -35,7 +29,7 @@ const PollCard = ({ poll, handleDeletePoll }) => {
               </button>
               <button
                 className="btn btn-warning bg-gradient"
-                onClick={handleClosePoll}
+                onClick={() => setClosingPoll(true)}
               >
                 Close Poll
               </button>
@@ -47,6 +41,13 @@ const PollCard = ({ poll, handleDeletePoll }) => {
           </Link>
         )}
       </div>
+      {closingPoll ? (
+        <ClosePollModal
+          poll={poll}
+          closingPoll={closingPoll}
+          setClosingPoll={setClosingPoll}
+        />
+      ) : null}
     </div>
   );
 };

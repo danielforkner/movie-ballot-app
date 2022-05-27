@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import usePolls from '../hooks/usePolls';
 import useAuth from '../hooks/useAuth';
 import { fetchCalculateVotes, fetchMyPolls } from '../../api/fetch';
+import ClosePollModal from './ClosePollModal';
+import Results from './Results';
+import { Link } from 'react-router-dom';
 
 const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
+  const [closingPoll, setClosingPoll] = useState(false);
   const { token } = useAuth();
   const { setMyPolls } = usePolls();
 
@@ -26,51 +30,40 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
       {currentPoll ? (
         <div className="d-flex flex-column align-items-start gap-3 mb-3">
           <h1>{currentPoll.name}</h1>
-          <h2>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h2>
-          <div className="d-flex justify-content-start gap-3">
-            <button
-              className="btn bg-gradient btn-primary"
-              onClick={refreshVotes}
-            >
-              Refresh vote count
-            </button>
-            <button className="btn bg-gradient btn-warning" onClick={() => {}}>
-              Close Poll
-            </button>
-          </div>
-          {currentPoll.options.map((option, i) => {
-            return (
-              <div className="card shadow-sm w-100">
-                <div className="card-header">
-                  <h2>{option.name}</h2>
-                </div>
-                <div className="card-body">
-                  <p>{`Current vote count: ${
-                    option.voters || 'no one has voted yet'
-                  }`}</p>
-                  <p>
-                    {option.winner
-                      ? `Current winner: ${option.winner.title}`
-                      : 'no winner yet'}
-                  </p>
-
-                  {option.ties ? (
-                    <>
-                      There is a tie between
-                      <ul>
-                        {option.ties.ties.map((movie) => {
-                          return <li>{movie.title}</li>;
-                        })}
-                      </ul>
-                    </>
-                  ) : null}
-                </div>
-              </div>
-            );
-          })}
+          <h4>{`Date created: ${currentPoll.dateCreated.slice(0, 10)}`}</h4>
+          <h4>
+            {`Public link: `}
+            <Link to={`vote/${currentPoll.link}`}>
+              {`${window.location.href}/vote/${currentPoll.link}`}
+            </Link>
+          </h4>
+          {currentPoll.closed ? null : (
+            <div className="d-flex justify-content-start gap-3">
+              <button
+                className="btn bg-gradient btn-primary"
+                onClick={refreshVotes}
+              >
+                Refresh vote count
+              </button>
+              <button
+                className="btn bg-gradient btn-warning"
+                onClick={() => setClosingPoll(true)}
+              >
+                Close Poll
+              </button>
+            </div>
+          )}
+          <Results poll={currentPoll} />
         </div>
       ) : (
         'Select a poll from the table below'
+      )}
+      {closingPoll && (
+        <ClosePollModal
+          poll={currentPoll}
+          closingPoll={closingPoll}
+          setClosingPoll={setClosingPoll}
+        />
       )}
     </div>
   );

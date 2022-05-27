@@ -112,7 +112,7 @@ async function deletePoll(pollId) {
     } = await client.query(
       `
         UPDATE polls
-        SET deleted = true
+        SET deleted = true, active = false
         WHERE id=$1;
             `,
       [pollId]
@@ -142,6 +142,27 @@ async function activatePoll(pollId) {
   }
 }
 
+async function closePoll(pollId) {
+  try {
+    const {
+      rows: [poll],
+    } = await client.query(
+      `
+        UPDATE polls
+        SET active = false, closed = true
+        WHERE id=$1
+        RETURNING *;
+            `,
+      [pollId]
+    );
+    return poll;
+  } catch (error) {
+    throw error;
+  }
+}
+
+closePoll;
+
 module.exports = {
   getPollById,
   getPollByLink,
@@ -150,4 +171,5 @@ module.exports = {
   createPoll,
   deletePoll,
   activatePoll,
+  closePoll,
 };

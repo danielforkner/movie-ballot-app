@@ -10,21 +10,12 @@ const { calculateWinner } = require('../db/utils');
 
 const { requireUser } = require('./utils');
 
-pollsRouter.get('/poll/:pollId', async (req, res, next) => {
+pollsRouter.get('/poll/:pollLink', async (req, res, next) => {
   console.log('retrieving specific poll');
-  const { pollId } = req.params;
+  const { pollLink } = req.params;
   try {
-    const poll = await Polls.getPollById(pollId);
-    console.log('got the poll: ', poll);
-    if (poll.length === 0) {
-      res.status(404);
-      next({
-        name: 'NoPageExists',
-        message: 'The page you requested does not exist',
-      });
-    } else {
-      res.send(poll);
-    }
+    const poll = await Polls.getPollByLink(pollLink);
+    res.send(poll);
   } catch (error) {
     throw error;
   }
@@ -139,6 +130,19 @@ pollsRouter.patch('/activate', requireUser, async (req, res, next) => {
   try {
     const activated = await Polls.activatePoll(pollId);
     console.log('activated: ', activated);
+    const polls = await Polls.getAllPollsByUserId(req.user.id);
+    res.send(polls);
+  } catch (error) {
+    throw error;
+  }
+});
+
+pollsRouter.patch('/close', requireUser, async (req, res, next) => {
+  console.log('trying to close a poll...');
+  const { pollId } = req.body;
+  try {
+    const closed = await Polls.closePoll(pollId);
+    console.log('closed: ', closed);
     const polls = await Polls.getAllPollsByUserId(req.user.id);
     res.send(polls);
   } catch (error) {

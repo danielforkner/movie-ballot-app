@@ -53,7 +53,8 @@ async function createTables() {
         winner json,
         ties json,
         voters INTEGER,
-        rounds INTEGER
+        rounds INTEGER,
+        log JSON
         );`);
     await client.query(`
     CREATE TABLE poll_options (
@@ -76,7 +77,7 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "pollId" INTEGER,
         FOREIGN KEY ("pollId") REFERENCES polls(id),
-        vote json NOT NULL
+        vote JSON NOT NULL
         );`);
   } catch (error) {
     throw error;
