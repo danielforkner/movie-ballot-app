@@ -85,11 +85,18 @@ export const fetchMovies = async (title, year) => {
   }
 };
 
-export const addMovieToOption = async (token, title, year, optionId) => {
+export const addMovieToOption = async (
+  token,
+  title,
+  year,
+  imdbID,
+  poster,
+  optionId
+) => {
   try {
     const { data } = await axios.patch(
       `${DB_URL}/polls/options/addMovie`,
-      { title, year, optionId },
+      { title, year, optionId, imdbID, poster },
       {
         headers: {
           'Content-Type': 'application/json',

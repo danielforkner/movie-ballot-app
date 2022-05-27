@@ -29,7 +29,6 @@ const SinglePoll = () => {
       } else {
         try {
           const response = await fetchPollByLink(pollLink);
-          console.log('response: ', response);
           setCurrentPoll(response[0]);
           setActive(response[0].active);
         } catch (error) {
@@ -52,7 +51,6 @@ const SinglePoll = () => {
           <h1>{`Poll: ${currentPoll.name}`}</h1>
           {active && currentPoll.options.length > 0 ? null : (
             <>
-              {console.log('currentpoll.options ', currentPoll.options)}
               <button
                 className="btn btn-success"
                 onClick={() => handleFinalize(currentPoll.id)}

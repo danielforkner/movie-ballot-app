@@ -4,6 +4,7 @@ import { castVote, fetchPollByLink } from '../../api/fetch';
 import Results from '../DASHBOARD/Results';
 import VoteLog from '../DASHBOARD/VoteLog';
 import { createRankList, swap } from './helpers';
+import MovieDetailsModal from './MovieDetailsModal';
 
 const Vote = () => {
   const [showLog, setShowLog] = useState(false);
@@ -14,11 +15,12 @@ const Vote = () => {
   const [closed, setClosed] = useState(false);
   const navigate = useNavigate();
   const [rankList, setRankList] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [movieDetails, setMovieDetails] = useState(null);
 
   const getPoll = async () => {
     try {
       const [poll] = await fetchPollByLink(pollLink);
-      console.log('poll: ', poll);
       setCurrentPoll(poll);
       if (poll.closed) setClosed(true);
     } catch (error) {
@@ -89,6 +91,11 @@ const Vote = () => {
     }
   };
 
+  const handleDetails = (movie) => {
+    setShowDetails(true);
+    setMovieDetails(movie);
+  };
+
   return (
     <Fragment>
       {showLog && (
@@ -96,6 +103,13 @@ const Vote = () => {
           option={currentOption}
           showLog={showLog}
           setShowLog={setShowLog}
+        />
+      )}
+      {showDetails && (
+        <MovieDetailsModal
+          movie={movieDetails}
+          showDetails={showDetails}
+          setShowDetails={setShowDetails}
         />
       )}
       {closed ? (
@@ -157,7 +171,7 @@ const Vote = () => {
                                         <>
                                           {i === len - 1 ? (
                                             <button
-                                              className="btn btn-sm btn-warning"
+                                              className="btn bg-gradient btn-sm btn-warning"
                                               onClick={() =>
                                                 handleRankUp(option.id, movie)
                                               }
@@ -168,7 +182,7 @@ const Vote = () => {
                                             <>
                                               {' '}
                                               <button
-                                                className="btn btn-sm btn-warning"
+                                                className="btn bg-gradient btn-sm btn-warning"
                                                 onClick={() =>
                                                   handleRankUp(option.id, movie)
                                                 }
@@ -194,6 +208,24 @@ const Vote = () => {
                                         Rank: {movie.rank}
                                       </span>{' '}
                                       {movie.movie.title}, ({movie.movie.year})
+                                      [{movie.movie.runtime}]
+                                      <button
+                                        onClick={() =>
+                                          handleDetails(movie.movie)
+                                        }
+                                        className="btn btn-sm bg-gradient btn-primary"
+                                      >
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="16"
+                                          height="16"
+                                          fill="currentColor"
+                                          class="bi bi-info-lg"
+                                          viewBox="0 0 16 16"
+                                        >
+                                          <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"></path>
+                                        </svg>
+                                      </button>
                                     </li>
                                   );
                                 })}

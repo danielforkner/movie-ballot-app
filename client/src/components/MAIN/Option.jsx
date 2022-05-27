@@ -20,9 +20,16 @@ const Option = ({ poll, option, active }) => {
     setMyPolls(response);
   };
 
-  const handleAddMovie = async (title, year) => {
+  const handleAddMovie = async (title, year, imdbID, poster) => {
     //
-    const response = await addMovieToOption(token, title, year, option.id);
+    const response = await addMovieToOption(
+      token,
+      title,
+      year,
+      imdbID,
+      poster,
+      option.id
+    );
     setMyPolls(response);
   };
 
@@ -90,7 +97,14 @@ const Option = ({ poll, option, active }) => {
                     key={`poll:${poll.id}option:${option.id}movieOption:${i}`}
                   >
                     <span
-                      onClick={() => handleAddMovie(movie.Title, movie.Year)}
+                      onClick={() =>
+                        handleAddMovie(
+                          movie.Title,
+                          movie.Year,
+                          movie.imdbID,
+                          movie.Poster
+                        )
+                      }
                       className="btn btn-sm btn-success"
                     >
                       +

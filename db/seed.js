@@ -44,7 +44,13 @@ async function createTables() {
     CREATE TABLE movies (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        year VARCHAR(255) NOT NULL
+        year VARCHAR(255) NOT NULL,
+        "imdbID" VARCHAR(255),
+        poster VARCHAR(255),
+        plot TEXT,
+        runtime VARCHAR(255),
+        director VARCHAR(255),
+        actors VARCHAR(255)
         );`);
     await client.query(`
     CREATE TABLE options (
@@ -136,15 +142,69 @@ async function createInitialOptions() {
 async function createInitialMovies() {
   try {
     console.log('Creating Movies...');
-    await Movies.createMovie('Home Alone', 1990, 1);
-    await Movies.createMovie('Home Alone 2', 1992, 1);
-    await Movies.createMovie('Home Alone 3', 1995, 1);
-    await Movies.createMovie('Spider Man 1', 1997, 2);
-    await Movies.createMovie('Spider Man 2', 1999, 2);
-    await Movies.createMovie('Spider Man 3', 2000, 2);
-    await Movies.createMovie('Mystery Man 1', 2018, 3);
-    await Movies.createMovie('Mystery Man 2', 2019, 3);
-    await Movies.createMovie('Mystery Man 3', 2020, 3);
+    await Movies.createMovie(
+      'Home Alone',
+      1990,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      1
+    );
+    await Movies.createMovie(
+      'Home Alone 2',
+      1992,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      1
+    );
+    await Movies.createMovie(
+      'Home Alone 3',
+      1995,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      1
+    );
+    await Movies.createMovie(
+      'Spider Man 1',
+      1997,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      2
+    );
+    await Movies.createMovie(
+      'Spider Man 2',
+      1999,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      2
+    );
+    await Movies.createMovie(
+      'Spider Man 3',
+      2000,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      2
+    );
+    await Movies.createMovie(
+      'Mystery Man 1',
+      2018,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      3
+    );
+    await Movies.createMovie(
+      'Mystery Man 2',
+      2019,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      3
+    );
+    await Movies.createMovie(
+      'Mystery Man 3',
+      2020,
+      'tt0104431',
+      'https://m.media-amazon.com/images/M/MV5BNDI1MzM0Y2YtYmIyMS00ODE3LTlhZjEtZTUyNmEzMTNhZWU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
+      3
+    );
   } catch (error) {
     throw error;
   }

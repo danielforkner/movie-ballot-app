@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 const VoteLog = ({ option, showLog, setShowLog }) => {
   const handleClose = () => setShowLog(false);
   const keys = Object.keys(option.log);
-  console.log(option.log);
   return (
     <Modal show={showLog} onHide={handleClose}>
       <header className="modal-header border-bottom-0">

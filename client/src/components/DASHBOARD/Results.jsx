@@ -33,7 +33,6 @@ const Results = ({ poll, setShowLog, setCurrentOption }) => {
                 className="btn btn-outline-warning bg-dark bg-gradient"
                 onClick={() => {
                   setCurrentOption(option);
-                  console.log('setting option to: ', option);
                   setShowLog(true);
                 }}
               >
