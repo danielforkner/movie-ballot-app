@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Results = ({ poll }) => {
+const Results = ({ poll, setShowLog, setCurrentOption }) => {
   return (
     <>
       {poll.options.map((option, i) => {
@@ -29,6 +29,16 @@ const Results = ({ poll }) => {
                   </ul>
                 </>
               ) : null}
+              <button
+                className="btn btn-outline-warning bg-dark bg-gradient"
+                onClick={() => {
+                  setCurrentOption(option);
+                  console.log('setting option to: ', option);
+                  setShowLog(true);
+                }}
+              >
+                Event Log
+              </button>
             </div>
           </div>
         );

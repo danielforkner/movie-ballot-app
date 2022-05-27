@@ -2,9 +2,12 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { castVote, fetchPollByLink } from '../../api/fetch';
 import Results from '../DASHBOARD/Results';
+import VoteLog from '../DASHBOARD/VoteLog';
 import { createRankList, swap } from './helpers';
 
 const Vote = () => {
+  const [showLog, setShowLog] = useState(false);
+  const [currentOption, setCurrentOption] = useState(null);
   const { pollLink } = useParams();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [voted, setVoted] = useState(false);
@@ -87,6 +90,13 @@ const Vote = () => {
 
   return (
     <Fragment>
+      {showLog && (
+        <VoteLog
+          option={currentOption}
+          showLog={showLog}
+          setShowLog={setShowLog}
+        />
+      )}
       {closed ? (
         <div className="d-flex flex-column justify-content-center align-items-center">
           <h1>This Poll Has Closed!</h1>
@@ -95,7 +105,11 @@ const Vote = () => {
               <h4>Results</h4>
             </div>
             <div className="card-body d-flex flex-column gap-3">
-              <Results poll={currentPoll} />
+              <Results
+                poll={currentPoll}
+                setShowLog={setShowLog}
+                setCurrentOption={setCurrentOption}
+              />
             </div>
           </div>
         </div>

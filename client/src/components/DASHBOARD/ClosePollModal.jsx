@@ -28,7 +28,7 @@ const ClosePollModal = ({ poll, closingPoll, setClosingPoll }) => {
         ></button>
       </header>
       <div className="modal-body d-flex flex-column align-items-center">
-        <p className="text-center text-light mb-3">
+        <p className="text-center mb-3">
           Are you sure you want to close the poll? Once closed, no more votes
           will be received and the results will become final and public.
         </p>

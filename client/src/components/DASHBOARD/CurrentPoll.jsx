@@ -5,8 +5,11 @@ import { fetchCalculateVotes, fetchMyPolls } from '../../api/fetch';
 import ClosePollModal from './ClosePollModal';
 import Results from './Results';
 import { Link } from 'react-router-dom';
+import VoteLog from './VoteLog';
 
 const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
+  const [showLog, setShowLog] = useState(false);
+  const [currentOption, setCurrentOption] = useState(null);
   const [closingPoll, setClosingPoll] = useState(false);
   const { token } = useAuth();
   const { setMyPolls } = usePolls();
@@ -34,7 +37,7 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
           <h4>
             {`Public link: `}
             <Link to={`vote/${currentPoll.link}`}>
-              {`${window.location.href}/vote/${currentPoll.link}`}
+              {`${window.origin}/polls/vote/${currentPoll.link}`}
             </Link>
           </h4>
           {currentPoll.closed ? null : (
@@ -53,7 +56,11 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
               </button>
             </div>
           )}
-          <Results poll={currentPoll} />
+          <Results
+            poll={currentPoll}
+            setShowLog={setShowLog}
+            setCurrentOption={setCurrentOption}
+          />
         </div>
       ) : (
         'Select a poll from the table below'
@@ -63,6 +70,13 @@ const CurrentPoll = ({ currentPoll, setCurrentPoll }) => {
           poll={currentPoll}
           closingPoll={closingPoll}
           setClosingPoll={setClosingPoll}
+        />
+      )}
+      {showLog && (
+        <VoteLog
+          option={currentOption}
+          showLog={showLog}
+          setShowLog={setShowLog}
         />
       )}
     </div>
