@@ -29,11 +29,10 @@ usersRouter.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
-    const user = await Users.getUserByUsername(username);
+    const user = await Users.getUser(username, password);
+    delete user.password;
     console.log('USER: ', user);
-
-    //  BCRYPT
-    if (user && password === user.password) {
+    if (user) {
       console.log('LOGIN SUCCESS');
       const token = jwt.sign({ id: user.id, username: username }, JWT_SECRET, {
         expiresIn: '1w',
@@ -47,8 +46,8 @@ usersRouter.post('/login', async (req, res, next) => {
       console.log('LOGIN FAIL');
       res.status(409);
       next({
-        name: 'Bad Login/Password',
-        message: 'Login error: you must supply a valid login/password',
+        name: 'Invalid Credentials',
+        message: 'Invalid Username & Password',
       });
     }
   } catch ({ name, message }) {

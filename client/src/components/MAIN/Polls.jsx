@@ -20,7 +20,7 @@ const Polls = () => {
   };
 
   return (
-    <div>
+    <div className="p-3 d-flex flex-column align-items-start ga-3">
       <button onClick={() => setIsAddingNewPoll(!isAddingNewPoll)}>
         Add new Poll
       </button>
@@ -47,15 +47,13 @@ const Polls = () => {
       <h1>In Progress</h1>
       {myPolls.length && myPolls.length > 0
         ? myPolls.map((poll, i) => {
-            if (poll.deleted === false && poll.active === false) {
-              return (
-                <PollCard
-                  key={`activePollcard:${i}`}
-                  poll={poll}
-                  handleDeletePoll={handleDeletePoll}
-                />
-              );
-            }
+            return !poll.deleted && !poll.active && !poll.closed ? (
+              <PollCard
+                key={`activePollcard:${i}`}
+                poll={poll}
+                handleDeletePoll={handleDeletePoll}
+              />
+            ) : null;
           })
         : 'Create Your First Poll!'}
       {/* Move the below into an admin dashboard */}

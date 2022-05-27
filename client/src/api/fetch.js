@@ -52,6 +52,16 @@ export const fetchPollById = async (pollId) => {
   }
 };
 
+export const fetchPollByLink = async (pollLink) => {
+  try {
+    const { data } = await axios.get(`${DB_URL}/polls/link/${pollLink}`);
+
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const fetchMyPolls = async (token) => {
   try {
     const { data } = await axios.get(`${DB_URL}/polls/myPolls`, {
@@ -107,6 +117,24 @@ export const activatePoll = async (token, pollId) => {
       }
     );
 
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const closePoll = async (token, pollId) => {
+  try {
+    const { data } = await axios.patch(
+      `${DB_URL}/polls/close`,
+      { pollId },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return data;
   } catch (error) {
     throw error;

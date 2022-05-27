@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { activatePoll, fetchPollById } from '../../api/fetch';
+import { activatePoll, fetchPollByLink } from '../../api/fetch';
 import useAuth from '../hooks/useAuth';
 import usePolls from '../hooks/usePolls';
 import NewOptionForm from './NewOptionForm';
@@ -8,7 +8,7 @@ import Option from './Option';
 
 const SinglePoll = () => {
   const [isAddingNewOption, setisAddingNewOption] = useState(false);
-  const pollId = useParams().pollId;
+  const pollLink = useParams().pollLink;
   const { myPolls, setMyPolls } = usePolls();
   const { token, user } = useAuth();
   const [currentPoll, setCurrentPoll] = useState([]);
@@ -16,8 +16,8 @@ const SinglePoll = () => {
 
   const navigate = useNavigate();
 
-  const handleFinalize = async () => {
-    const updatedPolls = await activatePoll(token, pollId);
+  const handleFinalize = async (id) => {
+    const updatedPolls = await activatePoll(token, id);
     setMyPolls(updatedPolls);
   };
 
@@ -28,7 +28,8 @@ const SinglePoll = () => {
         navigate('/', { replace: true });
       } else {
         try {
-          const response = await fetchPollById(pollId);
+          const response = await fetchPollByLink(pollLink);
+          console.log('response: ', response);
           setCurrentPoll(response[0]);
           setActive(response[0].active);
         } catch (error) {
@@ -51,7 +52,10 @@ const SinglePoll = () => {
           <h1>{`Poll: ${currentPoll.name}`}</h1>
           {active && currentPoll.options.length > 0 ? null : (
             <>
-              <button className="btn btn-success" onClick={handleFinalize}>
+              <button
+                className="btn btn-success"
+                onClick={() => handleFinalize(currentPoll.id)}
+              >
                 Finalize and Create Public Link
               </button>
               {active ? null : (

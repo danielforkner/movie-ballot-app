@@ -31,11 +31,13 @@ async function createTables() {
     await client.query(`
     CREATE TABLE polls (
         id SERIAL PRIMARY KEY,
+        link VARCHAR(255) NOT NULL,
         "dateCreated" DATE NOT NULL,
         name VARCHAR(255) NOT NULL,
         "authorID" INTEGER,
         deleted BOOLEAN DEFAULT FALSE,
         active BOOLEAN DEFAULT FALSE,
+        closed BOOLEAN DEFAULT FALSE,
         voters INTEGER
         );`);
     await client.query(`
@@ -51,7 +53,8 @@ async function createTables() {
         winner json,
         ties json,
         voters INTEGER,
-        rounds INTEGER
+        rounds INTEGER,
+        log JSON
         );`);
     await client.query(`
     CREATE TABLE poll_options (
@@ -74,7 +77,7 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         "pollId" INTEGER,
         FOREIGN KEY ("pollId") REFERENCES polls(id),
-        vote json NOT NULL
+        vote JSON NOT NULL
         );`);
   } catch (error) {
     throw error;

@@ -11,8 +11,7 @@ const Sidebar = () => {
       <div className="position-sticky pt-3">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <div className="nav-link">Active Polls</div>
-            <div className="nav-link">Closed Polls</div>
+            <h4 className="nav-link">Polls</h4>
           </li>
         </ul>
       </div>

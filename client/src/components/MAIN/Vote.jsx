@@ -1,21 +1,26 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { castVote, fetchPollById } from '../../api/fetch';
+import { castVote, fetchPollByLink } from '../../api/fetch';
+import Results from '../DASHBOARD/Results';
+import VoteLog from '../DASHBOARD/VoteLog';
 import { createRankList, swap } from './helpers';
 
 const Vote = () => {
-  const { pollId } = useParams();
+  const [showLog, setShowLog] = useState(false);
+  const [currentOption, setCurrentOption] = useState(null);
+  const { pollLink } = useParams();
   const [currentPoll, setCurrentPoll] = useState([]);
   const [voted, setVoted] = useState(false);
-  const [active, setActive] = useState(false);
+  const [closed, setClosed] = useState(false);
   const navigate = useNavigate();
   const [rankList, setRankList] = useState(null);
 
   const getPoll = async () => {
     try {
-      const response = await fetchPollById(pollId);
-      setCurrentPoll(response[0]);
-      setActive(response[0].active);
+      const [poll] = await fetchPollByLink(pollLink);
+      console.log('poll: ', poll);
+      setCurrentPoll(poll);
+      if (poll.closed) setClosed(true);
     } catch (error) {
       if (error.name === 'NoPageExists') {
         console.error(error.message);
@@ -31,7 +36,7 @@ const Vote = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem(`voted:poll:${pollId}`)) {
+    if (localStorage.getItem(`voted:poll:${currentPoll.id}`)) {
       setVoted(true);
     } else if (currentPoll.options && currentPoll.options.length > 0) {
       const newRankList = createRankList(currentPoll.options);
@@ -75,8 +80,8 @@ const Vote = () => {
 
   const handleSubmitRank = async () => {
     try {
-      const response = await castVote(rankList, pollId);
-      localStorage.setItem(`voted:poll:${pollId}`, true);
+      await castVote(rankList, currentPoll.id);
+      localStorage.setItem(`voted:poll:${currentPoll.id}`, true);
       setVoted(true);
     } catch (error) {
       console.error(error);
@@ -85,72 +90,129 @@ const Vote = () => {
 
   return (
     <Fragment>
-      {voted ? (
-        <div className="d-flex justify-content-center align-items-center">
-          <h1>Thanks for your vote!</h1>
+      {showLog && (
+        <VoteLog
+          option={currentOption}
+          showLog={showLog}
+          setShowLog={setShowLog}
+        />
+      )}
+      {closed ? (
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <h1>This Poll Has Closed!</h1>
+          <div className="card">
+            <div className="card-header">
+              <h4>Results</h4>
+            </div>
+            <div className="card-body d-flex flex-column gap-3">
+              <Results
+                poll={currentPoll}
+                setShowLog={setShowLog}
+                setCurrentOption={setCurrentOption}
+              />
+            </div>
+          </div>
         </div>
       ) : (
         <Fragment>
-          {rankList ? (
-            <div className="rank-container d-flex flex-column align-items-center">
-              <h1>{`Cast your ranked choice for: ${currentPoll.name}`}</h1>
-              <button className="btn btn-success" onClick={handleSubmitRank}>
-                Finalize and submit your ranked choice.
-              </button>
-              <div className="album p-5 w-100">
-                <div className="d-flex flex-wrap justify-content-center gap-4">
-                  {currentPoll.options.map((option, i) => {
-                    return (
-                      <div className="card shadow-sm">
-                        <div className="card-body">
-                          <ul
-                            key={`votecard:poll${currentPoll.id}:option${option.id}`}
-                            className="list-group"
-                          >
-                            <h4>{rankList[option.id].name}</h4>
-                            {rankList[option.id].movies.map((movie, i) => {
-                              let len = rankList[option.id].movies.length;
-                              return (
-                                <li
-                                  key={`movieRank${i}:option${option.id}`}
-                                  className="list-group-item d-flex gap-2 align-items-center"
-                                >
-                                  {i === 0 ? null : (
-                                    <button
-                                      className="btn btn-sm btn-warning"
-                                      onClick={() =>
-                                        handleRankUp(option.id, movie)
-                                      }
-                                    >
-                                      <i className="down arrow"></i>
-                                    </button>
-                                  )}
-                                  {i === len - 1 ? null : (
-                                    <button
-                                      className="btn btn-sm btn-warning"
-                                      onClick={() =>
-                                        handleRankUp(option.id, movie)
-                                      }
-                                    >
-                                      <i className="up arrow"></i>
-                                    </button>
-                                  )}
-                                  <span style={{ fontWeight: '900' }}>
-                                    Rank: {movie.rank}
-                                  </span>{' '}
-                                  {movie.movie.title}, ({movie.movie.year})
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+          {voted ? (
+            <div className="d-flex justify-content-center align-items-center">
+              <h1>Thanks for your vote!</h1>
             </div>
-          ) : null}
+          ) : (
+            <Fragment>
+              {rankList ? (
+                <div className="rank-container d-flex flex-column align-items-center">
+                  <h1>{`Cast your ranked choice for: ${currentPoll.name}`}</h1>
+
+                  <div className="album p-5 w-100">
+                    <div className="d-flex flex-wrap justify-content-center gap-4">
+                      {currentPoll.options.map((option, i) => {
+                        return (
+                          <div className="card shadow-sm">
+                            <div className="card-body">
+                              <ul
+                                key={`votecard:poll${currentPoll.id}:option${option.id}`}
+                                className="list-group"
+                              >
+                                <h4>{rankList[option.id].name}</h4>
+                                {rankList[option.id].movies.map((movie, i) => {
+                                  let len = rankList[option.id].movies.length;
+                                  return (
+                                    <li
+                                      key={`movieRank${i}:option${option.id}`}
+                                      className="list-group-item d-flex gap-2 align-items-center"
+                                    >
+                                      {i === 0 ? (
+                                        <button
+                                          className="btn btn-sm btn-warning"
+                                          onClick={() =>
+                                            handleRankDown(option.id, movie)
+                                          }
+                                        >
+                                          <i className="down arrow"></i>
+                                        </button>
+                                      ) : (
+                                        <>
+                                          {i === len - 1 ? (
+                                            <button
+                                              className="btn btn-sm btn-warning"
+                                              onClick={() =>
+                                                handleRankUp(option.id, movie)
+                                              }
+                                            >
+                                              <i className="up arrow"></i>
+                                            </button>
+                                          ) : (
+                                            <>
+                                              {' '}
+                                              <button
+                                                className="btn btn-sm btn-warning"
+                                                onClick={() =>
+                                                  handleRankUp(option.id, movie)
+                                                }
+                                              >
+                                                <i className="up arrow"></i>
+                                              </button>{' '}
+                                              <button
+                                                className="btn btn-sm btn-warning"
+                                                onClick={() =>
+                                                  handleRankDown(
+                                                    option.id,
+                                                    movie
+                                                  )
+                                                }
+                                              >
+                                                <i className="down arrow"></i>
+                                              </button>
+                                            </>
+                                          )}
+                                        </>
+                                      )}
+                                      <span style={{ fontWeight: '900' }}>
+                                        Rank: {movie.rank}
+                                      </span>{' '}
+                                      {movie.movie.title}, ({movie.movie.year})
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <button
+                    className="btn btn-success"
+                    onClick={handleSubmitRank}
+                  >
+                    Finalize and submit your ranked choice.
+                  </button>
+                </div>
+              ) : null}
+            </Fragment>
+          )}
         </Fragment>
       )}
     </Fragment>

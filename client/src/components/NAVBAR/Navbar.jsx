@@ -4,7 +4,7 @@ import { Login, Register } from '.';
 import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, setToken, isLoggedIn } = useAuth();
+  const { setToken, isLoggedIn } = useAuth();
   const [loginBtn, setLoginBtn] = useState(false);
   const [registerBtn, setRegisterBtn] = useState(false);
   const navigate = useNavigate();

@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { fetchMyPolls } from '../../api/fetch';
+import useAuth from '../hooks/useAuth';
 import usePolls from '../hooks/usePolls';
 import CurrentPoll from './CurrentPoll';
 import Table from './Table';
 
 const Dashboard = () => {
-  const [currentPoll, setCurrentPoll] = useState({});
-  const { myPolls } = usePolls();
+  const { token } = useAuth();
+  const [currentPoll, setCurrentPoll] = useState(null);
+  const { myPolls, setMyPolls } = usePolls();
+
+  useEffect(() => {
+    const updateData = async () => {
+      try {
+        const polls = await fetchMyPolls(token);
+        setMyPolls(polls);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    updateData();
+  }, []);
 
   return (
     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
