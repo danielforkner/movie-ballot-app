@@ -1,16 +1,32 @@
 const client = require('../client');
+const axios = require('axios');
 
-async function createMovie(title, year, option) {
+// ombdbapi variables
+const KEY = process.env.API_KEY;
+const BASE_URL = 'https://www.omdbapi.com/?apikey=';
+
+async function createMovie(title, year, imdbID, poster, option) {
   try {
+    const response = await axios.get(`${BASE_URL}${KEY}&i=${imdbID}&plot=full`);
+    const details = response.data;
     const {
       rows: [movie],
     } = await client.query(
       `
-    INSERT INTO movies(title, year)
-    VALUES ($1, $2)
+    INSERT INTO movies(title, year, "imdbID", poster, plot, runtime, director, actors)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     RETURNING *;
     `,
-      [title, year]
+      [
+        title,
+        year,
+        imdbID,
+        poster,
+        details.Plot,
+        details.Runtime,
+        details.Director,
+        details.Actors,
+      ]
     );
 
     await client.query(

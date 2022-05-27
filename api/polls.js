@@ -112,9 +112,15 @@ pollsRouter.get('/myPolls', requireUser, async (req, res, next) => {
 
 pollsRouter.patch('/options/addMovie', requireUser, async (req, res, next) => {
   console.log('trying to add a movie to option...');
-  const { title, year, optionId } = req.body;
+  const { title, year, optionId, imdbID, poster } = req.body;
   try {
-    const inserted = await Movies.createMovie(title, year, optionId);
+    const inserted = await Movies.createMovie(
+      title,
+      year,
+      imdbID,
+      poster,
+      optionId
+    );
     console.log('inserted', inserted);
     const polls = await Polls.getAllPollsByUserId(req.user.id);
     res.send(polls);
