@@ -104,7 +104,6 @@ pollsRouter.post('/newOption', requireUser, async (req, res, next) => {
 pollsRouter.get('/myPolls', requireUser, async (req, res, next) => {
   try {
     const polls = await Polls.getAllPollsByUserId(req.user.id);
-    console.log(`my polls: ${JSON.stringify(polls)}`);
     res.send(polls);
   } catch (error) {
     throw error;

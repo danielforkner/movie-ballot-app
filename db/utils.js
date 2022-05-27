@@ -6,6 +6,7 @@ const {
   resetWinner,
   recordTies,
   resetTies,
+  recordLog,
 } = require('./models/options');
 
 function today() {
@@ -44,6 +45,7 @@ async function mapOptions(rows) {
         ties: row.ties,
         voters: row.voters,
         rounds: row.rounds,
+        log: row.log,
         movies: movies,
       };
       map[row.poll_id].options.push(option);
@@ -112,7 +114,8 @@ async function tabulate(
   preferences,
   candidates,
   num_voters,
-  round = 1
+  round = 1,
+  log = {}
 ) {
   let majority = num_voters / 2;
 
@@ -127,12 +130,14 @@ async function tabulate(
   }
 
   console.log(`Round ${round}`);
+  log[round] = [];
   let min = find_min(candidates);
 
   // display / verfify vote counts
   // if (round === 1000) return... this could be a way to prevent
   // stack overflow or prevent a maliciously large vote slowing the server
   for (const candidate of candidates) {
+    log[round].push(`${candidate.title} got ${candidate.votes} votes`);
     console.log(`Candidate ${candidate.title} got ${candidate.votes} votes`);
   }
 
@@ -145,10 +150,12 @@ async function tabulate(
       }
     }
     console.log('There is a tie!');
+    log[round].push('There is a tie!');
     try {
       await resetWinner(optionId);
       await recordTies(optionId, { ties });
       await recordRounds(optionId, round);
+      await recordLog(optionId, log);
     } catch (error) {
       throw error;
     }
@@ -160,10 +167,12 @@ async function tabulate(
   for (const candidate of candidates) {
     if (candidate.votes > majority) {
       console.log('Winner!');
+      log[round].push(`Winner! ${candidate.title}`);
       try {
         await resetTies(optionId);
         await recordWinner(optionId, candidate);
         await recordRounds(optionId, round);
+        await recordLog(optionId, log);
       } catch (error) {
         throw error;
       }
@@ -174,9 +183,16 @@ async function tabulate(
   // else eliminate the loser and
   // recursive call return tabulate();
   // eliminate(candidates, mininmum);
-  eliminate(candidates, min);
+  eliminate(candidates, min, round, log);
   round++;
-  return await tabulate(optionId, preferences, candidates, num_voters, round);
+  return await tabulate(
+    optionId,
+    preferences,
+    candidates,
+    num_voters,
+    round,
+    log
+  );
 }
 
 function checkForTie(candidates, min) {
@@ -208,11 +224,12 @@ function find_min(candidates) {
   return min;
 }
 
-function eliminate(candidates, min) {
+function eliminate(candidates, min, round, log) {
   for (let i = 0; i < candidates.length; i++) {
     if (candidates[i].votes === min) {
       candidates[i].elim = true;
       console.log(`${candidates[i].title} has been eliminated!`);
+      log[round].push(`${candidates[i].title} has been eliminated!`);
     }
   }
   // reset votes

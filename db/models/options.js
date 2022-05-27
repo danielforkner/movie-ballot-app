@@ -25,6 +25,25 @@ async function createOption({ name, poll }) {
   }
 }
 
+async function recordLog(optionId, log) {
+  try {
+    const {
+      rows: [option],
+    } = await client.query(
+      `
+    UPDATE options
+    SET log =$2
+    WHERE id=$1;
+    `,
+      [optionId, log]
+    );
+
+    return option;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getOption(optionId) {
   try {
     const {
@@ -173,5 +192,6 @@ module.exports = {
   recordVoters,
   recordWinner,
   resetWinner,
+  recordLog,
   deleteOption,
 };

@@ -28,7 +28,7 @@ async function getPollById(id) {
     SELECT 
         polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active, polls.closed, polls.link,
         poll_options."optionId", polls.link,
-        options.name as option_name, options.winner, options.ties, options.voters, options.rounds
+        options.name as option_name, options.winner, options.ties, options.voters, options.rounds, options.log
     FROM POLLS
     LEFT JOIN poll_options ON poll_options."pollId" = polls.id
     LEFT JOIN options on options.id = poll_options."optionId"
@@ -50,7 +50,7 @@ async function getPollByLink(link) {
     SELECT 
         polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active, polls.closed, polls.link,
         poll_options."optionId",
-        options.name as option_name, options.winner, options.ties, options.voters, options.rounds
+        options.name as option_name, options.winner, options.ties, options.voters, options.rounds, options.log
     FROM POLLS
     LEFT JOIN poll_options ON poll_options."pollId" = polls.id
     LEFT JOIN options on options.id = poll_options."optionId"
@@ -71,7 +71,7 @@ async function getAllPolls() {
     SELECT
         polls.id as poll_id, polls."dateCreated", polls.name as poll_name, polls."authorID", polls.deleted, polls.active, polls.closed, polls.link,
         poll_options."optionId", 
-        options.name as option_name
+        options.name as option_name, options.winner, options.ties, options.voters, options.rounds, options.log
     FROM polls
         LEFT JOIN poll_options ON poll_options."pollId" = polls.id
         LEFT JOIN options on options.id = poll_options."optionId"
